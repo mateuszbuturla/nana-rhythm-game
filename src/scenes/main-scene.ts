@@ -12,6 +12,7 @@ import {
   calculateNoteAccuracy,
   calculateOveralAccuracy,
 } from '../core/accuracy';
+import { Text } from '../objects/text';
 
 export class MainScene extends Phaser.Scene {
   logo: Logo;
@@ -23,6 +24,7 @@ export class MainScene extends Phaser.Scene {
   hitPosition: number = 100;
   startTime: number = 0;
   notesAccuracy: INotesAccuracyArray[] = [];
+  accuracyText: any;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -71,6 +73,12 @@ export class MainScene extends Phaser.Scene {
       scene: this,
       x: this.hitPosition,
       y: 250,
+    });
+    this.accuracyText = new Text({
+      scene: this,
+      x: 500,
+      y: 50,
+      text: '0',
     });
   }
 
@@ -156,7 +164,6 @@ export class MainScene extends Phaser.Scene {
         this.notesAccuracy.splice(index, 1);
       }
     });
-
-    console.log(calculateOveralAccuracy(this.hittedNotes));
+    this.accuracyText.text = calculateOveralAccuracy(this.hittedNotes);
   }
 }
