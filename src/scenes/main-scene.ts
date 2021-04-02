@@ -76,10 +76,16 @@ export class MainScene extends Phaser.Scene {
       x: this.hitPosition,
       y: 250,
     });
-    this.accuracyText = new Text({
+    this.scoreText = new Text({
       scene: this,
       x: 500,
       y: 50,
+      text: '0',
+    });
+    this.accuracyText = new Text({
+      scene: this,
+      x: 500,
+      y: 75,
       text: '0',
     });
   }
@@ -167,6 +173,6 @@ export class MainScene extends Phaser.Scene {
       }
     });
     this.accuracyText.text = calculateOveralAccuracy(this.hittedNotes);
-    console.log(calculateCurrentScore(this.hittedNotes));
+    this.scoreText.text = calculateCurrentScore(this.hittedNotes);
   }
 }
