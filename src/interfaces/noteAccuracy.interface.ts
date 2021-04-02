@@ -5,6 +5,7 @@ enum ENoteAccuracy {
   Miss = 'Miss',
   Good = 'Good',
   Bad = 'Bad',
+  None = 'None',
 }
 
 interface INoteAccuracy {
@@ -14,6 +15,7 @@ interface INoteAccuracy {
     min: number;
     max: number;
   };
+  accuracyValue: number;
   enum: ENoteAccuracy;
 }
 
