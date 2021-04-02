@@ -8,6 +8,7 @@ import {
   INotesAccuracyArray,
 } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
+import calculateNoteAccuracy from '../core/calculateNoteAccuracy';
 
 export class MainScene extends Phaser.Scene {
   logo: Logo;
@@ -92,27 +93,36 @@ export class MainScene extends Phaser.Scene {
 
     this.notes.map((note, index) => {
       if (
-        time - 100 < note.delay &&
-        time + 100 > note.delay &&
+        time - noteAccuracyConfig.hitTime / 2 < note.delay &&
+        time + noteAccuracyConfig.hitTime / 2 > note.delay &&
         this.hittedNotes[index] === -1
       ) {
         switch (note.direction) {
           case 'up':
             if (this.keyboard.up.isDown) {
+              this.createNoteAccuracy(
+                'up',
+                calculateNoteAccuracy(note.delay, time),
+              );
               this.hittedNotes[index] = 1;
-              this.createNoteAccuracy('up', ENoteAccuracy.Perfect);
             }
             break;
           case 'down':
             if (this.keyboard.down.isDown) {
+              this.createNoteAccuracy(
+                'down',
+                calculateNoteAccuracy(note.delay, time),
+              );
               this.hittedNotes[index] = 1;
-              this.createNoteAccuracy('down', ENoteAccuracy.Perfect);
             }
             break;
           default:
             break;
         }
-      } else if (time > note.delay + 100 && this.hittedNotes[index] === -1) {
+      } else if (
+        time > note.delay + noteAccuracyConfig.hitTime / 2 &&
+        this.hittedNotes[index] === -1
+      ) {
         this.hittedNotes[index] = 0;
         this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
       }
