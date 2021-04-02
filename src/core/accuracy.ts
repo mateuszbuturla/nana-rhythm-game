@@ -1,7 +1,10 @@
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
 import { ENoteAccuracy } from '../interfaces/noteAccuracy.interface';
 
-const calculateNoteAccuracy = (noteDelay: number, time: number) => {
+const calculateNoteAccuracy = (
+  noteDelay: number,
+  time: number,
+): ENoteAccuracy => {
   const delta = Math.abs(
     ((noteDelay - time) * 100) / noteAccuracyConfig.hitTime,
   );
@@ -18,7 +21,7 @@ const calculateNoteAccuracy = (noteDelay: number, time: number) => {
   }
 };
 
-const calculateOveralAccuracy = (hittedNotes: any[]) => {
+const calculateOveralAccuracy = (hittedNotes: any[]): number => {
   const notesAccuracy = noteAccuracyConfig.accuracy;
   let accuracy: number = 0;
   let count: any = {};

@@ -19,6 +19,7 @@ const noteAccuracyConfig: INoteAccuracyConfig = {
         max: 0.1,
       },
       accuracyValue: 1,
+      scoreValue: 300,
       enum: ENoteAccuracy.Perfect,
     },
     [ENoteAccuracy.Good]: {
@@ -29,6 +30,7 @@ const noteAccuracyConfig: INoteAccuracyConfig = {
         max: 0.3,
       },
       accuracyValue: 0.33,
+      scoreValue: 100,
       enum: ENoteAccuracy.Good,
     },
     [ENoteAccuracy.Bad]: {
@@ -39,18 +41,21 @@ const noteAccuracyConfig: INoteAccuracyConfig = {
         max: 1,
       },
       accuracyValue: 0.16,
+      scoreValue: 500,
       enum: ENoteAccuracy.Bad,
     },
     [ENoteAccuracy.Miss]: {
       text: 'Miss',
       color: 'red',
       accuracyValue: 0,
+      scoreValue: 0,
       enum: ENoteAccuracy.Miss,
     },
     [ENoteAccuracy.None]: {
       text: '',
       color: '',
       accuracyValue: 0,
+      scoreValue: 0,
       enum: ENoteAccuracy.None,
     },
   },
