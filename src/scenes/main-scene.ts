@@ -8,13 +8,16 @@ import {
   INotesAccuracyArray,
 } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
-import calculateNoteAccuracy from '../core/calculateNoteAccuracy';
+import {
+  calculateNoteAccuracy,
+  calculateOveralAccuracy,
+} from '../core/accuracy';
 
 export class MainScene extends Phaser.Scene {
   logo: Logo;
   keyboard: any;
   notes: INote[];
-  hittedNotes: number[] = [];
+  hittedNotes: string[] = [];
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
   hitPosition: number = 100;
@@ -48,7 +51,7 @@ export class MainScene extends Phaser.Scene {
       },
     ];
     this.notes.map(() => {
-      this.hittedNotes = [...this.hittedNotes, -1];
+      this.hittedNotes = [...this.hittedNotes, ENoteAccuracy.None];
     });
   }
 
@@ -95,25 +98,22 @@ export class MainScene extends Phaser.Scene {
       if (
         time - noteAccuracyConfig.hitTime / 2 < note.delay &&
         time + noteAccuracyConfig.hitTime / 2 > note.delay &&
-        this.hittedNotes[index] === -1
+        this.hittedNotes[index] === 'None'
       ) {
         switch (note.direction) {
           case 'up':
             if (this.keyboard.up.isDown) {
-              this.createNoteAccuracy(
-                'up',
-                calculateNoteAccuracy(note.delay, time),
-              );
-              this.hittedNotes[index] = 1;
+              const accuracy = calculateNoteAccuracy(note.delay, time);
+
+              this.createNoteAccuracy('up', accuracy);
+              this.hittedNotes[index] = accuracy;
             }
             break;
           case 'down':
             if (this.keyboard.down.isDown) {
-              this.createNoteAccuracy(
-                'down',
-                calculateNoteAccuracy(note.delay, time),
-              );
-              this.hittedNotes[index] = 1;
+              const accuracy = calculateNoteAccuracy(note.delay, time);
+              this.createNoteAccuracy('down', accuracy);
+              this.hittedNotes[index] = accuracy;
             }
             break;
           default:
@@ -121,9 +121,9 @@ export class MainScene extends Phaser.Scene {
         }
       } else if (
         time > note.delay + noteAccuracyConfig.hitTime / 2 &&
-        this.hittedNotes[index] === -1
+        this.hittedNotes[index] === ENoteAccuracy.None
       ) {
-        this.hittedNotes[index] = 0;
+        this.hittedNotes[index] = ENoteAccuracy.Miss;
         this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
       }
     });
@@ -156,5 +156,7 @@ export class MainScene extends Phaser.Scene {
         this.notesAccuracy.splice(index, 1);
       }
     });
+
+    console.log(calculateOveralAccuracy(this.hittedNotes));
   }
 }
