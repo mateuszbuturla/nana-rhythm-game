@@ -13,6 +13,7 @@ import {
   calculateOveralAccuracy,
 } from '../core/accuracy';
 import { Text } from '../objects/text';
+import { calculateCurrentScore } from '../core/score';
 
 export class MainScene extends Phaser.Scene {
   logo: Logo;
@@ -25,6 +26,7 @@ export class MainScene extends Phaser.Scene {
   startTime: number = 0;
   notesAccuracy: INotesAccuracyArray[] = [];
   accuracyText: any;
+  scoreText: any;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -165,5 +167,6 @@ export class MainScene extends Phaser.Scene {
       }
     });
     this.accuracyText.text = calculateOveralAccuracy(this.hittedNotes);
+    console.log(calculateCurrentScore(this.hittedNotes));
   }
 }

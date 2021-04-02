@@ -16,6 +16,7 @@ interface INoteAccuracy {
     max: number;
   };
   accuracyValue: number;
+  scoreValue: number;
   enum: ENoteAccuracy;
 }
 
