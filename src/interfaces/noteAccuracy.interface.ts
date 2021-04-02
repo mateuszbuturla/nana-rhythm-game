@@ -25,4 +25,9 @@ interface INotesAccuracyArray {
   createdTime: number;
 }
 
-export { ENoteAccuracy, INoteAccuracy, INotesAccuracyArray };
+interface INoteTypeAndCount {
+  noteType: string;
+  count: number;
+}
+
+export { ENoteAccuracy, INoteAccuracy, INotesAccuracyArray, INoteTypeAndCount };
