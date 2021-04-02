@@ -27,6 +27,7 @@ export class MainScene extends Phaser.Scene {
   notesAccuracy: INotesAccuracyArray[] = [];
   accuracyText: any;
   scoreText: any;
+  breakAfterLastNote: number = 3000;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -174,5 +175,11 @@ export class MainScene extends Phaser.Scene {
     });
     this.accuracyText.text = calculateOveralAccuracy(this.hittedNotes);
     this.scoreText.text = calculateCurrentScore(this.hittedNotes);
+    if (
+      Date.now() - this.startTime >
+      this.notes[this.notes.length - 1].delay + this.breakAfterLastNote
+    ) {
+      this.scene.start('ResultScene');
+    }
   }
 }
