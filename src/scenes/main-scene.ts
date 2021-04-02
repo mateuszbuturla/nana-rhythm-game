@@ -2,6 +2,12 @@ import { Logo } from '../objects/logo';
 import { HitNote } from '../objects/hitNote';
 import { INote } from '../interfaces/note.interface';
 import { HitPosition } from '../objects/hitPosition';
+import { NoteAccuracy } from '../objects/noteAccuracy';
+import {
+  ENoteAccuracy,
+  INotesAccuracyArray,
+} from '../interfaces/noteAccuracy.interface';
+import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
 
 export class MainScene extends Phaser.Scene {
   logo: Logo;
@@ -12,6 +18,7 @@ export class MainScene extends Phaser.Scene {
   scrollSpeed: number = 10;
   hitPosition: number = 100;
   startTime: number = 0;
+  notesAccuracy: INotesAccuracyArray[] = [];
 
   constructor() {
     super({ key: 'MainScene' });
@@ -63,6 +70,20 @@ export class MainScene extends Phaser.Scene {
     });
   }
 
+  createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
+    const noteAccuracy = new NoteAccuracy({
+      scene: this,
+      x: this.hitPosition,
+      y: direction === 'up' ? 150 : 250,
+      text: noteAccuracyConfig.accuracy[type].text,
+      color: noteAccuracyConfig.accuracy[type].color,
+    });
+    this.notesAccuracy = [
+      ...this.notesAccuracy,
+      { object: noteAccuracy, createdTime: Date.now() },
+    ];
+  }
+
   handleNoteClick(): void {
     const time =
       Date.now() -
@@ -71,26 +92,29 @@ export class MainScene extends Phaser.Scene {
 
     this.notes.map((note, index) => {
       if (
-        time - 250 < note.delay &&
-        time + 250 > note.delay &&
+        time - 100 < note.delay &&
+        time + 100 > note.delay &&
         this.hittedNotes[index] === -1
       ) {
         switch (note.direction) {
           case 'up':
             if (this.keyboard.up.isDown) {
               this.hittedNotes[index] = 1;
+              this.createNoteAccuracy('up', ENoteAccuracy.Perfect);
             }
             break;
           case 'down':
             if (this.keyboard.down.isDown) {
               this.hittedNotes[index] = 1;
+              this.createNoteAccuracy('down', ENoteAccuracy.Perfect);
             }
             break;
           default:
             break;
         }
-      } else if (time > note.delay + 250 && this.hittedNotes[index] === -1) {
+      } else if (time > note.delay + 100 && this.hittedNotes[index] === -1) {
         this.hittedNotes[index] = 0;
+        this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
       }
     });
   }
@@ -114,6 +138,13 @@ export class MainScene extends Phaser.Scene {
     this.handleNoteClick();
     this.notesObject.map((note, index) => {
       note.updatePosition(this.scrollSpeed);
+    });
+    this.notesAccuracy.map((noteAccuracy, index) => {
+      noteAccuracy.object.updatePosition();
+      if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
+        noteAccuracy.object.destroy();
+        this.notesAccuracy.splice(index, 1);
+      }
     });
   }
 }
