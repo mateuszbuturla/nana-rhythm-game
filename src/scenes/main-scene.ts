@@ -14,12 +14,13 @@ import {
 } from '../core/accuracy';
 import { Text } from '../objects/text';
 import { calculateCurrentScore } from '../core/score';
+import store from '../redux/store';
+import { addHittedNote, getHittedNotes } from '../redux/mapResult';
 
 export class MainScene extends Phaser.Scene {
   logo: Logo;
   keyboard: any;
   notes: INote[];
-  hittedNotes: string[] = [];
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
   hitPosition: number = 100;
@@ -55,9 +56,6 @@ export class MainScene extends Phaser.Scene {
         delay: 2200,
       },
     ];
-    this.notes.map(() => {
-      this.hittedNotes = [...this.hittedNotes, ENoteAccuracy.None];
-    });
   }
 
   create(): void {
@@ -115,7 +113,7 @@ export class MainScene extends Phaser.Scene {
       if (
         time - noteAccuracyConfig.hitTime / 2 < note.delay &&
         time + noteAccuracyConfig.hitTime / 2 > note.delay &&
-        this.hittedNotes[index] === 'None'
+        getHittedNotes()[index] === undefined
       ) {
         switch (note.direction) {
           case 'up':
@@ -123,14 +121,14 @@ export class MainScene extends Phaser.Scene {
               const accuracy = calculateNoteAccuracy(note.delay, time);
 
               this.createNoteAccuracy('up', accuracy);
-              this.hittedNotes[index] = accuracy;
+              store.dispatch(addHittedNote(accuracy));
             }
             break;
           case 'down':
             if (this.keyboard.down.isDown) {
               const accuracy = calculateNoteAccuracy(note.delay, time);
               this.createNoteAccuracy('down', accuracy);
-              this.hittedNotes[index] = accuracy;
+              store.dispatch(addHittedNote(accuracy));
             }
             break;
           default:
@@ -138,10 +136,10 @@ export class MainScene extends Phaser.Scene {
         }
       } else if (
         time > note.delay + noteAccuracyConfig.hitTime / 2 &&
-        this.hittedNotes[index] === ENoteAccuracy.None
+        getHittedNotes()[index] === undefined
       ) {
-        this.hittedNotes[index] = ENoteAccuracy.Miss;
         this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
+        store.dispatch(addHittedNote(ENoteAccuracy.Miss));
       }
     });
   }
@@ -173,8 +171,8 @@ export class MainScene extends Phaser.Scene {
         this.notesAccuracy.splice(index, 1);
       }
     });
-    this.accuracyText.text = calculateOveralAccuracy(this.hittedNotes);
-    this.scoreText.text = calculateCurrentScore(this.hittedNotes);
+    this.accuracyText.text = calculateOveralAccuracy(getHittedNotes());
+    this.scoreText.text = calculateCurrentScore(getHittedNotes());
     if (
       Date.now() - this.startTime >
       this.notes[this.notes.length - 1].delay + this.breakAfterLastNote
