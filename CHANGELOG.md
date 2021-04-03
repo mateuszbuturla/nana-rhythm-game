@@ -1,4 +1,10 @@
-## v0.0.0 (2021-3-31)
+## 1.0.0 (2021-04-03)
+
+- create song selection
+- create game field
+- create result screan
+
+## v0.0.0 (2021-03-31)
 
 This is v0.0.0. Finished setting up the infrastructure.
 
