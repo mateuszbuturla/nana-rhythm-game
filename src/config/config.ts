@@ -1,3 +1,4 @@
+import { SongSelection } from '../scenes/songSelection';
 import { MainScene } from '../scenes/main-scene';
 import { ResultScene } from '../scenes/resultScene';
 
@@ -9,5 +10,5 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
   backgroundColor: 0x3a404d,
   type: Phaser.AUTO,
   parent: 'game',
-  scene: [MainScene, ResultScene],
+  scene: [SongSelection, MainScene, ResultScene],
 };
