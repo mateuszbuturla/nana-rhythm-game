@@ -16,11 +16,12 @@ import { Text } from '../objects/text';
 import { calculateCurrentScore } from '../core/score';
 import store from '../redux/store';
 import { addHittedNote, getHittedNotes } from '../redux/mapResult';
+import { getCurrentMap } from '../redux/currentMap';
+import { IMap } from '../interfaces/map.interface';
 
 export class MainScene extends Phaser.Scene {
   logo: Logo;
   keyboard: any;
-  notes: INote[];
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
   hitPosition: number = 100;
@@ -29,6 +30,7 @@ export class MainScene extends Phaser.Scene {
   accuracyText: any;
   scoreText: any;
   breakAfterLastNote: number = 3000;
+  currentMap: IMap;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -38,24 +40,8 @@ export class MainScene extends Phaser.Scene {
     this.load.image('logo', '../assets/logo.png');
     this.load.image('hitNote', '../assets/skin/hitNote.png');
     this.load.image('hitPosition', '../assets/skin/hitPosition.png');
-    this.notes = [
-      {
-        direction: 'up',
-        delay: 1000,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
-      },
-      {
-        direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2200,
-      },
-    ];
+
+    this.currentMap = getCurrentMap();
   }
 
   create(): void {
@@ -109,7 +95,7 @@ export class MainScene extends Phaser.Scene {
       this.startTime -
       (this.game.renderer.width * this.scrollSpeed) / 6;
 
-    this.notes.map((note, index) => {
+    this.currentMap.notes.map((note, index) => {
       if (
         time - noteAccuracyConfig.hitTime / 2 < note.delay &&
         time + noteAccuracyConfig.hitTime / 2 > note.delay &&
@@ -145,7 +131,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   renderNotes(): void {
-    this.notes.map((note) => {
+    this.currentMap.notes.map((note) => {
       const newNote = new HitNote({
         scene: this,
         x:
@@ -161,7 +147,7 @@ export class MainScene extends Phaser.Scene {
 
   update(): void {
     this.handleNoteClick();
-    this.notesObject.map((note, index) => {
+    this.notesObject.map((note) => {
       note.updatePosition(this.scrollSpeed);
     });
     this.notesAccuracy.map((noteAccuracy, index) => {
@@ -175,7 +161,8 @@ export class MainScene extends Phaser.Scene {
     this.scoreText.text = calculateCurrentScore(getHittedNotes());
     if (
       Date.now() - this.startTime >
-      this.notes[this.notes.length - 1].delay + this.breakAfterLastNote
+      this.currentMap.notes[this.currentMap.notes.length - 1].delay +
+        this.breakAfterLastNote
     ) {
       this.scene.start('ResultScene');
     }
