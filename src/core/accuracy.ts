@@ -43,7 +43,7 @@ const calculateOveralAccuracy = (hittedNotes: any[]): number => {
 
   accuracy = Number.isNaN(t1 / t2) ? 0 : t1 / t2;
 
-  return Number(accuracy.toFixed(2));
+  return Number(Number(accuracy * 100).toFixed(2));
 };
 
 export { calculateNoteAccuracy, calculateOveralAccuracy };

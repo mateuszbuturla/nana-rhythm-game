@@ -171,7 +171,7 @@ export class MainScene extends Phaser.Scene {
         this.notesAccuracy.splice(index, 1);
       }
     });
-    this.accuracyText.text = calculateOveralAccuracy(getHittedNotes());
+    this.accuracyText.text = `${calculateOveralAccuracy(getHittedNotes())}%`;
     this.scoreText.text = calculateCurrentScore(getHittedNotes());
     if (
       Date.now() - this.startTime >
