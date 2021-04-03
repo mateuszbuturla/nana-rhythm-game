@@ -1,4 +1,10 @@
 import { Text } from '../objects/text';
+import store from '../redux/store';
+import {
+  setCurrentMap,
+  setCurrentMapId,
+  getCurrentMapId,
+} from '../redux/currentMap';
 
 const songs = [
   {
@@ -95,21 +101,24 @@ const songs = [
 
 export class SongSelection extends Phaser.Scene {
   sceneTitle: Text;
-  currentSelectedSong: number = 0;
   selectedSongTitle: Text;
   selectedSongAuthor: Text;
   selectedSongNotesCount: Text;
-  songsContainer: any;
-  songsObject: any[] = [];
+  songsContainer: Phaser.GameObjects.Container;
+  songsObject: Phaser.GameObjects.Container[] = [];
 
   constructor() {
     super({ key: 'SongSelection' });
   }
 
-  preload(): void {}
+  preload(): void {
+    store.dispatch(setCurrentMapId(0));
+    store.dispatch(setCurrentMap(songs[0]));
+  }
 
   updateSelectedSong(newSelectedSong: number): void {
-    this.currentSelectedSong = newSelectedSong;
+    store.dispatch(setCurrentMap(songs[newSelectedSong]));
+    store.dispatch(setCurrentMapId(newSelectedSong));
     songs[newSelectedSong].title;
     this.selectedSongAuthor.text = songs[newSelectedSong].author;
     this.selectedSongNotesCount.text = String(
@@ -130,19 +139,19 @@ export class SongSelection extends Phaser.Scene {
       scene: this,
       x: 100,
       y: 140,
-      text: songs[this.currentSelectedSong].title,
+      text: songs[getCurrentMapId()].title,
     });
     this.selectedSongAuthor = new Text({
       scene: this,
       x: 100,
       y: 170,
-      text: songs[this.currentSelectedSong].author,
+      text: songs[getCurrentMapId()].author,
     });
     this.selectedSongNotesCount = new Text({
       scene: this,
       x: 100,
       y: 200,
-      text: String(songs[this.currentSelectedSong].notes.length),
+      text: String(songs[getCurrentMapId()].notes.length),
     });
     songs.map((song, index) => {
       const newContainer = this.add.container(0, index * 100);
