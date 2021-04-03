@@ -94,7 +94,7 @@ const songs = [
 ];
 
 export class SongSelection extends Phaser.Scene {
-  text: Text;
+  sceneTitle: Text;
   currentSelectedSong: number = 0;
   selectedSongTitle: Text;
   selectedSongAuthor: Text;
@@ -108,9 +108,18 @@ export class SongSelection extends Phaser.Scene {
 
   preload(): void {}
 
+  updateSelectedSong(newSelectedSong: number): void {
+    this.currentSelectedSong = newSelectedSong;
+    songs[newSelectedSong].title;
+    this.selectedSongAuthor.text = songs[newSelectedSong].author;
+    this.selectedSongNotesCount.text = String(
+      songs[newSelectedSong].notes.length,
+    );
+  }
+
   create(): void {
     this.preload();
-    this.text = new Text({
+    this.sceneTitle = new Text({
       scene: this,
       x: 100,
       y: 50,
@@ -151,6 +160,15 @@ export class SongSelection extends Phaser.Scene {
       });
       newContainer.add(newSongTitle);
       newContainer.add(newSongAuthor);
+
+      newContainer.setInteractive(
+        new Phaser.Geom.Rectangle(0, 0, 300, 100),
+        Phaser.Geom.Rectangle.Contains,
+      );
+      newContainer.on('pointerdown', () => {
+        this.updateSelectedSong(index);
+      });
+
       this.songsContainer.add(newContainer);
 
       this.songsObject = [...this.songsObject, newContainer];
