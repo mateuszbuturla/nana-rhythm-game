@@ -1,6 +1,5 @@
 import { Logo } from '../objects/logo';
 import { HitNote } from '../objects/hitNote';
-import { INote } from '../interfaces/note.interface';
 import { HitPosition } from '../objects/hitPosition';
 import { NoteAccuracy } from '../objects/noteAccuracy';
 import {
