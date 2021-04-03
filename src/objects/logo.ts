@@ -1,4 +1,4 @@
-import { IImageConstructor } from "../interfaces/image.interface";
+import { IImageConstructor } from '../interfaces/image.interface';
 
 export class Logo extends Phaser.GameObjects.Image {
   constructor(aParams: IImageConstructor) {
@@ -10,5 +10,6 @@ export class Logo extends Phaser.GameObjects.Image {
 
   private initSprite() {
     this.setScale(0.5);
+    this.setOrigin(0.5, 0.5);
   }
 }
