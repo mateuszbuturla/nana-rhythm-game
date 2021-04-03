@@ -25,6 +25,9 @@ These structure for `src` directory.
   <dt>objects</dt>  
   <dd>Game objects like sprites etc.</dd>
 
+  <dt>redux</dt>  
+  <dd>All global state files</dd>
+
   <dt>scenes</dt>  
   <dd>All game scenes</dd>
 
