@@ -30,7 +30,7 @@ export class ResultScene extends Phaser.Scene {
       scene: this,
       x: 100,
       y: 100,
-      text: `Accuracy: ${calculateOveralAccuracy(getHittedNotes())}`,
+      text: `Accuracy: ${calculateOveralAccuracy(getHittedNotes())}%`,
     });
     this.score = new Text({
       scene: this,
