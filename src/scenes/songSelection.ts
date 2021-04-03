@@ -175,7 +175,11 @@ export class SongSelection extends Phaser.Scene {
         Phaser.Geom.Rectangle.Contains,
       );
       newContainer.on('pointerdown', () => {
-        this.updateSelectedSong(index);
+        if (getCurrentMapId() !== index) {
+          return this.updateSelectedSong(index);
+        }
+
+        this.scene.start('MainScene');
       });
 
       this.songsContainer.add(newContainer);
