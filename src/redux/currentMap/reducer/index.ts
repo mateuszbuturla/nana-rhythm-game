@@ -1,9 +1,11 @@
 import types from '../types';
 
 const INITIAL_STATE: any = {
-  title: '',
-  author: '',
-  notes: [],
+  currentMap: {
+    title: '',
+    author: '',
+    notes: [],
+  },
   currentMapId: 0,
 };
 
@@ -12,9 +14,7 @@ const currentMapReducer = (state = INITIAL_STATE, action: any) => {
     case types.SET_CURRENT_MAP:
       return {
         ...state,
-        title: action.item.title,
-        author: action.item.author,
-        notes: action.item.notes,
+        currentMap: action.item,
       };
     case types.SET_CURRENT_MAP_ID:
       return {

@@ -4,4 +4,8 @@ const getCurrentMapId = () => {
   return store.getState().currentMap.currentMapId;
 };
 
-export { getCurrentMapId };
+const getCurrentMap = () => {
+  return store.getState().currentMap.currentMap;
+};
+
+export { getCurrentMapId, getCurrentMap };
