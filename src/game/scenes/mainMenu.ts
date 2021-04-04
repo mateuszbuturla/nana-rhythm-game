@@ -1,6 +1,7 @@
 import { Text } from '../objects/text';
 import { Logo } from '../objects/logo';
 import { OptionsPanel } from '../objects/optionsPanel';
+import test from '../../../assets/logo.png';
 
 export class MainMenu extends Phaser.Scene {
   logo: Logo;
@@ -13,7 +14,7 @@ export class MainMenu extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.image('logo', '../assets/logo.png');
+    this.load.image('logo', test);
   }
 
   create(): void {

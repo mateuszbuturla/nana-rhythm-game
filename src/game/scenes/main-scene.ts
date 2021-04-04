@@ -17,9 +17,10 @@ import store from '../redux/store';
 import { addHittedNote, getHittedNotes } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
 import { IMap } from '../interfaces/map.interface';
+import hitNote from '../../../assets/skin/hitNote.png';
+import hitPosition from '../../../assets/skin/hitPosition.png';
 
 export class MainScene extends Phaser.Scene {
-  logo: Logo;
   keyboard: any;
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
@@ -36,9 +37,8 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.image('logo', '../assets/logo.png');
-    this.load.image('hitNote', '../assets/skin/hitNote.png');
-    this.load.image('hitPosition', '../assets/skin/hitPosition.png');
+    this.load.image('hitNote', hitNote);
+    this.load.image('hitPosition', hitPosition);
 
     this.currentMap = getCurrentMap();
   }
