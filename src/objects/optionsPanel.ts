@@ -1,7 +1,5 @@
 import { Text } from './text';
 
-Phaser.Events.EventEmitter;
-
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
   optionsHeader: Text;
