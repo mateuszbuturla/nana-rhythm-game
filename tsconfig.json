@@ -1,11 +1,23 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "_/*": ["src/*"],
+      "_public/*": ["public/*"],
+      "_main/*": ["src/main/*"],
+      "_models/*": ["src/models/*"],
+      "_renderer/*": ["src/renderer/*"],
+      "_utils/*": ["src/utils/*"]
+    },
+    "module": "commonjs",
     "moduleResolution": "node",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "target": "esnext"
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules"],
-  "typeRoots": ["src/types/globalVariables.d.ts" ]
+  "include": ["src", "typing/import-png.d.ts"]
 }

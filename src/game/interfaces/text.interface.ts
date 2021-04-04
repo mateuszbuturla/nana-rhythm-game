@@ -3,4 +3,5 @@ export interface IText {
   x: number;
   y: number;
   text: string;
+  color?: string;
 }

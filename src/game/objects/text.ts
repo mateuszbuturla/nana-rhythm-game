@@ -3,7 +3,7 @@ import { IText } from '../interfaces/text.interface';
 export class Text extends Phaser.GameObjects.Text {
   constructor(aParams: IText) {
     super(aParams.scene, aParams.x, aParams.y, aParams.text, {
-      color: 'black',
+      color: aParams.color ? aParams.color : 'black',
       fontSize: '20px',
     });
 
