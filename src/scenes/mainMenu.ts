@@ -1,9 +1,12 @@
 import { Text } from '../objects/text';
 import { Logo } from '../objects/logo';
+import { OptionsPanel } from '../objects/optionsPanel';
 
 export class MainMenu extends Phaser.Scene {
   logo: Logo;
+  optionsPanel: OptionsPanel;
   playButton: Text;
+  optionsButton: Text;
 
   constructor() {
     super({ key: 'MainMenu' });
@@ -33,5 +36,17 @@ export class MainMenu extends Phaser.Scene {
     this.playButton.on('pointerdown', () => {
       this.scene.start('SongSelection');
     });
+    this.optionsButton = new Text({
+      scene: this,
+      x: width / 2,
+      y: height / 3 + 150,
+      text: 'Options',
+    });
+    this.optionsButton.setInteractive();
+    this.optionsButton.on('pointerdown', () => {
+      this.optionsPanel.showPanel();
+    });
+    this.optionsPanel = new OptionsPanel(this);
+    this.optionsPanel.hidePanel();
   }
 }
