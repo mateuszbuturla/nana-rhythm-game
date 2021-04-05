@@ -2,38 +2,36 @@ This section describes the architecture of the project.
 
 ## Structure
 
-<dl>
-  <dt>assets</dt>  
-  <dd>Project assets like images sounds etc.</dd>
-
-  <dt>docs</dt>  
-  <dd>This documentation.</dd>
-
-  <dt>src</dt>  
-  <dd>Contains the production code.</dd>
-</dl>
-
-These structure for `src` directory.
-
-<dl>
-  <dt>config</dt>  
-  <dd>Project configuration.</dd>
-
-  <dt>interfaces</dt>  
-  <dd>TypesScript interfaces.</dd>
-
-  <dt>objects</dt>  
-  <dd>Game objects like sprites etc.</dd>
-
-  <dt>redux</dt>  
-  <dd>All global state files</dd>
-
-  <dt>scenes</dt>  
-  <dd>All game scenes</dd>
-
-  <dt>utils</dt>  
-  <dd>Folder where you put random stuff you don’t know where to put.</dd>
-
-  <dt>helpers</dt>  
-  <dd>Usefull functions like generate random number etc.</dd>
-</dl>
+```
+nana-rhythm-game
+├── .eslintignore
+├── .gitignore
+├── .prettierignore
+├── .prettierrc
+├── CHANGELOG.md
+├── LICENSE
+├── package.json
+├── README.md
+├── tsconfig.json
+├── tslint.json
+├── webpack.config.js
+├── assets (game assets)
+│   ├── logo.png
+├── public (main index.html file and css)
+│   ├── index.html
+│   ├── style.css
+└── src
+    ├── game (game files)
+    |   ├── config (game configuration files)
+    |   ├── core (folder with core game files)
+    |   ├── helpers (folder with usefull functions like random number etc.)
+    |   ├── interfaces (here are all interfaces for typescript)
+    |   ├── objects (here you can find all game objects like image, text etc.)
+    |   ├── redux (folder where are located all file related with global state)
+    |   ├── scenes (folder where you can find all game scenes)
+    |   ├── utils (folder where you put random stuff you don’t know where to put)
+    |   └── game.js (main game file)
+    ├── main (electron create window)
+    ├── renderer (electron render)
+    └── typing (types for tsconfig.json)
+```
