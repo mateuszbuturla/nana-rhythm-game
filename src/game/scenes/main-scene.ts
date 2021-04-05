@@ -25,7 +25,7 @@ export class MainScene extends Phaser.Scene {
   keyboard: any;
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
-  hitPosition: number = 100;
+  hitPosition: number;
   startTime: number = 0;
   notesAccuracy: INotesAccuracyArray[] = [];
   accuracyText: any;
@@ -42,6 +42,7 @@ export class MainScene extends Phaser.Scene {
     this.load.image('hitPosition', hitPosition);
 
     this.currentMap = getCurrentMap();
+    this.hitPosition = getUserConfig().hitPosition;
   }
 
   create(): void {
