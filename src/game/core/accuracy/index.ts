@@ -1,5 +1,5 @@
-import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
-import { ENoteAccuracy } from '../interfaces/noteAccuracy.interface';
+import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
+import { ENoteAccuracy } from '../../interfaces/noteAccuracy.interface';
 
 const calculateNoteAccuracy = (noteDelay: number, time: number): any => {
   const delta = Math.abs(

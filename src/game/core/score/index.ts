@@ -1,8 +1,8 @@
-import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
+import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 import {
   ENoteAccuracy,
   INoteTypeAndCount,
-} from '../interfaces/noteAccuracy.interface';
+} from '../../interfaces/noteAccuracy.interface';
 
 const calculateCurrentScore = (hittedNotes: string[]): number => {
   const notesAccuracy = noteAccuracyConfig.accuracy;
