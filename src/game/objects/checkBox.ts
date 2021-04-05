@@ -4,24 +4,31 @@ import { Text } from './text';
 export class CheckBox extends Phaser.GameObjects.Container {
   box: Text;
   label: Text;
+  value: boolean;
 
   constructor(aParams: ICheckBoxConstructor) {
     super(aParams.scene, aParams.x, aParams.y);
 
-    this.initCheckBox(aParams.state, aParams.label);
+    this.value = aParams.state;
+    this.initCheckBox(aParams.label);
     this.scene.add.existing(this);
   }
 
   setCheck(state: boolean): void {
+    this.value = state;
     this.box.text = state ? '1' : '0';
   }
 
-  private initCheckBox(state: boolean, label: string) {
+  getValue(): boolean {
+    return this.value;
+  }
+
+  private initCheckBox(label: string) {
     this.box = new Text({
       scene: this.scene,
       x: 0,
       y: 0,
-      text: state ? '1' : '0',
+      text: this.value ? '1' : '0',
       color: 'white',
     });
     this.label = new Text({
