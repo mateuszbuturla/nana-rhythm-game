@@ -80,6 +80,10 @@ export class MainScene extends Phaser.Scene {
       return;
     }
 
+    if (type === ENoteAccuracy.Perfect && !getUserConfig().showPerfectHit) {
+      return;
+    }
+
     const noteAccuracy = new NoteAccuracy({
       scene: this,
       x: this.hitPosition,
