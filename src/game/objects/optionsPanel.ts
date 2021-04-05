@@ -1,9 +1,9 @@
-import { Text } from './text';
+import { Text } from './basic/text';
 import { UserConfig } from '../core/userConfig';
 import { IIserConfig } from '../interfaces/userConfig.interface';
-import { CheckBox } from '../objects/checkBox';
-import { SelectInput } from '../objects/selectInput';
-import { SliderInput } from '../objects/sliderInput';
+import { CheckBox } from './ui/checkBox';
+import { SelectInput } from './ui/select';
+import { SliderInput } from './ui/slider';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;

@@ -1,6 +1,6 @@
 import { HitNote } from '../objects/game/hitNote';
 import { HitPosition } from '../objects/game/hitPosition';
-import { NoteAccuracy } from '../objects/noteAccuracy';
+import { NoteAccuracy } from '../objects/game/noteAccuracy';
 import {
   ENoteAccuracy,
   INotesAccuracyArray,
@@ -10,7 +10,7 @@ import {
   calculateNoteAccuracy,
   calculateOveralAccuracy,
 } from '../core/accuracy';
-import { Text } from '../objects/text';
+import { Text } from '../objects/basic/text';
 import { calculateCurrentScore } from '../core/score';
 import store from '../redux/store';
 import { addHittedNote, getHittedNotes } from '../redux/mapResult';

@@ -1,4 +1,4 @@
-import { Text } from '../objects/text';
+import { Text } from '../objects/basic/text';
 import { calculateOveralAccuracy } from '../core/accuracy';
 import { getHittedNotes } from '../redux/mapResult';
 import {

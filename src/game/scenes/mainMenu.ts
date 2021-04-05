@@ -1,10 +1,10 @@
-import { Text } from '../objects/text';
-import { Logo } from '../objects/logo';
+import { Text } from '../objects/basic/text';
+import { Image } from '../objects/basic/image';
 import { OptionsPanel } from '../objects/optionsPanel';
 import test from '../../../assets/logo.png';
 
 export class MainMenu extends Phaser.Scene {
-  logo: Logo;
+  logo: Image;
   optionsPanel: OptionsPanel;
   playButton: Text;
   optionsButton: Text;
@@ -21,7 +21,7 @@ export class MainMenu extends Phaser.Scene {
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
     this.preload();
-    this.logo = new Logo({
+    this.logo = new Image({
       scene: this,
       x: width / 2,
       y: height / 3,

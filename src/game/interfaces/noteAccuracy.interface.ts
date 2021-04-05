@@ -1,4 +1,4 @@
-import { NoteAccuracy } from '../objects/noteAccuracy';
+import { NoteAccuracy } from '../objects/game/noteAccuracy';
 
 enum ENoteAccuracy {
   Perfect = 'Perfect',

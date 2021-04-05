@@ -1,4 +1,4 @@
-import { Text } from '../objects/text';
+import { Text } from '../objects/basic/text';
 import store from '../redux/store';
 import {
   setCurrentMap,
