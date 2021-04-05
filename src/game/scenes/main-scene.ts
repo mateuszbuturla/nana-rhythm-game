@@ -19,12 +19,13 @@ import { getCurrentMap } from '../redux/currentMap';
 import { IMap } from '../interfaces/map.interface';
 import hitNote from '../../../assets/skin/hitNote.png';
 import hitPosition from '../../../assets/skin/hitPosition.png';
+import { getUserConfig } from '../redux/userConfig';
 
 export class MainScene extends Phaser.Scene {
   keyboard: any;
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
-  hitPosition: number = 100;
+  hitPosition: number;
   startTime: number = 0;
   notesAccuracy: INotesAccuracyArray[] = [];
   accuracyText: any;
@@ -41,6 +42,7 @@ export class MainScene extends Phaser.Scene {
     this.load.image('hitPosition', hitPosition);
 
     this.currentMap = getCurrentMap();
+    this.hitPosition = getUserConfig().hitPosition;
   }
 
   create(): void {
@@ -75,6 +77,14 @@ export class MainScene extends Phaser.Scene {
   }
 
   createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
+    if (!getUserConfig().showNoteAccuracy) {
+      return;
+    }
+
+    if (type === ENoteAccuracy.Perfect && !getUserConfig().showPerfectHit) {
+      return;
+    }
+
     const noteAccuracy = new NoteAccuracy({
       scene: this,
       x: this.hitPosition,

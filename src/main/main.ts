@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as url from 'url';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { BrowserWindow, app } from 'electron';
+import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 let mainWindow: Electron.BrowserWindow | null;
 
@@ -62,6 +63,5 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.

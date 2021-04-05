@@ -1,10 +1,20 @@
 import { Text } from './text';
+import { UserConfig } from '../core/userConfig';
+import { IIserConfig } from '../interfaces/userConfig.interface';
+import { CheckBox } from '../objects/checkBox';
+import { SelectInput } from '../objects/selectInput';
+import { SliderInput } from '../objects/sliderInput';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
   optionsHeader: Text;
   closeButton: Text;
   isShow: boolean = false;
+  userConfig: UserConfig;
+  config: IIserConfig;
+  showNoteAccuracyInput: CheckBox;
+  showPerfectHitInput: CheckBox;
+  hitPositionInput: SliderInput;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -16,6 +26,8 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   private initOptionsPanel(): void {
     const width = this.scene.sys.game.canvas.width;
     const height = this.scene.sys.game.canvas.height;
+    this.userConfig = new UserConfig();
+    this.config = this.userConfig.getUserConfig();
 
     this.background = this.scene.add.rectangle(
       width / 2,
@@ -42,11 +54,67 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       color: 'white',
     });
     this.closeButton.setInteractive();
-    this.closeButton.on('pointerdown', () => this.hidePanel());
+    this.closeButton.on('pointerdown', () => this.handleClose());
+
+    this.showNoteAccuracyInput = new CheckBox({
+      scene: this.scene,
+      x: 100,
+      y: 100,
+      state: this.config.showNoteAccuracy,
+      label: 'Show note accuracy',
+    });
+    this.showNoteAccuracyInput.setInteractive(
+      new Phaser.Geom.Rectangle(0, 0, 100, 50),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.showNoteAccuracyInput.on('pointerdown', () => {
+      this.config.showNoteAccuracy = !this.config.showNoteAccuracy;
+      this.showNoteAccuracyInput.setCheck(this.config.showNoteAccuracy);
+    });
+
+    this.showPerfectHitInput = new CheckBox({
+      scene: this.scene,
+      x: 100,
+      y: 150,
+      state: this.config.showPerfectHit,
+      label: 'Show perfect hits',
+    });
+    this.showPerfectHitInput.setInteractive(
+      new Phaser.Geom.Rectangle(0, 0, 100, 50),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.showPerfectHitInput.on('pointerdown', () => {
+      this.config.showPerfectHit = !this.config.showPerfectHit;
+      this.showPerfectHitInput.setCheck(this.config.showPerfectHit);
+    });
+
+    this.hitPositionInput = new SliderInput({
+      scene: this.scene,
+      x: 100,
+      y: 200,
+      label: 'hit position',
+      width: 300,
+      min: 50,
+      max: 300,
+      value: this.config.hitPosition,
+    });
 
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.closeButton);
+    this.add(this.showNoteAccuracyInput);
+    this.add(this.showPerfectHitInput);
+    this.add(this.hitPositionInput);
+  }
+
+  private handleClose(): void {
+    const newConfig = {
+      showNoteAccuracy: this.showNoteAccuracyInput.getValue(),
+      showPerfectHit: this.showPerfectHitInput.getValue(),
+      hitPosition: this.hitPositionInput.getValue(),
+    };
+    this.userConfig.setUserConfig(newConfig);
+    this.hidePanel();
   }
 
   showPanel() {
