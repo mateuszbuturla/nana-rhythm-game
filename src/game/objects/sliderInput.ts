@@ -33,6 +33,12 @@ export class SliderInput extends Phaser.GameObjects.Container {
     this.sliderBar = this.scene.add.rectangle(0, 50, width, 3, 0xffffff);
     this.sliderBar.setOrigin(0, 0.5);
 
+    const oneUnitInPixels = this.width / (this.max - this.min);
+    const sliderDotPosition =
+      this.value * oneUnitInPixels - this.min * oneUnitInPixels;
+
+    this.sliderDot = this.scene.add.circle(sliderDotPosition, 50, 5, 0xffffff);
+
     this.scene.input.on(
       'pointerdown',
       () => {
@@ -59,11 +65,12 @@ export class SliderInput extends Phaser.GameObjects.Container {
       'pointerup',
       () => {
         this.isDraging = false;
+        this.value = this.sliderDot.x / oneUnitInPixels + this.min;
+
+        console.log(this.value);
       },
       this,
     );
-
-    this.sliderDot = this.scene.add.circle(0, 50, 5, 0xffffff);
 
     this.add(this.label);
     this.add(this.sliderBar);
@@ -72,9 +79,5 @@ export class SliderInput extends Phaser.GameObjects.Container {
 
   getValue(): number {
     return this.value;
-  }
-
-  update() {
-    console.log('test');
   }
 }
