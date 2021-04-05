@@ -18,11 +18,11 @@ export class SliderInput extends Phaser.GameObjects.Container {
     this.min = aParams.min;
     this.max = aParams.max;
     this.value = aParams.value;
-    this.initSelectInput(aParams.label, aParams.width, aParams.x);
+    this.initSelectInput(aParams.label, aParams.width);
     this.scene.add.existing(this);
   }
 
-  private initSelectInput(label: string, width: number, x: number): void {
+  private initSelectInput(label: string, width: number): void {
     this.label = new Text({
       scene: this.scene,
       x: 0,
