@@ -1,3 +1,10 @@
+## 2.1.0 (2021-04-05)
+
+- create options
+  - show/hide note accuracy
+  - show/hide perfect hit
+  - change hit position
+
 ## 2.0.0 (2021-04-04)
 
 - create game window
