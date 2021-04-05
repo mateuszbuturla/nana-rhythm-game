@@ -1,5 +1,6 @@
 import { Text } from './text';
 import { UserConfig } from '../core/userConfig';
+import { IIserConfig } from '../interfaces/userConfig.interface';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
@@ -7,7 +8,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   closeButton: Text;
   isShow: boolean = false;
   userConfig: UserConfig;
-  config: any;
+  config: IIserConfig;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -45,15 +46,18 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       color: 'white',
     });
     this.closeButton.setInteractive();
-    this.closeButton.on('pointerdown', () => this.hidePanel());
+    this.closeButton.on('pointerdown', () => this.handleClose());
 
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.closeButton);
     this.userConfig = new UserConfig();
-    this.config = {
-      showNoteAccuracy: true,
-    };
+    this.config = this.userConfig.getUserConfig();
+  }
+
+  private handleClose(): void {
+    this.userConfig.setUserConfig(this.config);
+    this.hidePanel();
   }
 
   showPanel() {
@@ -62,6 +66,5 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
 
   hidePanel() {
     this.setPosition(0, -this.scene.sys.game.canvas.height);
-    this.userConfig.setUserConfig(this.config);
   }
 }
