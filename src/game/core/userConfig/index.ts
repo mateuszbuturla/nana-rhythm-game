@@ -1,11 +1,14 @@
 import { defaultUserConfig } from '../../config/defaultUserConfig';
 import { IIserConfig } from '../../interfaces/userConfig.interface';
+import { setUserConfig } from '../../redux/userConfig';
+import store from '../../redux/store';
 
 export class UserConfig {
   constructor() {}
 
-  setUserConfig(newConfig: any): void {
+  setUserConfig(newConfig: IIserConfig): void {
     localStorage.setItem('user-config', JSON.stringify(newConfig));
+    store.dispatch(setUserConfig(newConfig));
   }
 
   private unserialize(): IIserConfig {
@@ -21,6 +24,8 @@ export class UserConfig {
   }
 
   getUserConfig(): IIserConfig {
-    return this.unserialize();
+    const config = this.unserialize();
+    store.dispatch(setUserConfig(config));
+    return config;
   }
 }
