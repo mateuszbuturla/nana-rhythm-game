@@ -1,6 +1,7 @@
 import { Text } from './text';
 import { UserConfig } from '../core/userConfig';
 import { IIserConfig } from '../interfaces/userConfig.interface';
+import { CheckBox } from '../objects/checkBox';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
@@ -9,6 +10,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   isShow: boolean = false;
   userConfig: UserConfig;
   config: IIserConfig;
+  showNoteAccuracyInput: CheckBox;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -20,6 +22,8 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   private initOptionsPanel(): void {
     const width = this.scene.sys.game.canvas.width;
     const height = this.scene.sys.game.canvas.height;
+    this.userConfig = new UserConfig();
+    this.config = this.userConfig.getUserConfig();
 
     this.background = this.scene.add.rectangle(
       width / 2,
@@ -48,11 +52,26 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     this.closeButton.setInteractive();
     this.closeButton.on('pointerdown', () => this.handleClose());
 
+    this.showNoteAccuracyInput = new CheckBox({
+      scene: this.scene,
+      x: 100,
+      y: 200,
+      state: this.config.showNoteAccuracy,
+      label: 'Show note accuracy',
+    });
+    this.showNoteAccuracyInput.setInteractive(
+      new Phaser.Geom.Rectangle(0, 0, 100, 50),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.showNoteAccuracyInput.on('pointerdown', () => {
+      this.config.showNoteAccuracy = !this.config.showNoteAccuracy;
+      this.showNoteAccuracyInput.setCheck(this.config.showNoteAccuracy);
+    });
+
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.closeButton);
-    this.userConfig = new UserConfig();
-    this.config = this.userConfig.getUserConfig();
+    this.add(this.showNoteAccuracyInput);
   }
 
   private handleClose(): void {

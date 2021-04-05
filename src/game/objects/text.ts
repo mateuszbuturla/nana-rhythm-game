@@ -12,6 +12,6 @@ export class Text extends Phaser.GameObjects.Text {
   }
 
   private initText(): void {
-    this.setOrigin(0.5, 0.5);
+    this.setOrigin(0, 0);
   }
 }
