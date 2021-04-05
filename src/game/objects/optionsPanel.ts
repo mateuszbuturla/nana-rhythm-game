@@ -2,6 +2,8 @@ import { Text } from './text';
 import { UserConfig } from '../core/userConfig';
 import { IIserConfig } from '../interfaces/userConfig.interface';
 import { CheckBox } from '../objects/checkBox';
+import { SelectInput } from '../objects/selectInput';
+import { SliderInput } from '../objects/sliderInput';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
@@ -12,6 +14,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   config: IIserConfig;
   showNoteAccuracyInput: CheckBox;
   showPerfectHitInput: CheckBox;
+  hitPositionInput: SliderInput;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -56,7 +59,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     this.showNoteAccuracyInput = new CheckBox({
       scene: this.scene,
       x: 100,
-      y: 200,
+      y: 100,
       state: this.config.showNoteAccuracy,
       label: 'Show note accuracy',
     });
@@ -72,7 +75,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     this.showPerfectHitInput = new CheckBox({
       scene: this.scene,
       x: 100,
-      y: 300,
+      y: 150,
       state: this.config.showPerfectHit,
       label: 'Show perfect hits',
     });
@@ -85,11 +88,23 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       this.showPerfectHitInput.setCheck(this.config.showPerfectHit);
     });
 
+    this.hitPositionInput = new SliderInput({
+      scene: this.scene,
+      x: 100,
+      y: 200,
+      label: 'hit position',
+      width: 300,
+      min: 50,
+      max: 300,
+      value: 100,
+    });
+
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.closeButton);
     this.add(this.showNoteAccuracyInput);
     this.add(this.showPerfectHitInput);
+    this.add(this.hitPositionInput);
   }
 
   private handleClose(): void {
