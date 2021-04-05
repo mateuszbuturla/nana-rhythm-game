@@ -96,7 +96,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       width: 300,
       min: 50,
       max: 300,
-      value: 100,
+      value: this.config.hitPosition,
     });
 
     this.add(this.background);
@@ -108,7 +108,12 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   }
 
   private handleClose(): void {
-    this.userConfig.setUserConfig(this.config);
+    const newConfig = {
+      showNoteAccuracy: this.showNoteAccuracyInput.getValue(),
+      showPerfectHit: this.showPerfectHitInput.getValue(),
+      hitPosition: this.hitPositionInput.getValue(),
+    };
+    this.userConfig.setUserConfig(newConfig);
     this.hidePanel();
   }
 

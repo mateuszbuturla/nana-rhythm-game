@@ -66,8 +66,6 @@ export class SliderInput extends Phaser.GameObjects.Container {
       () => {
         this.isDraging = false;
         this.value = this.sliderDot.x / oneUnitInPixels + this.min;
-
-        console.log(this.value);
       },
       this,
     );
