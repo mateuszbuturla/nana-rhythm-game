@@ -1,4 +1,4 @@
-import { IImageConstructor } from '../interfaces/image.interface';
+import { IImageConstructor } from '../../../interfaces/image.interface';
 
 export class HitNote extends Phaser.GameObjects.Image {
   constructor(aParams: IImageConstructor) {

@@ -1,4 +1,4 @@
-import { IImageConstructorNoTexture } from '../interfaces/imageNoTexture.interface';
+import { IImageConstructorNoTexture } from '../../../interfaces/imageNoTexture.interface';
 
 export class HitPosition extends Phaser.GameObjects.Image {
   constructor(aParams: IImageConstructorNoTexture) {

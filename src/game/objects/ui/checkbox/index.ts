@@ -1,5 +1,5 @@
-import { ICheckBoxConstructor } from '../interfaces/checkBox.interface';
-import { Text } from './text';
+import { ICheckBoxConstructor } from '../../../interfaces/checkBox.interface';
+import { Text } from '../../basic/text';
 
 export class CheckBox extends Phaser.GameObjects.Container {
   box: Text;

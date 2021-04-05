@@ -1,5 +1,5 @@
-import { ISliderInput } from '../interfaces/sliderInput.interface';
-import { Text } from './text';
+import { ISliderInput } from '../../../interfaces/sliderInput.interface';
+import { Text } from '../../basic/text';
 import 'Phaser';
 
 export class SliderInput extends Phaser.GameObjects.Container {
