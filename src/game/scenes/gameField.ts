@@ -19,7 +19,6 @@ import { IMap } from '../interfaces/map.interface';
 import hitNote from '../../../assets/skin/hitNote.png';
 import hitPosition from '../../../assets/skin/hitPosition.png';
 import { getUserConfig } from '../redux/userConfig';
-import { getCombo } from '../redux/mapResult';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;

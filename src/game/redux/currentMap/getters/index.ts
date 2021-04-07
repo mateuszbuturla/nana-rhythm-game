@@ -1,6 +1,6 @@
 import store from '../../store';
 
-const getCurrentMapId = () => {
+const getCurrentMapId = (): number => {
   return store.getState().currentMap.currentMapId;
 };
 

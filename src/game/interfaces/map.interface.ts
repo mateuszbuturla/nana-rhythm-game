@@ -1,7 +1,7 @@
 import { INote } from './note.interface';
 
 interface IMap {
-  titile: string;
+  title: string;
   author: string;
   notes: INote[];
 }
