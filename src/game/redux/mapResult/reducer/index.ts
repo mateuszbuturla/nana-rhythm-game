@@ -1,7 +1,17 @@
 import types from '../types';
 
-const INITIAL_STATE: { hittedNotes: string[] } = {
+const INITIAL_STATE: {
+  hittedNotes: string[];
+  combo: {
+    combo: number;
+    maxCombo: number;
+  };
+} = {
   hittedNotes: [],
+  combo: {
+    combo: 0,
+    maxCombo: 0,
+  },
 };
 
 const mapResultReducer = (state = INITIAL_STATE, action: any) => {
@@ -15,6 +25,11 @@ const mapResultReducer = (state = INITIAL_STATE, action: any) => {
       return {
         ...state,
         hittedNotes: [...state.hittedNotes, action.item],
+      };
+    case types.SET_COMBO:
+      return {
+        ...state,
+        combo: action.item,
       };
     default:
       return state;
