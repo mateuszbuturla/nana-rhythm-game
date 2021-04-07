@@ -71,6 +71,13 @@ class Score {
     console.log('combo: ', this.combo);
     console.log('max-combo: ', this.maxCombo);
   }
+
+  getCombo(): any {
+    return {
+      combo: this.combo,
+      maxCombo: this.maxCombo,
+    };
+  }
 }
 
 export { calculateCurrentScore, getAllTypesAndCoundHittedNotes, Score };

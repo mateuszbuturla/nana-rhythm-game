@@ -32,6 +32,8 @@ export class GameField extends Phaser.Scene {
   breakAfterLastNote: number = 3000;
   currentMap: IMap;
   score: Score;
+  comboObject: Text;
+  maxComboObject: Text;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -75,6 +77,23 @@ export class GameField extends Phaser.Scene {
       y: 75,
       text: '0',
     });
+    this.comboObject = new Text({
+      scene: this,
+      x: 100,
+      y: 400,
+      text: `combo ${this.score.getCombo().combo}`,
+    });
+    this.maxComboObject = new Text({
+      scene: this,
+      x: 100,
+      y: 450,
+      text: `max combo ${this.score.getCombo().maxCombo}`,
+    });
+  }
+
+  updateScoreUi() {
+    this.comboObject.text = `combo: ${this.score.getCombo().combo}`;
+    this.maxComboObject.text = `max combo: ${this.score.getCombo().maxCombo}`;
   }
 
   createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
@@ -119,6 +138,7 @@ export class GameField extends Phaser.Scene {
               this.createNoteAccuracy('up', accuracy);
               store.dispatch(addHittedNote(accuracy));
               this.score.increaseCombo();
+              this.updateScoreUi();
             }
             break;
           case 'down':
@@ -127,6 +147,7 @@ export class GameField extends Phaser.Scene {
               this.createNoteAccuracy('down', accuracy);
               store.dispatch(addHittedNote(accuracy));
               this.score.increaseCombo();
+              this.updateScoreUi();
             }
             break;
           default:
