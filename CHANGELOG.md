@@ -2,8 +2,8 @@
 
 - create combo
 - create max combo
-- display combo on result screan and in game
-- display max combo on result screan and in game
+- display combo on result screen and in game
+- display max combo on result screen and in game
 
 ## 2.1.0 (2021-04-05)
 
