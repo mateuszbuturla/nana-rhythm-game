@@ -1,3 +1,7 @@
+## 2.2.1 (2021-04-07)
+
+- selection map add max combo of map
+
 ## 2.2.0 (2021-04-07)
 
 - create combo
