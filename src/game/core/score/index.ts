@@ -61,15 +61,10 @@ class Score {
     if (this.combo > this.maxCombo) {
       this.maxCombo = this.combo;
     }
-    console.log('combo: ', this.combo);
-    console.log('max-combo: ', this.maxCombo);
   }
 
   breakCombo(): void {
     this.combo = 0;
-    console.log('break');
-    console.log('combo: ', this.combo);
-    console.log('max-combo: ', this.maxCombo);
   }
 
   getCombo(): any {
