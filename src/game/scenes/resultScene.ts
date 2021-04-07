@@ -1,6 +1,6 @@
-import { Text } from '../objects/text';
+import { Text } from '../objects/basic/text';
 import { calculateOveralAccuracy } from '../core/accuracy';
-import { getHittedNotes } from '../redux/mapResult';
+import { getCombo, getHittedNotes } from '../redux/mapResult';
 import {
   calculateCurrentScore,
   getAllTypesAndCoundHittedNotes,
@@ -11,6 +11,8 @@ export class ResultScene extends Phaser.Scene {
   accuracy: Text;
   score: Text;
   notesTypeAndCount: Text[] = [];
+  comboObject: Text;
+  maxComboObject: Text;
 
   constructor() {
     super({ key: 'ResultScene' });
@@ -37,6 +39,18 @@ export class ResultScene extends Phaser.Scene {
       x: 100,
       y: 150,
       text: `Score: ${calculateCurrentScore(getHittedNotes())}`,
+    });
+    this.comboObject = new Text({
+      scene: this,
+      x: 300,
+      y: 100,
+      text: `combo: ${getCombo().combo}`,
+    });
+    this.maxComboObject = new Text({
+      scene: this,
+      x: 300,
+      y: 150,
+      text: `max combo: ${getCombo().maxCombo}`,
     });
     getAllTypesAndCoundHittedNotes(getHittedNotes()).map((note, index) => {
       const newNoteAndCount = new Text({

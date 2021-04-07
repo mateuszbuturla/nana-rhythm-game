@@ -1,5 +1,5 @@
-import { ISliderInput } from '../interfaces/sliderInput.interface';
-import { Text } from './text';
+import { ISliderInput } from '../../../interfaces/sliderInput.interface';
+import { Text } from '../../basic/text';
 import 'Phaser';
 
 export class SliderInput extends Phaser.GameObjects.Container {
@@ -18,11 +18,11 @@ export class SliderInput extends Phaser.GameObjects.Container {
     this.min = aParams.min;
     this.max = aParams.max;
     this.value = aParams.value;
-    this.initSelectInput(aParams.label, aParams.width, aParams.x);
+    this.initSelectInput(aParams.label, aParams.width);
     this.scene.add.existing(this);
   }
 
-  private initSelectInput(label: string, width: number, x: number): void {
+  private initSelectInput(label: string, width: number): void {
     this.label = new Text({
       scene: this.scene,
       x: 0,
@@ -39,40 +39,35 @@ export class SliderInput extends Phaser.GameObjects.Container {
 
     this.sliderDot = this.scene.add.circle(sliderDotPosition, 50, 5, 0xffffff);
 
-    this.scene.input.on(
-      'pointerdown',
-      () => {
-        this.isDraging = true;
-      },
-      this,
-    );
-    this.scene.input.on(
-      'pointermove',
-      (pointer: any) => {
-        if (this.isDraging) {
-          this.sliderDot.x = pointer.x - x;
-          if (this.sliderDot.x < 0) {
-            this.sliderDot.x = 0;
-          }
-          if (this.sliderDot.x > this.width) {
-            this.sliderDot.x = this.width;
-          }
-        }
-      },
-      this,
-    );
-    this.scene.input.on(
-      'pointerup',
-      () => {
-        this.isDraging = false;
-        this.value = this.sliderDot.x / oneUnitInPixels + this.min;
-      },
-      this,
-    );
+    this.scene.input.on('pointerdown', this.handlePointerDown, this);
+    this.scene.input.on('pointermove', this.handleDrag, this);
+    this.scene.input.on('pointerup', this.handlePointerUp, this);
 
     this.add(this.label);
     this.add(this.sliderBar);
     this.add(this.sliderDot);
+  }
+
+  handlePointerDown(): void {
+    this.isDraging = true;
+  }
+
+  handleDrag(pointer: any): void {
+    if (this.isDraging) {
+      this.sliderDot.x = pointer.x - this.x;
+      if (this.sliderDot.x < 0) {
+        this.sliderDot.x = 0;
+      }
+      if (this.sliderDot.x > this.width) {
+        this.sliderDot.x = this.width;
+      }
+    }
+  }
+
+  handlePointerUp(): void {
+    const oneUnitInPixels = this.width / (this.max - this.min);
+    this.isDraging = false;
+    this.value = this.sliderDot.x / oneUnitInPixels + this.min;
   }
 
   getValue(): number {

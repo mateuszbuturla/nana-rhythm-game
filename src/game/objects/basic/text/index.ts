@@ -1,4 +1,4 @@
-import { IText } from '../interfaces/text.interface';
+import { IText } from '../../../interfaces/text.interface';
 
 export class Text extends Phaser.GameObjects.Text {
   constructor(aParams: IText) {

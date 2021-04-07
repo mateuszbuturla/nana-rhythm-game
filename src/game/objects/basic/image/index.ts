@@ -1,6 +1,6 @@
-import { IImageConstructor } from '../interfaces/image.interface';
+import { IImageConstructor } from '../../../interfaces/image.interface';
 
-export class Logo extends Phaser.GameObjects.Image {
+export class Image extends Phaser.GameObjects.Image {
   constructor(aParams: IImageConstructor) {
     super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
 
