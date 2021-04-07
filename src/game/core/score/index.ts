@@ -47,4 +47,30 @@ const getAllTypesAndCoundHittedNotes = (
   return newCount;
 };
 
-export { calculateCurrentScore, getAllTypesAndCoundHittedNotes };
+class Score {
+  combo: number;
+  maxCombo: number;
+
+  constructor() {
+    this.combo = 0;
+    this.maxCombo = 0;
+  }
+
+  increaseCombo(): void {
+    this.combo++;
+    if (this.combo > this.maxCombo) {
+      this.maxCombo = this.combo;
+    }
+    console.log('combo: ', this.combo);
+    console.log('max-combo: ', this.maxCombo);
+  }
+
+  breakCombo(): void {
+    this.combo = 0;
+    console.log('break');
+    console.log('combo: ', this.combo);
+    console.log('max-combo: ', this.maxCombo);
+  }
+}
+
+export { calculateCurrentScore, getAllTypesAndCoundHittedNotes, Score };

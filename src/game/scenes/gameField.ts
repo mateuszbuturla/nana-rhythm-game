@@ -11,7 +11,7 @@ import {
   calculateOveralAccuracy,
 } from '../core/accuracy';
 import { Text } from '../objects/basic/text';
-import { calculateCurrentScore } from '../core/score';
+import { calculateCurrentScore, Score } from '../core/score';
 import store from '../redux/store';
 import { addHittedNote, getHittedNotes } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
@@ -31,6 +31,7 @@ export class GameField extends Phaser.Scene {
   scoreText: any;
   breakAfterLastNote: number = 3000;
   currentMap: IMap;
+  score: Score;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -41,6 +42,7 @@ export class GameField extends Phaser.Scene {
     this.load.image('hitPosition', hitPosition);
 
     this.currentMap = getCurrentMap();
+    this.score = new Score();
     this.hitPosition = getUserConfig().hitPosition;
   }
 
@@ -116,6 +118,7 @@ export class GameField extends Phaser.Scene {
 
               this.createNoteAccuracy('up', accuracy);
               store.dispatch(addHittedNote(accuracy));
+              this.score.increaseCombo();
             }
             break;
           case 'down':
@@ -123,6 +126,7 @@ export class GameField extends Phaser.Scene {
               const accuracy = calculateNoteAccuracy(note.delay, time);
               this.createNoteAccuracy('down', accuracy);
               store.dispatch(addHittedNote(accuracy));
+              this.score.increaseCombo();
             }
             break;
           default:
@@ -134,6 +138,7 @@ export class GameField extends Phaser.Scene {
       ) {
         this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
         store.dispatch(addHittedNote(ENoteAccuracy.Miss));
+        this.score.breakCombo();
       }
     });
   }
