@@ -13,12 +13,13 @@ import {
 import { Text } from '../objects/basic/text';
 import { calculateCurrentScore, Score } from '../core/score';
 import store from '../redux/store';
-import { addHittedNote, getHittedNotes } from '../redux/mapResult';
+import { addHittedNote, getHittedNotes, setCombo } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
 import { IMap } from '../interfaces/map.interface';
 import hitNote from '../../../assets/skin/hitNote.png';
 import hitPosition from '../../../assets/skin/hitPosition.png';
 import { getUserConfig } from '../redux/userConfig';
+import { getCombo } from '../redux/mapResult';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;
@@ -198,6 +199,12 @@ export class GameField extends Phaser.Scene {
       this.currentMap.notes[this.currentMap.notes.length - 1].delay +
         this.breakAfterLastNote
     ) {
+      store.dispatch(
+        setCombo({
+          combo: this.score.getCombo().combo,
+          maxCombo: this.score.getCombo().maxCombo,
+        }),
+      );
       this.scene.start('ResultScene');
     }
   }
