@@ -14,4 +14,11 @@ const addHittedNote = (item: any) => {
   };
 };
 
-export { setHittedNotes, addHittedNote };
+const setCombo = (item: any) => {
+  return {
+    type: types.SET_COMBO,
+    item,
+  };
+};
+
+export { setHittedNotes, addHittedNote, setCombo };

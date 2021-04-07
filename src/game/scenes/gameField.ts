@@ -11,14 +11,15 @@ import {
   calculateOveralAccuracy,
 } from '../core/accuracy';
 import { Text } from '../objects/basic/text';
-import { calculateCurrentScore } from '../core/score';
+import { calculateCurrentScore, Score } from '../core/score';
 import store from '../redux/store';
-import { addHittedNote, getHittedNotes } from '../redux/mapResult';
+import { addHittedNote, getHittedNotes, setCombo } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
 import { IMap } from '../interfaces/map.interface';
 import hitNote from '../../../assets/skin/hitNote.png';
 import hitPosition from '../../../assets/skin/hitPosition.png';
 import { getUserConfig } from '../redux/userConfig';
+import { getCombo } from '../redux/mapResult';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;
@@ -31,6 +32,9 @@ export class GameField extends Phaser.Scene {
   scoreText: any;
   breakAfterLastNote: number = 3000;
   currentMap: IMap;
+  score: Score;
+  comboObject: Text;
+  maxComboObject: Text;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -41,6 +45,7 @@ export class GameField extends Phaser.Scene {
     this.load.image('hitPosition', hitPosition);
 
     this.currentMap = getCurrentMap();
+    this.score = new Score();
     this.hitPosition = getUserConfig().hitPosition;
   }
 
@@ -73,6 +78,23 @@ export class GameField extends Phaser.Scene {
       y: 75,
       text: '0',
     });
+    this.comboObject = new Text({
+      scene: this,
+      x: 100,
+      y: 400,
+      text: `combo ${this.score.getCombo().combo}`,
+    });
+    this.maxComboObject = new Text({
+      scene: this,
+      x: 100,
+      y: 450,
+      text: `max combo ${this.score.getCombo().maxCombo}`,
+    });
+  }
+
+  updateScoreUi() {
+    this.comboObject.text = `combo: ${this.score.getCombo().combo}`;
+    this.maxComboObject.text = `max combo: ${this.score.getCombo().maxCombo}`;
   }
 
   createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
@@ -116,6 +138,8 @@ export class GameField extends Phaser.Scene {
 
               this.createNoteAccuracy('up', accuracy);
               store.dispatch(addHittedNote(accuracy));
+              this.score.increaseCombo();
+              this.updateScoreUi();
             }
             break;
           case 'down':
@@ -123,6 +147,8 @@ export class GameField extends Phaser.Scene {
               const accuracy = calculateNoteAccuracy(note.delay, time);
               this.createNoteAccuracy('down', accuracy);
               store.dispatch(addHittedNote(accuracy));
+              this.score.increaseCombo();
+              this.updateScoreUi();
             }
             break;
           default:
@@ -134,6 +160,7 @@ export class GameField extends Phaser.Scene {
       ) {
         this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
         store.dispatch(addHittedNote(ENoteAccuracy.Miss));
+        this.score.breakCombo();
       }
     });
   }
@@ -172,6 +199,12 @@ export class GameField extends Phaser.Scene {
       this.currentMap.notes[this.currentMap.notes.length - 1].delay +
         this.breakAfterLastNote
     ) {
+      store.dispatch(
+        setCombo({
+          combo: this.score.getCombo().combo,
+          maxCombo: this.score.getCombo().maxCombo,
+        }),
+      );
       this.scene.start('ResultScene');
     }
   }
