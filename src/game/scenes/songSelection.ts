@@ -5,8 +5,10 @@ import {
   setCurrentMapId,
   getCurrentMapId,
 } from '../redux/currentMap';
+import { Score } from '../core/score';
+import { IMap } from '../interfaces/map.interface';
 
-const songs = [
+const songs: IMap[] = [
   {
     title: 'Test title1',
     author: 'Test author1',
@@ -106,6 +108,8 @@ export class SongSelection extends Phaser.Scene {
   selectedSongNotesCount: Text;
   songsContainer: Phaser.GameObjects.Container;
   songsObject: Phaser.GameObjects.Container[] = [];
+  selectedSongMaxCombo: Text;
+  score: Score;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -114,6 +118,7 @@ export class SongSelection extends Phaser.Scene {
   preload(): void {
     store.dispatch(setCurrentMapId(0));
     store.dispatch(setCurrentMap(songs[0]));
+    this.score = new Score();
   }
 
   updateSelectedSong(newSelectedSong: number): void {
@@ -124,6 +129,9 @@ export class SongSelection extends Phaser.Scene {
     this.selectedSongNotesCount.text = String(
       songs[newSelectedSong].notes.length,
     );
+    this.selectedSongMaxCombo.text = `max combo: ${this.score.getMaxCombo(
+      songs[newSelectedSong],
+    )}`;
   }
 
   create(): void {
@@ -185,6 +193,12 @@ export class SongSelection extends Phaser.Scene {
       this.songsContainer.add(newContainer);
 
       this.songsObject = [...this.songsObject, newContainer];
+    });
+    this.selectedSongMaxCombo = new Text({
+      scene: this,
+      x: 100,
+      y: 230,
+      text: `max combo: ${this.score.getMaxCombo(songs[getCurrentMapId()])}`,
     });
   }
 }

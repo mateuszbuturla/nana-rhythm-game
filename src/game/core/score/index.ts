@@ -3,6 +3,7 @@ import {
   ENoteAccuracy,
   INoteTypeAndCount,
 } from '../../interfaces/noteAccuracy.interface';
+import { IMap } from '../../interfaces/map.interface';
 
 const calculateCurrentScore = (hittedNotes: string[]): number => {
   const notesAccuracy = noteAccuracyConfig.accuracy;
@@ -72,6 +73,14 @@ class Score {
       combo: this.combo,
       maxCombo: this.maxCombo,
     };
+  }
+
+  getMaxCombo(map: IMap): number {
+    return this.calculateMaxCombo(map);
+  }
+
+  private calculateMaxCombo(map: IMap): number {
+    return map.notes.length;
   }
 }
 
