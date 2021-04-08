@@ -6,6 +6,7 @@ import playButton from '../../../assets/ui/playButton.png';
 import editorButton from '../../../assets/ui/editorButton.png';
 import settingsButton from '../../../assets/ui/settingsButton.png';
 import exitButton from '../../../assets/ui/exitButton.png';
+import gradient from '../../../assets/ui/gradient.png';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
 
@@ -18,6 +19,8 @@ export class MainMenu extends Phaser.Scene {
   settingsButton: MainMenuButton;
   exitButton: MainMenuButton;
   logo: any;
+  gradientTop: Image;
+  gradientBottom: Image;
 
   constructor() {
     super({ key: 'MainMenu' });
@@ -29,6 +32,7 @@ export class MainMenu extends Phaser.Scene {
     this.load.image('editorButton', editorButton);
     this.load.image('settingsButton', settingsButton);
     this.load.image('exitButton', exitButton);
+    this.load.image('gradient', gradient);
   }
 
   create(): void {
@@ -40,6 +44,15 @@ export class MainMenu extends Phaser.Scene {
     this.backgroundDim = this.add.rectangle(0, 0, width, height, 0x000000);
     this.backgroundDim.setOrigin(0);
     this.backgroundDim.alpha = 0.4;
+    this.gradientTop = new Image({
+      scene: this,
+      x: 0,
+      y: 0,
+      texture: 'gradient',
+    });
+    this.gradientTop.setOrigin(1, 0);
+    this.gradientTop.y = this.gradientTop.height;
+    this.gradientTop.angle = 180;
     this.playButton = new MainMenuButton({
       scene: this,
       x: 250,
@@ -47,6 +60,14 @@ export class MainMenu extends Phaser.Scene {
       texture: 'playButton',
       label: 'Play',
     });
+    this.gradientBottom = new Image({
+      scene: this,
+      x: 0,
+      y: 0,
+      texture: 'gradient',
+    });
+    this.gradientBottom.setOrigin(0, 0.3);
+    this.gradientBottom.y = height - this.gradientBottom.height;
     this.playButton.setInteractive();
     this.playButton.on('pointerdown', () => {
       this.scene.start('SongSelection');
