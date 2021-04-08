@@ -7,4 +7,5 @@ export interface IText {
   fontSize?: string;
   fontFamily?: string;
   align?: 'left' | 'center' | 'right';
+  shadow?: boolean;
 }

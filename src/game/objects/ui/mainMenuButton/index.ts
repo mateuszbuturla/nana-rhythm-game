@@ -189,6 +189,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       fontSize: '59px',
       align: 'center',
       fontFamily: 'mainFontB',
+      shadow: true,
     });
     this.add(this.buttonLabelObject);
 
