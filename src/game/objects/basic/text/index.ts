@@ -5,6 +5,7 @@ export class Text extends Phaser.GameObjects.Text {
     super(aParams.scene, aParams.x, aParams.y, aParams.text, {
       color: aParams.color ? aParams.color : 'black',
       fontSize: aParams.fontSize ? aParams.fontSize : '20px',
+      fontFamily: aParams.fontFamily ? aParams.fontFamily : 'mainFontEL',
     });
 
     this.initText();
