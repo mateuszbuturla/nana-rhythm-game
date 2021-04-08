@@ -6,8 +6,11 @@ import { MainMenu } from '../scenes/mainMenu';
 export const GameConfig: Phaser.Types.Core.GameConfig = {
   title: 'NaNa rhythm game',
   version: '2.2.1',
-  width: 800,
-  height: 600,
+  scale: {
+    mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT,
+    width: 1920,
+    height: 1080,
+  },
   backgroundColor: 0x3a404d,
   type: Phaser.AUTO,
   parent: 'game',
