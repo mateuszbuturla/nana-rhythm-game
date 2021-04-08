@@ -136,7 +136,7 @@ export class GameField extends Phaser.Scene {
               const accuracy = calculateNoteAccuracy(note.delay, time);
 
               this.createNoteAccuracy('up', accuracy);
-              store.dispatch(addHittedNote(accuracy));
+              this.score.addHittedNotes(accuracy);
               this.score.increaseCombo();
               this.updateScoreUi();
             }
@@ -145,7 +145,7 @@ export class GameField extends Phaser.Scene {
             if (this.keyboard.down.isDown) {
               const accuracy = calculateNoteAccuracy(note.delay, time);
               this.createNoteAccuracy('down', accuracy);
-              store.dispatch(addHittedNote(accuracy));
+              this.score.addHittedNotes(accuracy);
               this.score.increaseCombo();
               this.updateScoreUi();
             }
@@ -158,7 +158,7 @@ export class GameField extends Phaser.Scene {
         getHittedNotes()[index] === undefined
       ) {
         this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
-        store.dispatch(addHittedNote(ENoteAccuracy.Miss));
+        this.score.addHittedNotes(ENoteAccuracy.Miss);
         this.score.breakCombo();
       }
     });
@@ -198,12 +198,6 @@ export class GameField extends Phaser.Scene {
       this.currentMap.notes[this.currentMap.notes.length - 1].delay +
         this.breakAfterLastNote
     ) {
-      store.dispatch(
-        setCombo({
-          combo: this.score.getCombo().combo,
-          maxCombo: this.score.getCombo().maxCombo,
-        }),
-      );
       this.scene.start('ResultScene');
     }
   }
