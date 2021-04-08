@@ -7,6 +7,10 @@ import editorButton from '../../../assets/ui/editorButton.png';
 import settingsButton from '../../../assets/ui/settingsButton.png';
 import exitButton from '../../../assets/ui/exitButton.png';
 import gradient from '../../../assets/ui/gradient.png';
+import playButtonDecoration from '../../../assets/ui/playButtonDecoration.png';
+import editorButtonDecoration from '../../../assets/ui/editorButtonDecoration.png';
+import settingsButtonDecoration from '../../../assets/ui/settingsButtonDecoration.png';
+import exitButtonDecoration from '../../../assets/ui/exitButtonDecoration.png';
 import { GameConfig } from '../config/config';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
@@ -35,6 +39,10 @@ export class MainMenu extends Phaser.Scene {
     this.load.image('settingsButton', settingsButton);
     this.load.image('exitButton', exitButton);
     this.load.image('gradient', gradient);
+    this.load.image('playButtonDecoration', playButtonDecoration);
+    this.load.image('editorButtonDecoration', editorButtonDecoration);
+    this.load.image('settingsButtonDecoration', settingsButtonDecoration);
+    this.load.image('exitButtonDecoration', exitButtonDecoration);
   }
 
   create(): void {
@@ -60,6 +68,7 @@ export class MainMenu extends Phaser.Scene {
       x: 250,
       y: height / 2,
       texture: 'playButton',
+      textureDecoration: 'playButtonDecoration',
       label: 'Play',
       callback: () => {
         this.scene.start('SongSelection');
@@ -87,6 +96,7 @@ export class MainMenu extends Phaser.Scene {
       x: 550,
       y: height / 2,
       texture: 'editorButton',
+      textureDecoration: 'editorButtonDecoration',
       label: 'Editor',
       callback: () => {},
     });
@@ -95,6 +105,7 @@ export class MainMenu extends Phaser.Scene {
       x: 1370,
       y: height / 2,
       texture: 'settingsButton',
+      textureDecoration: 'settingsButtonDecoration',
       label: 'Settings',
       callback: () => {
         this.optionsPanel.showPanel();
@@ -105,6 +116,7 @@ export class MainMenu extends Phaser.Scene {
       x: 1680,
       y: height / 2,
       texture: 'exitButton',
+      textureDecoration: 'exitButtonDecoration',
       label: 'Exit',
       callback: () => {},
     });
@@ -113,5 +125,12 @@ export class MainMenu extends Phaser.Scene {
 
     this.optionsPanel = new OptionsPanel(this);
     this.optionsPanel.hidePanel();
+  }
+
+  update() {
+    this.playButton.update();
+    this.editorButton.update();
+    this.settingsButton.update();
+    this.exitButton.update();
   }
 }
