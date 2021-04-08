@@ -7,6 +7,7 @@ import editorButton from '../../../assets/ui/editorButton.png';
 import settingsButton from '../../../assets/ui/settingsButton.png';
 import exitButton from '../../../assets/ui/exitButton.png';
 import gradient from '../../../assets/ui/gradient.png';
+import { GameConfig } from '../config/config';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
 
@@ -21,6 +22,7 @@ export class MainMenu extends Phaser.Scene {
   logo: any;
   gradientTop: Image;
   gradientBottom: Image;
+  version: Text;
 
   constructor() {
     super({ key: 'MainMenu' });
@@ -66,6 +68,15 @@ export class MainMenu extends Phaser.Scene {
       y: 0,
       texture: 'gradient',
     });
+    this.version = new Text({
+      scene: this,
+      x: 30,
+      y: height - 130,
+      text: `version: v${GameConfig.version}`,
+      fontSize: '25px',
+      color: 'white',
+    });
+    this.version.setOrigin(0, 0);
     this.gradientBottom.setOrigin(0, 0.3);
     this.gradientBottom.y = height - this.gradientBottom.height;
     this.playButton.setInteractive();
