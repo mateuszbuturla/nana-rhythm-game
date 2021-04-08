@@ -61,6 +61,9 @@ export class MainMenu extends Phaser.Scene {
       y: height / 2,
       texture: 'playButton',
       label: 'Play',
+      callback: () => {
+        this.scene.start('SongSelection');
+      },
     });
     this.gradientBottom = new Image({
       scene: this,
@@ -79,16 +82,13 @@ export class MainMenu extends Phaser.Scene {
     this.version.setOrigin(0, 0);
     this.gradientBottom.setOrigin(0, 0.3);
     this.gradientBottom.y = height - this.gradientBottom.height;
-    this.playButton.setInteractive();
-    this.playButton.on('pointerdown', () => {
-      this.scene.start('SongSelection');
-    });
     this.editorButton = new MainMenuButton({
       scene: this,
       x: 550,
       y: height / 2,
       texture: 'editorButton',
       label: 'Editor',
+      callback: () => {},
     });
     this.settingsButton = new MainMenuButton({
       scene: this,
@@ -96,6 +96,9 @@ export class MainMenu extends Phaser.Scene {
       y: height / 2,
       texture: 'settingsButton',
       label: 'Settings',
+      callback: () => {
+        this.optionsPanel.showPanel();
+      },
     });
     this.exitButton = new MainMenuButton({
       scene: this,
@@ -103,10 +106,7 @@ export class MainMenu extends Phaser.Scene {
       y: height / 2,
       texture: 'exitButton',
       label: 'Exit',
-    });
-    this.settingsButton.setInteractive();
-    this.settingsButton.on('pointerdown', () => {
-      this.optionsPanel.showPanel();
+      callback: () => {},
     });
     this.logo = this.add.rectangle(width / 2, height / 2, 450, 450, 0xffffff);
     this.logo.angle = -30;

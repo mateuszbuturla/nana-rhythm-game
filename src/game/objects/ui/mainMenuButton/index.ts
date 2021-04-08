@@ -28,6 +28,19 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     });
     this.add(this.buttonLabelObject);
 
+    this.setInteractive(
+      new Phaser.Geom.Rectangle(
+        -this.getBounds().width / 2,
+        -this.getBounds().height / 2,
+        this.getBounds().width,
+        this.getBounds().height,
+      ),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.on('pointerdown', () => {
+      aParams.callback();
+    });
+
     this.scene.add.existing(this);
   }
 }

@@ -4,6 +4,7 @@ interface IMainMenuButton {
   y: number;
   label: string;
   texture: string;
+  callback: () => void;
 }
 
 export { IMainMenuButton };
