@@ -26,6 +26,7 @@ export class MainMenu extends Phaser.Scene {
   logo: any;
   gradientTop: Image;
   gradientBottom: Image;
+  versionLabel: Text;
   version: Text;
 
   constructor() {
@@ -80,15 +81,24 @@ export class MainMenu extends Phaser.Scene {
       y: 0,
       texture: 'gradient',
     });
-    this.version = new Text({
+    this.versionLabel = new Text({
       scene: this,
       x: 30,
       y: height - 130,
-      text: `version: v${GameConfig.version}`,
+      text: `version`,
+      fontSize: '25px',
+      color: 'white',
+      fontFamily: 'mainFontB',
+    });
+    this.versionLabel.setOrigin(0, 0);
+    this.version = new Text({
+      scene: this,
+      x: 30 + this.versionLabel.getBounds().width + 35,
+      y: this.versionLabel.y + 15,
+      text: `${GameConfig.version}`,
       fontSize: '25px',
       color: 'white',
     });
-    this.version.setOrigin(0, 0);
     this.gradientBottom.setOrigin(0, 0.3);
     this.gradientBottom.y = height - this.gradientBottom.height;
     this.editorButton = new MainMenuButton({
