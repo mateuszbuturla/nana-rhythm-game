@@ -5,5 +5,7 @@ export interface IText {
   text: string;
   color?: string;
   fontSize?: string;
+  fontFamily?: string;
   align?: 'left' | 'center' | 'right';
+  shadow?: boolean;
 }
