@@ -2,11 +2,17 @@ import { Text } from '../objects/basic/text';
 import { Image } from '../objects/basic/image';
 import { OptionsPanel } from '../objects/optionsPanel';
 import test from '../../../assets/logo.png';
+import playButton from '../../../assets/ui/playButton.png';
+import editorButton from '../../../assets/ui/editorButton.png';
+import settingsButton from '../../../assets/ui/settingsButton.png';
+import exitButton from '../../../assets/ui/exitButton.png';
+
+import { MainMenuButton } from '../objects/ui/mainMenuButton';
 
 export class MainMenu extends Phaser.Scene {
   logo: Image;
   optionsPanel: OptionsPanel;
-  playButton: Text;
+  playButton: MainMenuButton;
   optionsButton: Text;
 
   constructor() {
@@ -15,6 +21,10 @@ export class MainMenu extends Phaser.Scene {
 
   preload(): void {
     this.load.image('logo', test);
+    this.load.image('playButton', playButton);
+    this.load.image('editorButton', editorButton);
+    this.load.image('settingsButton', settingsButton);
+    this.load.image('exitButton', exitButton);
   }
 
   create(): void {
@@ -27,11 +37,12 @@ export class MainMenu extends Phaser.Scene {
       y: height / 3,
       texture: 'logo',
     });
-    this.playButton = new Text({
+    this.playButton = new MainMenuButton({
       scene: this,
-      x: width / 2 - 150,
-      y: height / 3 + 150,
-      text: 'Play',
+      x: 100,
+      y: 100,
+      texture: 'playButton',
+      label: 'Play',
     });
     this.playButton.setInteractive();
     this.playButton.on('pointerdown', () => {

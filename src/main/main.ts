@@ -14,16 +14,16 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     height: 1080,
     width: 1920,
-    frame: false,
-    resizable: false,
-    fullscreen: true,
+    // frame: false,
+    // resizable: false,
+    // fullscreen: true,
     webPreferences: {
       webSecurity: false,
       devTools: process.env.NODE_ENV !== 'production',
     },
   });
 
-  mainWindow.setMenu(null);
+  // mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   mainWindow
