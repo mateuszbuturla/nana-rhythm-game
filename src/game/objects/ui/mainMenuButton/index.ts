@@ -23,7 +23,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       y: 0,
       text: aParams.label,
       color: 'white',
-      fontSize: '40px',
+      fontSize: '59px',
       align: 'center',
     });
     this.add(this.buttonLabelObject);
