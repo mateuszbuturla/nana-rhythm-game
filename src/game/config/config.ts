@@ -12,7 +12,7 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
     height: 1080,
   },
   backgroundColor: 0x3a404d,
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   parent: 'game',
   scene: [MainMenu, SongSelection, GameField, ResultScene],
 };

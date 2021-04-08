@@ -8,8 +8,5 @@ export class Image extends Phaser.GameObjects.Image {
     this.scene.add.existing(this);
   }
 
-  private initSprite() {
-    this.setScale(0.5);
-    this.setOrigin(0.5, 0.5);
-  }
+  private initSprite() {}
 }

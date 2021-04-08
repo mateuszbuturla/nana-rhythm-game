@@ -4,4 +4,6 @@ export interface IText {
   y: number;
   text: string;
   color?: string;
+  fontSize?: string;
+  align?: 'left' | 'center' | 'right';
 }
