@@ -155,17 +155,6 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
 
     this.setMask(mask);
 
-    // decorations.map((decoration) => {
-    //   const newDecoration = new Image({
-    //     scene: aParams.scene,
-    //     x: decoration.x,
-    //     y: decoration.y,
-    //     texture: aParams.textureDecoration,
-    //   });
-    //   this.add(newDecoration);
-    //   this.decorations = [...this.decorations, newDecoration];
-    // });
-
     for (let i = 0; i < 50; i++) {
       const x =
         Math.random() * this.getBounds().width - this.getBounds().width / 2;
