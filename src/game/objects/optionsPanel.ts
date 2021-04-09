@@ -127,6 +127,10 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   }
 
   showPanel() {
+    if (this.isShow) {
+      return;
+    }
+
     this.isShow = true;
     const showAnimation = this.scene.tweens.createTimeline();
 
@@ -141,6 +145,10 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   }
 
   hidePanel() {
+    if (!this.isShow) {
+      return;
+    }
+
     this.isShow = false;
     const hideAnimation = this.scene.tweens.createTimeline();
 
