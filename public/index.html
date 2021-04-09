@@ -3,15 +3,47 @@
   <head>
     <meta charset="utf-8" />
     <title>NaNa rhythm game</title>
-    <style>
+    <style media="screen" type="text/css">
       * {
         margin: 0;
         padding: 0;
+      }
+      @font-face {
+        font-family: mainFontEL;
+        src: url('../assets/fonts/Poppins-ExtraLight.ttf');
+        font-weight: 200;
+        font-weight: lighter;
+      }
+      @font-face {
+        font-family: mainFontB;
+        src: url('../assets/fonts//Poppins-Bold.ttf');
+        font-weight: 600;
+        font-weight: bold;
       }
     </style>
   </head>
 
   <body>
+    <div
+      style="
+        font-family: mainFontEL;
+        position: absolute;
+        left: -1000px;
+        visibility: hidden;
+      "
+    >
+      .
+    </div>
+    <div
+      style="
+        font-family: mainFontB;
+        position: absolute;
+        left: -1000px;
+        visibility: hidden;
+      "
+    >
+      .
+    </div>
     <div id="app" class="app"></div>
   </body>
 </html>
