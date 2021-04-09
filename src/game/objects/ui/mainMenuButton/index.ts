@@ -1,3 +1,4 @@
+import { easeOutBounce } from './../../../utils/eases';
 import { IMainMenuButton } from '../../../interfaces/buttons.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
@@ -139,6 +140,8 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.on('pointerdown', () => {
       aParams.callback();
     });
+    this.on('pointerover', this.hover);
+    this.on('pointerout', this.unHover);
 
     let maskShape = this.scene.make.graphics({ fillStroke: 0xffffff });
     maskShape.beginPath();
@@ -185,6 +188,34 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.add(this.buttonLabelObject);
 
     this.scene.add.existing(this);
+  }
+
+  hover(): void {
+    this.setDepth(1);
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      targets: this,
+      scale: 1.2,
+      ease: easeOutBounce,
+      duration: 1000,
+    });
+
+    showAnimation.play();
+  }
+
+  unHover(): void {
+    this.setDepth(0);
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      targets: this,
+      scale: 1,
+      ease: easeOutBounce,
+      duration: 1000,
+    });
+
+    showAnimation.play();
   }
 
   update() {
