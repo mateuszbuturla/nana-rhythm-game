@@ -9,7 +9,6 @@ import { getObjectBottomEdgePosition } from '../helpers/getObjectBottomEdgePosit
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
   optionsHeader: Text;
-  closeButton: Text;
   isShow: boolean = false;
   userConfig: UserConfig;
   config: IIserConfig;
@@ -17,6 +16,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   showPerfectHitInput: CheckBox;
   hitPositionInput: SliderInput;
   inGameLabel: Text;
+  escIsPressed: any;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -101,23 +101,15 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       value: this.config.hitPosition,
     });
 
-    this.closeButton = new Text({
-      scene: this.scene,
-      x: 600,
-      y: 50,
-      text: 'Back',
-      color: 'white',
-    });
-    this.closeButton.setInteractive();
-    this.closeButton.on('pointerdown', () => this.handleClose());
-
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.inGameLabel);
-    this.add(this.closeButton);
     this.add(this.showNoteAccuracyInput);
     this.add(this.showPerfectHitInput);
     this.add(this.hitPositionInput);
+    this.escIsPressed = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.ESC,
+    );
   }
 
   private handleClose(): void {
@@ -131,10 +123,18 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   }
 
   showPanel() {
+    this.isShow = true;
     this.setPosition(0, 0);
   }
 
   hidePanel() {
+    this.isShow = false;
     this.setPosition(0, -this.scene.sys.game.canvas.height);
+  }
+
+  update(): void {
+    if (this.escIsPressed.isDown && this.isShow) {
+      this.hidePanel();
+    }
   }
 }
