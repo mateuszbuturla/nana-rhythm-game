@@ -142,5 +142,6 @@ export class MainMenu extends Phaser.Scene {
     this.editorButton.update();
     this.settingsButton.update();
     this.exitButton.update();
+    this.optionsPanel.update();
   }
 }
