@@ -1,3 +1,4 @@
+import { easeOutBounce } from './../../../utils/eases';
 import { IMainMenuButton } from '../../../interfaces/buttons.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
@@ -113,7 +114,6 @@ const decorations = [
 export class MainMenuButton extends Phaser.GameObjects.Container {
   buttonLabelObject: Text;
   buttonBackgroundObject: Image;
-  timeline: any;
   decorations: Image[] = [];
   decorationsData: any[] = [];
 
@@ -140,6 +140,8 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.on('pointerdown', () => {
       aParams.callback();
     });
+    this.on('pointerover', this.hover);
+    this.on('pointerout', this.unHover);
 
     let maskShape = this.scene.make.graphics({ fillStroke: 0xffffff });
     maskShape.beginPath();
@@ -172,14 +174,6 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       this.decorationsData = [...this.decorationsData, { x, y, speed }];
     }
 
-    this.timeline = this.scene.tweens.timeline({
-      onComplete: () => {
-        this.timeline.play();
-      },
-    });
-
-    this.timeline.play();
-
     this.buttonLabelObject = new Text({
       scene: aParams.scene,
       x: 0,
@@ -194,6 +188,34 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.add(this.buttonLabelObject);
 
     this.scene.add.existing(this);
+  }
+
+  hover(): void {
+    this.setDepth(1);
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      targets: this,
+      scale: 1.2,
+      ease: easeOutBounce,
+      duration: 1000,
+    });
+
+    showAnimation.play();
+  }
+
+  unHover(): void {
+    this.setDepth(0);
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      targets: this,
+      scale: 1,
+      ease: easeOutBounce,
+      duration: 1000,
+    });
+
+    showAnimation.play();
   }
 
   update() {
