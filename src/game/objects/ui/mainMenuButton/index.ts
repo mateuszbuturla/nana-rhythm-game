@@ -113,7 +113,6 @@ const decorations = [
 export class MainMenuButton extends Phaser.GameObjects.Container {
   buttonLabelObject: Text;
   buttonBackgroundObject: Image;
-  timeline: any;
   decorations: Image[] = [];
   decorationsData: any[] = [];
 
@@ -171,14 +170,6 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       this.decorations = [...this.decorations, newDecoration];
       this.decorationsData = [...this.decorationsData, { x, y, speed }];
     }
-
-    this.timeline = this.scene.tweens.timeline({
-      onComplete: () => {
-        this.timeline.play();
-      },
-    });
-
-    this.timeline.play();
 
     this.buttonLabelObject = new Text({
       scene: aParams.scene,
