@@ -13,7 +13,20 @@ export class Text extends Phaser.GameObjects.Text {
   }
 
   private initText(aParams: IText): void {
-    this.setOrigin(0.5);
+    switch (aParams.align) {
+      case 'left':
+        this.setOrigin(0);
+        break;
+      case 'center':
+        this.setOrigin(0.5);
+        break;
+      case 'right':
+        this.setOrigin(1);
+        break;
+      default:
+        this.setOrigin(0);
+        break;
+    }
     if (aParams.shadow) {
       this.setShadow(0, 3, 'rgba(0,0,0,0.3)', 6);
     }
