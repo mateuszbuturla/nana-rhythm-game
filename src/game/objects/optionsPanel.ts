@@ -5,6 +5,7 @@ import { CheckBox } from './ui/checkBox';
 import { SelectInput } from './ui/select';
 import { SliderInput } from './ui/slider';
 import { getObjectBottomEdgePosition } from '../helpers/getObjectBottomEdgePosition';
+import { easeInOutExpo } from '../utils/eases';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
@@ -17,6 +18,8 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   hitPositionInput: SliderInput;
   inGameLabel: Text;
   escIsPressed: any;
+  showAnimation: any;
+  hideAnimation: any;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -110,6 +113,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     this.escIsPressed = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.ESC,
     );
+    this.setPosition(-this.getBounds().width, 0);
   }
 
   private handleClose(): void {
@@ -124,12 +128,30 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
 
   showPanel() {
     this.isShow = true;
-    this.setPosition(0, 0);
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      targets: this,
+      x: 0,
+      ease: easeInOutExpo,
+      duration: 1000,
+    });
+
+    showAnimation.play();
   }
 
   hidePanel() {
     this.isShow = false;
-    this.setPosition(0, -this.scene.sys.game.canvas.height);
+    const hideAnimation = this.scene.tweens.createTimeline();
+
+    hideAnimation.add({
+      targets: this,
+      x: -this.getBounds().width,
+      ease: easeInOutExpo,
+      duration: 1000,
+    });
+
+    hideAnimation.play();
   }
 
   update(): void {
