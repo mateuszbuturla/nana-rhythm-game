@@ -6,14 +6,10 @@ import {
   INotesAccuracyArray,
 } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
-import {
-  calculateNoteAccuracy,
-  calculateOveralAccuracy,
-} from '../core/accuracy';
+import { calculateNoteAccuracy } from '../core/accuracy';
 import { Text } from '../objects/basic/text';
-import { calculateCurrentScore, Score } from '../core/score';
-import store from '../redux/store';
-import { addHittedNote, getHittedNotes, setCombo } from '../redux/mapResult';
+import { Score } from '../core/score';
+import { getHittedNotes } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
 import { IMap } from '../interfaces/map.interface';
 import hitNoteTop from '../../../assets/skin/hitNoteTop.png';
@@ -23,7 +19,6 @@ import hitPositionTop from '../../../assets/skin/hitPositionTop.png';
 import { getUserConfig } from '../redux/userConfig';
 import background from '../../../assets/backgrounds/bg.png';
 import gradient from '../../../assets/ui/gradient.png';
-import { Image } from '../objects/basic/image';
 import { GameBackground } from '../objects/game/gameBackground';
 import { ScoreBar } from '../objects/game/scoreBar';
 
@@ -59,8 +54,6 @@ export class GameField extends Phaser.Scene {
   }
 
   create(): void {
-    const width = this.sys.game.canvas.width;
-    const height = this.sys.game.canvas.height;
     this.keyboard = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
@@ -167,8 +160,6 @@ export class GameField extends Phaser.Scene {
         this.notesAccuracy.splice(index, 1);
       }
     });
-    // this.accuracyText.text = `${calculateOveralAccuracy(getHittedNotes())}%`;
-    // this.scoreText.text = calculateCurrentScore(getHittedNotes());
     if (
       Date.now() - this.startTime >
       this.currentMap.notes[this.currentMap.notes.length - 1].delay +
