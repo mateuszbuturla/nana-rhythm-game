@@ -7,6 +7,7 @@ import {
 } from '../redux/currentMap';
 import { Score } from '../core/score';
 import { IMap } from '../interfaces/map.interface';
+import { SceneTransition } from '../objects/ui/sceneTransition';
 
 const songs: IMap[] = [
   {
@@ -110,6 +111,7 @@ export class SongSelection extends Phaser.Scene {
   songsObject: Phaser.GameObjects.Container[] = [];
   selectedSongMaxCombo: Text;
   score: Score;
+  transition: SceneTransition;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -200,5 +202,10 @@ export class SongSelection extends Phaser.Scene {
       y: 230,
       text: `max combo: ${this.score.getMaxCombo(songs[getCurrentMapId()])}`,
     });
+    this.transition = new SceneTransition({
+      scene: this,
+      isShow: true,
+    });
+    this.transition.show();
   }
 }
