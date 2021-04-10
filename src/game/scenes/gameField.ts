@@ -24,6 +24,7 @@ import { getUserConfig } from '../redux/userConfig';
 import background from '../../../assets/backgrounds/bg.png';
 import gradient from '../../../assets/ui/gradient.png';
 import { Image } from '../objects/basic/image';
+import { GameBackground } from '../objects/game/gameBackground';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;
@@ -38,10 +39,7 @@ export class GameField extends Phaser.Scene {
   currentMap: IMap;
   score: Score;
   comboObject: Text;
-  background: any;
-  backgroundDim: any;
-  gradientTop: Image;
-  gradientBottom: Image;
+  gameBackground: GameBackground;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -67,28 +65,7 @@ export class GameField extends Phaser.Scene {
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
-    this.background = this.add.sprite(width / 2, height / 2, 'background');
-    this.background.setDisplaySize(width, height);
-    this.backgroundDim = this.add.rectangle(0, 0, width, height, 0x000000);
-    this.backgroundDim.setOrigin(0);
-    this.backgroundDim.alpha = 0.9;
-    this.gradientTop = new Image({
-      scene: this,
-      x: 0,
-      y: 0,
-      texture: 'gradient',
-    });
-    this.gradientTop.setOrigin(1, 0);
-    this.gradientTop.y = this.gradientTop.height;
-    this.gradientTop.angle = 180;
-    this.gradientBottom = new Image({
-      scene: this,
-      x: 0,
-      y: 0,
-      texture: 'gradient',
-    });
-    this.gradientBottom.setOrigin(0, 0.3);
-    this.gradientBottom.y = height - this.gradientBottom.height;
+    this.gameBackground = new GameBackground(this, 'background');
     const newHitPositionUp = new HitPosition({
       scene: this,
       x: this.hitPosition,
