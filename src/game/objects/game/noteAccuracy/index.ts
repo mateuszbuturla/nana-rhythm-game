@@ -10,7 +10,7 @@ export class NoteAccuracy extends Phaser.GameObjects.Text {
   constructor(aParams: INoteAccuracy) {
     super(aParams.scene, aParams.x, aParams.y, aParams.text, {
       color: aParams.color,
-      fontSize: '20px',
+      fontSize: '45px',
     });
 
     this.initText();

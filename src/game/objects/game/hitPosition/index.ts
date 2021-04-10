@@ -1,14 +1,32 @@
-import { IImageConstructor } from '../../../interfaces/image.interface';
+import { IHitPosition } from '../../../interfaces/hitPosition.interface';
+import { Image } from '../../basic/image';
 
-export class HitPosition extends Phaser.GameObjects.Image {
-  constructor(aParams: IImageConstructor) {
-    super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
+export class HitPosition extends Phaser.GameObjects.Container {
+  top: Image;
+  bottom: Image;
+  hitPositionDistance: number;
 
-    this.initSprite();
+  constructor(aParams: IHitPosition) {
+    super(aParams.scene, 0, 0);
+
+    this.hitPositionDistance = aParams.hitPositionDistance;
+    this.initHitPosition();
     this.scene.add.existing(this);
   }
 
-  private initSprite(): void {
-    // this.setScale(0.8);
+  initHitPosition(): void {
+    this.top = new Image({
+      scene: this.scene,
+      x: this.hitPositionDistance,
+      y: 150,
+      texture: 'hitPositionTop',
+    });
+
+    this.bottom = new Image({
+      scene: this.scene,
+      x: this.hitPositionDistance,
+      y: 450,
+      texture: 'hitPositionBottom',
+    });
   }
 }
