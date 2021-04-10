@@ -134,6 +134,7 @@ export class GameField extends Phaser.Scene {
         this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
         this.score.addHittedNotes(ENoteAccuracy.Miss);
         this.score.breakCombo();
+        this.scoreBar.update();
       }
     });
   }
