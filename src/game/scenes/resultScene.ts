@@ -9,6 +9,9 @@ import {
 import { ResultLabelValue } from '../objects/ui/resultLabelValue';
 import { ENoteAccuracy } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
+import { UiBackground } from '../objects/ui/uiBackground';
+import background from '../../../assets/backgrounds/bg.png';
+import gradient from '../../../assets/ui/gradient.png';
 
 export class ResultScene extends Phaser.Scene {
   text: Text;
@@ -16,8 +19,8 @@ export class ResultScene extends Phaser.Scene {
   comboObject: Text;
   maxComboObject: Text;
 
+  background: UiBackground;
   mark: Text;
-
   score: ResultLabelValue;
   accuracy: ResultLabelValue;
   perfect: ResultLabelValue;
@@ -29,12 +32,20 @@ export class ResultScene extends Phaser.Scene {
     super({ key: 'ResultScene' });
   }
 
-  preload(): void {}
+  preload(): void {
+    this.load.image('background', background);
+    this.load.image('gradient', gradient);
+  }
 
   create(): void {
     this.preload();
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
+
+    this.background = new UiBackground({
+      scene: this,
+      background: 'background',
+    });
 
     this.mark = new Text({
       scene: this,
@@ -136,7 +147,7 @@ export class ResultScene extends Phaser.Scene {
       x: width / 2 + 600,
       y: height / 3 + 400,
       label: 'Max combo',
-      value: `${getCombo().maxCombo}`,
+      value: `${getCombo().maxCombo}x`,
       color: 'white',
     });
 
