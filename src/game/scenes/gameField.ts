@@ -31,7 +31,7 @@ export class GameField extends Phaser.Scene {
   keyboard: any;
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
-  hitPosition: number;
+  hitPositionDistance: number;
   startTime: number = 0;
   notesAccuracy: INotesAccuracyArray[] = [];
   breakAfterLastNote: number = 3000;
@@ -39,6 +39,7 @@ export class GameField extends Phaser.Scene {
   score: Score;
   gameBackground: GameBackground;
   scoreBar: ScoreBar;
+  hitPosition: HitPosition;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -54,7 +55,7 @@ export class GameField extends Phaser.Scene {
 
     this.currentMap = getCurrentMap();
     this.score = new Score();
-    this.hitPosition = getUserConfig().hitPosition;
+    this.hitPositionDistance = getUserConfig().hitPosition;
   }
 
   create(): void {
@@ -65,20 +66,9 @@ export class GameField extends Phaser.Scene {
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
     this.gameBackground = new GameBackground(this, 'background');
-    const newHitPositionUp = new HitPosition({
-      scene: this,
-      x: this.hitPosition,
-      y: 150,
-      texture: 'hitPositionTop',
-    });
     this.renderNotes();
     this.startTime = Date.now();
-    const newHitPositionDown = new HitPosition({
-      scene: this,
-      x: this.hitPosition,
-      y: 450,
-      texture: 'hitPositionBottom',
-    });
+    this.hitPosition = new HitPosition(this, this.hitPositionDistance);
     this.scoreBar = new ScoreBar(this, this.score);
   }
 
@@ -93,7 +83,7 @@ export class GameField extends Phaser.Scene {
 
     const noteAccuracy = new NoteAccuracy({
       scene: this,
-      x: this.hitPosition,
+      x: this.hitPositionDistance,
       y: direction === 'up' ? 150 : 450,
       text: noteAccuracyConfig.accuracy[type].text,
       color: noteAccuracyConfig.accuracy[type].color,
@@ -156,7 +146,7 @@ export class GameField extends Phaser.Scene {
         scene: this,
         x:
           (note.delay / 1000) * (60 * this.scrollSpeed) +
-          this.hitPosition +
+          this.hitPositionDistance +
           this.game.renderer.width,
         y: note.direction === 'up' ? 150 : 450,
         texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
