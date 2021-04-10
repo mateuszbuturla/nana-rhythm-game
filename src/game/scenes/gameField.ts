@@ -25,6 +25,7 @@ import background from '../../../assets/backgrounds/bg.png';
 import gradient from '../../../assets/ui/gradient.png';
 import { Image } from '../objects/basic/image';
 import { GameBackground } from '../objects/game/gameBackground';
+import { ScoreBar } from '../objects/game/scoreBar';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;
@@ -33,13 +34,11 @@ export class GameField extends Phaser.Scene {
   hitPosition: number;
   startTime: number = 0;
   notesAccuracy: INotesAccuracyArray[] = [];
-  accuracyText: any;
-  scoreText: any;
   breakAfterLastNote: number = 3000;
   currentMap: IMap;
   score: Score;
-  comboObject: Text;
   gameBackground: GameBackground;
+  scoreBar: ScoreBar;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -80,37 +79,7 @@ export class GameField extends Phaser.Scene {
       y: 450,
       texture: 'hitPositionBottom',
     });
-    this.scoreText = new Text({
-      scene: this,
-      x: this.game.canvas.width / 2,
-      y: this.game.canvas.height - 160,
-      text: '0',
-      fontSize: '86px',
-      color: 'white',
-      align: 'center',
-    });
-    this.accuracyText = new Text({
-      scene: this,
-      x: (this.game.canvas.width / 4) * 3,
-      y: this.game.canvas.height - 160,
-      text: '100%',
-      fontSize: '86px',
-      color: 'white',
-      align: 'center',
-    });
-    this.comboObject = new Text({
-      scene: this,
-      x: this.game.canvas.width / 4,
-      y: this.game.canvas.height - 160,
-      text: `${this.score.getCombo().combo}x`,
-      fontSize: '86px',
-      color: 'white',
-      align: 'center',
-    });
-  }
-
-  updateScoreUi() {
-    this.comboObject.text = `${this.score.getCombo().combo}x`;
+    this.scoreBar = new ScoreBar(this, this.score);
   }
 
   createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
@@ -155,7 +124,7 @@ export class GameField extends Phaser.Scene {
               this.createNoteAccuracy('up', accuracy);
               this.score.addHittedNotes(accuracy);
               this.score.increaseCombo();
-              this.updateScoreUi();
+              this.scoreBar.update();
             }
             break;
           case 'down':
@@ -164,7 +133,7 @@ export class GameField extends Phaser.Scene {
               this.createNoteAccuracy('down', accuracy);
               this.score.addHittedNotes(accuracy);
               this.score.increaseCombo();
-              this.updateScoreUi();
+              this.scoreBar.update();
             }
             break;
           default:
@@ -208,8 +177,8 @@ export class GameField extends Phaser.Scene {
         this.notesAccuracy.splice(index, 1);
       }
     });
-    this.accuracyText.text = `${calculateOveralAccuracy(getHittedNotes())}%`;
-    this.scoreText.text = calculateCurrentScore(getHittedNotes());
+    // this.accuracyText.text = `${calculateOveralAccuracy(getHittedNotes())}%`;
+    // this.scoreText.text = calculateCurrentScore(getHittedNotes());
     if (
       Date.now() - this.startTime >
       this.currentMap.notes[this.currentMap.notes.length - 1].delay +
