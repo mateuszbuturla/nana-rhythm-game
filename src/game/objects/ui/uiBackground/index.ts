@@ -1,4 +1,4 @@
-import { IGameBackground } from '../../../interfaces/gameBackground.interface';
+import { IUiBackground } from '../../../interfaces/uiBackground.interface';
 import { Image } from '../../basic/image';
 
 export class UiBackground extends Phaser.GameObjects.Container {
@@ -7,7 +7,7 @@ export class UiBackground extends Phaser.GameObjects.Container {
   gradientTop: Image;
   gradientBottom: Image;
 
-  constructor(aParams: IGameBackground) {
+  constructor(aParams: IUiBackground) {
     super(aParams.scene, 0, 0);
 
     this.initGameBackground(aParams.background);

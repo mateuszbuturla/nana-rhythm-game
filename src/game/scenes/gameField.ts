@@ -18,7 +18,7 @@ import hitPositionTop from '../../../assets/skin/hitPositionTop.png';
 import { getUserConfig } from '../redux/userConfig';
 import background from '../../../assets/backgrounds/bg.png';
 import gradient from '../../../assets/ui/gradient.png';
-import { GameBackground } from '../objects/game/gameBackground';
+import { UiBackground } from '../objects/ui/uiBackground';
 import { ScoreBar } from '../objects/game/scoreBar';
 
 export class GameField extends Phaser.Scene {
@@ -31,7 +31,7 @@ export class GameField extends Phaser.Scene {
   breakAfterLastNote: number = 3000;
   currentMap: IMap;
   score: Score;
-  gameBackground: GameBackground;
+  gameBackground: UiBackground;
   scoreBar: ScoreBar;
   hitPosition: HitPosition;
 
@@ -58,7 +58,7 @@ export class GameField extends Phaser.Scene {
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
-    this.gameBackground = new GameBackground({
+    this.gameBackground = new UiBackground({
       scene: this,
       background: 'background',
     });

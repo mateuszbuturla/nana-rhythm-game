@@ -3,7 +3,6 @@ import { calculateOveralAccuracy } from '../core/accuracy';
 import { getCombo, getHittedNotes } from '../redux/mapResult';
 import {
   calculateCurrentScore,
-  getAllTypesAndCoundHittedNotes,
   getCountOfHittedNotesFromType,
 } from '../core/score';
 import { ResultLabelValue } from '../objects/ui/resultLabelValue';
@@ -14,11 +13,6 @@ import background from '../../../assets/backgrounds/bg.png';
 import gradient from '../../../assets/ui/gradient.png';
 
 export class ResultScene extends Phaser.Scene {
-  text: Text;
-  notesTypeAndCount: Text[] = [];
-  comboObject: Text;
-  maxComboObject: Text;
-
   background: UiBackground;
   mark: Text;
   score: ResultLabelValue;
@@ -27,6 +21,7 @@ export class ResultScene extends Phaser.Scene {
   good: ResultLabelValue;
   bad: ResultLabelValue;
   miss: ResultLabelValue;
+  maxCombo: ResultLabelValue;
 
   constructor() {
     super({ key: 'ResultScene' });
@@ -57,25 +52,6 @@ export class ResultScene extends Phaser.Scene {
       align: 'center',
       fontFamily: 'mainFontB',
     });
-
-    // this.scoreLabel = new Text({
-    //   scene: this,
-    //   x: width / 2 - 300,
-    //   y: height / 3 + 200,
-    //   text: `Score`,
-    //   color: 'white',
-    //   fontSize: '44px',
-    //   align: 'center',
-    // });
-    // this.score = new Text({
-    //   scene: this,
-    //   x: width / 2 - 300,
-    //   y: height / 3 + 300,
-    //   text: `${calculateCurrentScore(getHittedNotes())}`,
-    //   color: 'white',
-    //   fontSize: '95px',
-    //   align: 'center',
-    // });
 
     this.score = new ResultLabelValue({
       scene: this,
@@ -142,7 +118,7 @@ export class ResultScene extends Phaser.Scene {
       color: noteAccuracyConfig.accuracy.Miss.color,
     });
 
-    this.miss = new ResultLabelValue({
+    this.maxCombo = new ResultLabelValue({
       scene: this,
       x: width / 2 + 600,
       y: height / 3 + 400,
@@ -150,39 +126,5 @@ export class ResultScene extends Phaser.Scene {
       value: `${getCombo().maxCombo}x`,
       color: 'white',
     });
-
-    // this.text = new Text({
-    //   scene: this,
-    //   x: 100,
-    //   y: 50,
-    //   text: 'Result',
-    // });
-    // this.accuracy = new Text({
-    //   scene: this,
-    //   x: 100,
-    //   y: 100,sdsdsdsd
-    //   text: `Accuracy: ${calculateOveralAccuracy(getHittedNotes())}%`,
-    // });
-    // // this.comboObject = new Text({
-    //   scene: this,
-    //   x: 300,
-    //   y: 100,
-    //   text: `combo: ${getCombo().combo}`,
-    // });
-    // this.maxComboObject = new Text({
-    //   scene: this,
-    //   x: 300,
-    //   y: 150,
-    //   text: `max combo: ${getCombo().maxCombo}`,
-    // });
-    // getAllTypesAndCoundHittedNotes(getHittedNotes()).map((note, index) => {
-    //   const newNoteAndCount = new Text({
-    //     scene: this,
-    //     x: 100,
-    //     y: 200 + index * 50,
-    //     text: `${note.noteType}: ${note.count}`,
-    //   });
-    //   this.notesTypeAndCount = [...this.notesTypeAndCount, newNoteAndCount];
-    // });
   }
 }
