@@ -93,8 +93,8 @@ export class MainMenu extends Phaser.Scene {
     this.versionLabel.setOrigin(0, 0);
     this.version = new Text({
       scene: this,
-      x: 30 + this.versionLabel.getBounds().width + 35,
-      y: this.versionLabel.y + 15,
+      x: 30 + this.versionLabel.getBounds().width + 10,
+      y: this.versionLabel.y,
       text: `${GameConfig.version}`,
       fontSize: '25px',
       color: 'white',
