@@ -12,6 +12,7 @@ import editorButtonDecoration from '../../../assets/ui/editorButtonDecoration.pn
 import settingsButtonDecoration from '../../../assets/ui/settingsButtonDecoration.png';
 import exitButtonDecoration from '../../../assets/ui/exitButtonDecoration.png';
 import { GameConfig } from '../config/config';
+import { SceneTransition } from '../objects/ui/sceneTransition';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
 
@@ -28,6 +29,7 @@ export class MainMenu extends Phaser.Scene {
   gradientBottom: Image;
   versionLabel: Text;
   version: Text;
+  transition: SceneTransition;
 
   constructor() {
     super({ key: 'MainMenu' });
@@ -72,7 +74,9 @@ export class MainMenu extends Phaser.Scene {
       textureDecoration: 'playButtonDecoration',
       label: 'Play',
       callback: () => {
-        this.scene.start('SongSelection');
+        this.transition.hide(() => {
+          this.scene.start('SongSelection');
+        });
       },
     });
     this.gradientBottom = new Image({
@@ -135,6 +139,12 @@ export class MainMenu extends Phaser.Scene {
 
     this.optionsPanel = new OptionsPanel(this);
     this.optionsPanel.hidePanel();
+
+    this.transition = new SceneTransition({
+      scene: this,
+      isShow: true,
+    });
+    this.transition.show();
   }
 
   update() {
