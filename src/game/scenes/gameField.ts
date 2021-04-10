@@ -16,9 +16,14 @@ import store from '../redux/store';
 import { addHittedNote, getHittedNotes, setCombo } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
 import { IMap } from '../interfaces/map.interface';
-import hitNote from '../../../assets/skin/hitNote.png';
-import hitPosition from '../../../assets/skin/hitPosition.png';
+import hitNoteTop from '../../../assets/skin/hitNoteTop.png';
+import hitNoteBottom from '../../../assets/skin/hitNoteBottom.png';
+import hitPositionBottom from '../../../assets/skin/hitPositionBottom.png';
+import hitPositionTop from '../../../assets/skin/hitPositionTop.png';
 import { getUserConfig } from '../redux/userConfig';
+import background from '../../../assets/backgrounds/bg.png';
+import gradient from '../../../assets/ui/gradient.png';
+import { Image } from '../objects/basic/image';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;
@@ -33,15 +38,22 @@ export class GameField extends Phaser.Scene {
   currentMap: IMap;
   score: Score;
   comboObject: Text;
-  maxComboObject: Text;
+  background: any;
+  backgroundDim: any;
+  gradientTop: Image;
+  gradientBottom: Image;
 
   constructor() {
     super({ key: 'MainScene' });
   }
 
   preload(): void {
-    this.load.image('hitNote', hitNote);
-    this.load.image('hitPosition', hitPosition);
+    this.load.image('background', background);
+    this.load.image('gradient', gradient);
+    this.load.image('hitNoteTop', hitNoteTop);
+    this.load.image('hitNoteBottom', hitNoteBottom);
+    this.load.image('hitPositionTop', hitPositionTop);
+    this.load.image('hitPositionBottom', hitPositionBottom);
 
     this.currentMap = getCurrentMap();
     this.score = new Score();
@@ -49,51 +61,79 @@ export class GameField extends Phaser.Scene {
   }
 
   create(): void {
+    const width = this.sys.game.canvas.width;
+    const height = this.sys.game.canvas.height;
     this.keyboard = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
-    this.renderNotes();
-    this.startTime = Date.now();
+    this.background = this.add.sprite(width / 2, height / 2, 'background');
+    this.background.setDisplaySize(width, height);
+    this.backgroundDim = this.add.rectangle(0, 0, width, height, 0x000000);
+    this.backgroundDim.setOrigin(0);
+    this.backgroundDim.alpha = 0.9;
+    this.gradientTop = new Image({
+      scene: this,
+      x: 0,
+      y: 0,
+      texture: 'gradient',
+    });
+    this.gradientTop.setOrigin(1, 0);
+    this.gradientTop.y = this.gradientTop.height;
+    this.gradientTop.angle = 180;
+    this.gradientBottom = new Image({
+      scene: this,
+      x: 0,
+      y: 0,
+      texture: 'gradient',
+    });
+    this.gradientBottom.setOrigin(0, 0.3);
+    this.gradientBottom.y = height - this.gradientBottom.height;
     const newHitPositionUp = new HitPosition({
       scene: this,
       x: this.hitPosition,
       y: 150,
+      texture: 'hitPositionTop',
     });
+    this.renderNotes();
+    this.startTime = Date.now();
     const newHitPositionDown = new HitPosition({
       scene: this,
       x: this.hitPosition,
-      y: 250,
+      y: 450,
+      texture: 'hitPositionBottom',
     });
     this.scoreText = new Text({
       scene: this,
-      x: 500,
-      y: 50,
+      x: this.game.canvas.width / 2,
+      y: this.game.canvas.height - 160,
       text: '0',
+      fontSize: '86px',
+      color: 'white',
+      align: 'center',
     });
     this.accuracyText = new Text({
       scene: this,
-      x: 500,
-      y: 75,
-      text: '0',
+      x: (this.game.canvas.width / 4) * 3,
+      y: this.game.canvas.height - 160,
+      text: '100%',
+      fontSize: '86px',
+      color: 'white',
+      align: 'center',
     });
     this.comboObject = new Text({
       scene: this,
-      x: 100,
-      y: 400,
-      text: `combo ${this.score.getCombo().combo}`,
-    });
-    this.maxComboObject = new Text({
-      scene: this,
-      x: 100,
-      y: 450,
-      text: `max combo ${this.score.getCombo().maxCombo}`,
+      x: this.game.canvas.width / 4,
+      y: this.game.canvas.height - 160,
+      text: `${this.score.getCombo().combo}x`,
+      fontSize: '86px',
+      color: 'white',
+      align: 'center',
     });
   }
 
   updateScoreUi() {
-    this.comboObject.text = `combo: ${this.score.getCombo().combo}`;
-    this.maxComboObject.text = `max combo: ${this.score.getCombo().maxCombo}`;
+    this.comboObject.text = `${this.score.getCombo().combo}x`;
   }
 
   createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
@@ -108,7 +148,7 @@ export class GameField extends Phaser.Scene {
     const noteAccuracy = new NoteAccuracy({
       scene: this,
       x: this.hitPosition,
-      y: direction === 'up' ? 150 : 250,
+      y: direction === 'up' ? 150 : 450,
       text: noteAccuracyConfig.accuracy[type].text,
       color: noteAccuracyConfig.accuracy[type].color,
     });
@@ -172,8 +212,8 @@ export class GameField extends Phaser.Scene {
           (note.delay / 1000) * (60 * this.scrollSpeed) +
           this.hitPosition +
           this.game.renderer.width,
-        y: note.direction === 'up' ? 150 : 250,
-        texture: 'hitNote',
+        y: note.direction === 'up' ? 150 : 450,
+        texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
       });
       this.notesObject = [...this.notesObject, newNote];
     });

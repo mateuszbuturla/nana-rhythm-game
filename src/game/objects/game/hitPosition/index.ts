@@ -1,14 +1,14 @@
-import { IImageConstructorNoTexture } from '../../../interfaces/imageNoTexture.interface';
+import { IImageConstructor } from '../../../interfaces/image.interface';
 
 export class HitPosition extends Phaser.GameObjects.Image {
-  constructor(aParams: IImageConstructorNoTexture) {
-    super(aParams.scene, aParams.x, aParams.y, 'hitPosition', aParams.frame);
+  constructor(aParams: IImageConstructor) {
+    super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
 
     this.initSprite();
     this.scene.add.existing(this);
   }
 
   private initSprite(): void {
-    this.setScale(0.8);
+    // this.setScale(0.8);
   }
 }
