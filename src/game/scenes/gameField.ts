@@ -7,7 +7,6 @@ import {
 } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
 import { calculateNoteAccuracy } from '../core/accuracy';
-import { Text } from '../objects/basic/text';
 import { Score } from '../core/score';
 import { getHittedNotes } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
