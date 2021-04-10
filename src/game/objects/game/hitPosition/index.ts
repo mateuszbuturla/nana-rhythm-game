@@ -1,3 +1,4 @@
+import { IHitPosition } from '../../../interfaces/hitPosition.interface';
 import { Image } from '../../basic/image';
 
 export class HitPosition extends Phaser.GameObjects.Container {
@@ -5,10 +6,10 @@ export class HitPosition extends Phaser.GameObjects.Container {
   bottom: Image;
   hitPositionDistance: number;
 
-  constructor(scene: Phaser.Scene, hitPositionDistance: number) {
-    super(scene, 0, 0);
+  constructor(aParams: IHitPosition) {
+    super(aParams.scene, 0, 0);
 
-    this.hitPositionDistance = hitPositionDistance;
+    this.hitPositionDistance = aParams.hitPositionDistance;
     this.initHitPosition();
     this.scene.add.existing(this);
   }

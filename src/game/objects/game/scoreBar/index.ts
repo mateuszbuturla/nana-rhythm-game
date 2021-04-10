@@ -1,3 +1,4 @@
+import { IScoreBar } from '../../../interfaces/scoreBar.interface';
 import { Text } from '../../basic/text';
 import { calculateCurrentScore, Score } from '../../../core/score';
 import { getHittedNotes } from '../../../redux/mapResult';

@@ -1,3 +1,4 @@
+import { IGameBackground } from '../../../interfaces/gameBackground.interface';
 import { Image } from '../../basic/image';
 
 export class GameBackground extends Phaser.GameObjects.Container {
@@ -8,10 +9,10 @@ export class GameBackground extends Phaser.GameObjects.Container {
   gradientTop: Image;
   gradientBottom: Image;
 
-  constructor(scene: Phaser.Scene, background: string) {
-    super(scene, 0, 0);
+  constructor(aParams: IGameBackground) {
+    super(aParams.scene, 0, 0);
 
-    this.initGameBackground(background);
+    this.initGameBackground(aParams.background);
     this.scene.add.existing(this);
   }
 

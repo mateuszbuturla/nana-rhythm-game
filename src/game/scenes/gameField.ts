@@ -53,14 +53,20 @@ export class GameField extends Phaser.Scene {
   }
 
   create(): void {
+    this.startTime = Date.now();
     this.keyboard = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
-    this.gameBackground = new GameBackground(this, 'background');
+    this.gameBackground = new GameBackground({
+      scene: this,
+      background: 'background',
+    });
     this.renderNotes();
-    this.startTime = Date.now();
-    this.hitPosition = new HitPosition(this, this.hitPositionDistance);
+    this.hitPosition = new HitPosition({
+      scene: this,
+      hitPositionDistance: this.hitPositionDistance,
+    });
     this.scoreBar = new ScoreBar(this, this.score);
   }
 
