@@ -6,94 +6,68 @@ import {
   INotesAccuracyArray,
 } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
-import {
-  calculateNoteAccuracy,
-  calculateOveralAccuracy,
-} from '../core/accuracy';
-import { Text } from '../objects/basic/text';
-import { calculateCurrentScore, Score } from '../core/score';
-import store from '../redux/store';
-import { addHittedNote, getHittedNotes, setCombo } from '../redux/mapResult';
+import { calculateNoteAccuracy } from '../core/accuracy';
+import { Score } from '../core/score';
+import { getHittedNotes } from '../redux/mapResult';
 import { getCurrentMap } from '../redux/currentMap';
 import { IMap } from '../interfaces/map.interface';
-import hitNote from '../../../assets/skin/hitNote.png';
-import hitPosition from '../../../assets/skin/hitPosition.png';
+import hitNoteTop from '../../../assets/skin/hitNoteTop.png';
+import hitNoteBottom from '../../../assets/skin/hitNoteBottom.png';
+import hitPositionBottom from '../../../assets/skin/hitPositionBottom.png';
+import hitPositionTop from '../../../assets/skin/hitPositionTop.png';
 import { getUserConfig } from '../redux/userConfig';
+import background from '../../../assets/backgrounds/bg.png';
+import gradient from '../../../assets/ui/gradient.png';
+import { GameBackground } from '../objects/game/gameBackground';
+import { ScoreBar } from '../objects/game/scoreBar';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;
   notesObject: HitNote[] = [];
   scrollSpeed: number = 10;
-  hitPosition: number;
+  hitPositionDistance: number;
   startTime: number = 0;
   notesAccuracy: INotesAccuracyArray[] = [];
-  accuracyText: any;
-  scoreText: any;
   breakAfterLastNote: number = 3000;
   currentMap: IMap;
   score: Score;
-  comboObject: Text;
-  maxComboObject: Text;
+  gameBackground: GameBackground;
+  scoreBar: ScoreBar;
+  hitPosition: HitPosition;
 
   constructor() {
     super({ key: 'MainScene' });
   }
 
   preload(): void {
-    this.load.image('hitNote', hitNote);
-    this.load.image('hitPosition', hitPosition);
+    this.load.image('background', background);
+    this.load.image('gradient', gradient);
+    this.load.image('hitNoteTop', hitNoteTop);
+    this.load.image('hitNoteBottom', hitNoteBottom);
+    this.load.image('hitPositionTop', hitPositionTop);
+    this.load.image('hitPositionBottom', hitPositionBottom);
 
     this.currentMap = getCurrentMap();
     this.score = new Score();
-    this.hitPosition = getUserConfig().hitPosition;
+    this.hitPositionDistance = getUserConfig().hitPosition;
   }
 
   create(): void {
+    this.startTime = Date.now();
     this.keyboard = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
+    this.gameBackground = new GameBackground({
+      scene: this,
+      background: 'background',
+    });
     this.renderNotes();
-    this.startTime = Date.now();
-    const newHitPositionUp = new HitPosition({
+    this.hitPosition = new HitPosition({
       scene: this,
-      x: this.hitPosition,
-      y: 150,
+      hitPositionDistance: this.hitPositionDistance,
     });
-    const newHitPositionDown = new HitPosition({
-      scene: this,
-      x: this.hitPosition,
-      y: 250,
-    });
-    this.scoreText = new Text({
-      scene: this,
-      x: 500,
-      y: 50,
-      text: '0',
-    });
-    this.accuracyText = new Text({
-      scene: this,
-      x: 500,
-      y: 75,
-      text: '0',
-    });
-    this.comboObject = new Text({
-      scene: this,
-      x: 100,
-      y: 400,
-      text: `combo ${this.score.getCombo().combo}`,
-    });
-    this.maxComboObject = new Text({
-      scene: this,
-      x: 100,
-      y: 450,
-      text: `max combo ${this.score.getCombo().maxCombo}`,
-    });
-  }
-
-  updateScoreUi() {
-    this.comboObject.text = `combo: ${this.score.getCombo().combo}`;
-    this.maxComboObject.text = `max combo: ${this.score.getCombo().maxCombo}`;
+    this.scoreBar = new ScoreBar(this, this.score);
   }
 
   createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
@@ -107,8 +81,8 @@ export class GameField extends Phaser.Scene {
 
     const noteAccuracy = new NoteAccuracy({
       scene: this,
-      x: this.hitPosition,
-      y: direction === 'up' ? 150 : 250,
+      x: this.hitPositionDistance,
+      y: direction === 'up' ? 150 : 450,
       text: noteAccuracyConfig.accuracy[type].text,
       color: noteAccuracyConfig.accuracy[type].color,
     });
@@ -138,7 +112,7 @@ export class GameField extends Phaser.Scene {
               this.createNoteAccuracy('up', accuracy);
               this.score.addHittedNotes(accuracy);
               this.score.increaseCombo();
-              this.updateScoreUi();
+              this.scoreBar.update();
             }
             break;
           case 'down':
@@ -147,7 +121,7 @@ export class GameField extends Phaser.Scene {
               this.createNoteAccuracy('down', accuracy);
               this.score.addHittedNotes(accuracy);
               this.score.increaseCombo();
-              this.updateScoreUi();
+              this.scoreBar.update();
             }
             break;
           default:
@@ -170,10 +144,10 @@ export class GameField extends Phaser.Scene {
         scene: this,
         x:
           (note.delay / 1000) * (60 * this.scrollSpeed) +
-          this.hitPosition +
+          this.hitPositionDistance +
           this.game.renderer.width,
-        y: note.direction === 'up' ? 150 : 250,
-        texture: 'hitNote',
+        y: note.direction === 'up' ? 150 : 450,
+        texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
       });
       this.notesObject = [...this.notesObject, newNote];
     });
@@ -191,8 +165,6 @@ export class GameField extends Phaser.Scene {
         this.notesAccuracy.splice(index, 1);
       }
     });
-    this.accuracyText.text = `${calculateOveralAccuracy(getHittedNotes())}%`;
-    this.scoreText.text = calculateCurrentScore(getHittedNotes());
     if (
       Date.now() - this.startTime >
       this.currentMap.notes[this.currentMap.notes.length - 1].delay +
