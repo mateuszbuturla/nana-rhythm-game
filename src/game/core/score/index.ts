@@ -99,4 +99,22 @@ const getAllTypesAndCoundHittedNotes = (
   return newCount;
 };
 
-export { calculateCurrentScore, getAllTypesAndCoundHittedNotes, Score };
+const getCountOfHittedNotesFromType = (
+  type: ENoteAccuracy,
+  hittedNotes: string[],
+): number => {
+  let count: number = 0;
+  hittedNotes.forEach((note) => {
+    if (note === type) {
+      count++;
+    }
+  });
+  return count;
+};
+
+export {
+  calculateCurrentScore,
+  getAllTypesAndCoundHittedNotes,
+  getCountOfHittedNotesFromType,
+  Score,
+};

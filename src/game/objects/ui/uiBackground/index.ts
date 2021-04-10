@@ -1,7 +1,7 @@
 import { IGameBackground } from '../../../interfaces/gameBackground.interface';
 import { Image } from '../../basic/image';
 
-export class GameBackground extends Phaser.GameObjects.Container {
+export class UiBackground extends Phaser.GameObjects.Container {
   background: Phaser.GameObjects.Sprite;
   backgroundDim: Phaser.GameObjects.Rectangle;
   gradientTop: Image;
@@ -28,7 +28,7 @@ export class GameBackground extends Phaser.GameObjects.Container {
       0x000000,
     );
     this.backgroundDim.setOrigin(0);
-    this.backgroundDim.alpha = 0.9;
+    this.backgroundDim.alpha = 0.8;
     this.gradientTop = new Image({
       scene: this.scene,
       x: 0,
