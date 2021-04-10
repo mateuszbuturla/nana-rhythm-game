@@ -131,6 +131,15 @@ export class ResultScene extends Phaser.Scene {
       color: noteAccuracyConfig.accuracy.Miss.color,
     });
 
+    this.miss = new ResultLabelValue({
+      scene: this,
+      x: width / 2 + 600,
+      y: height / 3 + 400,
+      label: 'Max combo',
+      value: `${getCombo().maxCombo}`,
+      color: 'white',
+    });
+
     // this.text = new Text({
     //   scene: this,
     //   x: 100,
