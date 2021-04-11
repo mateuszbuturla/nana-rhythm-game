@@ -8,6 +8,8 @@ import {
 import { Score } from '../core/score';
 import { IMap } from '../interfaces/map.interface';
 import { SceneTransition } from '../objects/ui/sceneTransition';
+import { LeaderboardButton } from '../objects/ui/leaderboardButton';
+import leaderboardButton from '../../../assets/ui/leaderboardButton.png';
 
 const songs: IMap[] = [
   {
@@ -112,12 +114,14 @@ export class SongSelection extends Phaser.Scene {
   selectedSongMaxCombo: Text;
   score: Score;
   transition: SceneTransition;
+  leaderboardButton: LeaderboardButton;
 
   constructor() {
     super({ key: 'SongSelection' });
   }
 
   preload(): void {
+    this.load.image('leaderboardButton', leaderboardButton);
     store.dispatch(setCurrentMapId(0));
     store.dispatch(setCurrentMap(songs[0]));
     this.score = new Score();
@@ -138,6 +142,8 @@ export class SongSelection extends Phaser.Scene {
 
   create(): void {
     this.preload();
+    const width = this.sys.game.canvas.width;
+    const height = this.sys.game.canvas.height;
     this.sceneTitle = new Text({
       scene: this,
       x: 100,
@@ -202,6 +208,15 @@ export class SongSelection extends Phaser.Scene {
       y: 230,
       text: `max combo: ${this.score.getMaxCombo(songs[getCurrentMapId()])}`,
     });
+
+    this.leaderboardButton = new LeaderboardButton({
+      scene: this,
+      x: width / 2,
+      y: height,
+      label: 'Leaderboard',
+      callback: () => {},
+    });
+
     this.transition = new SceneTransition({
       scene: this,
       isShow: true,

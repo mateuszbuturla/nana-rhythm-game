@@ -16,4 +16,12 @@ interface IBackButton {
   callback: () => void;
 }
 
-export { IMainMenuButton, IBackButton };
+interface ILedearboardButton {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  label: string;
+  callback: () => void;
+}
+
+export { IMainMenuButton, IBackButton, ILedearboardButton };
