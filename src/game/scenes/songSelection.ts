@@ -12,6 +12,9 @@ import { LeaderboardButton } from '../objects/ui/leaderboardButton';
 import leaderboardButton from '../../../assets/ui/leaderboardButton.png';
 import { UiBackground } from '../objects/ui/uiBackground';
 import background from '../../../assets/backgrounds/bg.png';
+import { TopBar } from '../objects/ui/topBar';
+import backButton from '../../../assets/ui/backButton.png';
+import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 
 const songs: IMap[] = [
   {
@@ -118,6 +121,7 @@ export class SongSelection extends Phaser.Scene {
   transition: SceneTransition;
   leaderboardButton: LeaderboardButton;
   background: UiBackground;
+  topBar: TopBar;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -125,6 +129,7 @@ export class SongSelection extends Phaser.Scene {
 
   preload(): void {
     this.load.image('background', background);
+    this.load.image('backButton', backButton);
     this.load.image('leaderboardButton', leaderboardButton);
     store.dispatch(setCurrentMapId(0));
     store.dispatch(setCurrentMap(songs[0]));
@@ -148,10 +153,10 @@ export class SongSelection extends Phaser.Scene {
     this.preload();
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
-    // this.background = new UiBackground({
-    //   scene: this,
-    //   background: 'background',
-    // });
+    this.background = new UiBackground({
+      scene: this,
+      background: 'background',
+    });
     this.sceneTitle = new Text({
       scene: this,
       x: 100,
@@ -223,6 +228,13 @@ export class SongSelection extends Phaser.Scene {
       y: height,
       label: 'Leaderboard',
       callback: () => {},
+    });
+
+    this.topBar = new TopBar({
+      scene: this,
+      onBackClick: () => {
+        this.scene.start('MainMenu');
+      },
     });
 
     this.transition = new SceneTransition({
