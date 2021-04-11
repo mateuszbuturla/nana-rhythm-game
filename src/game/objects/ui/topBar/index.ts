@@ -12,8 +12,6 @@ export class TopBar extends Phaser.GameObjects.Container {
       scene: aParams.scene,
       x: 0,
       y: 0,
-      texture: 'd',
-      textureDecoration: 'd',
       label: 'Back',
       callback: aParams.onBackClick,
     });
