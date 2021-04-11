@@ -11,6 +11,9 @@ import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
 import { UiBackground } from '../objects/ui/uiBackground';
 import background from '../../../assets/backgrounds/bg.png';
 import gradient from '../../../assets/ui/gradient.png';
+import backButton from '../../../assets/ui/backButton.png';
+import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
+import { TopBar } from '../objects/ui/topBar';
 
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;
@@ -22,6 +25,7 @@ export class ResultScene extends Phaser.Scene {
   bad: ResultLabelValue;
   miss: ResultLabelValue;
   maxCombo: ResultLabelValue;
+  topBar: TopBar;
 
   constructor() {
     super({ key: 'ResultScene' });
@@ -30,6 +34,8 @@ export class ResultScene extends Phaser.Scene {
   preload(): void {
     this.load.image('background', background);
     this.load.image('gradient', gradient);
+    this.load.image('backButton', backButton);
+    this.load.image('backButtonDecoration', backButtonDecoration);
   }
 
   create(): void {
@@ -126,5 +132,12 @@ export class ResultScene extends Phaser.Scene {
       value: `${getCombo().maxCombo}x`,
       color: 'white',
     });
+
+    this.topBar = new TopBar(this, 0, 0);
+    this.topBar.setDepth(20);
+  }
+
+  update(): void {
+    this.topBar.update();
   }
 }
