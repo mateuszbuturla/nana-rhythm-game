@@ -10,6 +10,8 @@ import { IMap } from '../interfaces/map.interface';
 import { SceneTransition } from '../objects/ui/sceneTransition';
 import { LeaderboardButton } from '../objects/ui/leaderboardButton';
 import leaderboardButton from '../../../assets/ui/leaderboardButton.png';
+import { UiBackground } from '../objects/ui/uiBackground';
+import background from '../../../assets/backgrounds/bg.png';
 
 const songs: IMap[] = [
   {
@@ -115,12 +117,14 @@ export class SongSelection extends Phaser.Scene {
   score: Score;
   transition: SceneTransition;
   leaderboardButton: LeaderboardButton;
+  background: UiBackground;
 
   constructor() {
     super({ key: 'SongSelection' });
   }
 
   preload(): void {
+    this.load.image('background', background);
     this.load.image('leaderboardButton', leaderboardButton);
     store.dispatch(setCurrentMapId(0));
     store.dispatch(setCurrentMap(songs[0]));
@@ -144,6 +148,10 @@ export class SongSelection extends Phaser.Scene {
     this.preload();
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
+    // this.background = new UiBackground({
+    //   scene: this,
+    //   background: 'background',
+    // });
     this.sceneTitle = new Text({
       scene: this,
       x: 100,
