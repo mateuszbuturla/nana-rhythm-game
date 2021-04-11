@@ -133,8 +133,12 @@ export class ResultScene extends Phaser.Scene {
       color: 'white',
     });
 
-    this.topBar = new TopBar(this, 0, 0);
-    this.topBar.setDepth(20);
+    this.topBar = new TopBar({
+      scene: this,
+      onBackClick: () => {
+        this.scene.start('SongSelection');
+      },
+    });
   }
 
   update(): void {
