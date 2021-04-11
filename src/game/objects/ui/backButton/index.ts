@@ -21,7 +21,7 @@ export class BackButton extends Phaser.GameObjects.Container {
 
     this.setInteractive(
       new Phaser.Geom.Rectangle(
-        -this.getBounds().width / 2,
+        0,
         -this.getBounds().height / 2,
         this.getBounds().width,
         this.getBounds().height,
