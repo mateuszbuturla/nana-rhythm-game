@@ -1,7 +1,5 @@
-import { IMainMenuButton } from '../../../interfaces/buttons.interface';
 import { ITopBar } from '../../../interfaces/topBar.interface';
 import { BackButton } from '../backButton';
-import { Text } from '../../basic/text';
 
 export class TopBar extends Phaser.GameObjects.Container {
   backButton: any;
