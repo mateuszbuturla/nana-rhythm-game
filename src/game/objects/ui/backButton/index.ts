@@ -1,4 +1,4 @@
-import { IMainMenuButton } from '../../../interfaces/buttons.interface';
+import { IBackButton } from '../../../interfaces/buttons.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
 
@@ -6,7 +6,7 @@ export class BackButton extends Phaser.GameObjects.Container {
   buttonLabelObject: Text;
   buttonBackgroundObject: Image;
 
-  constructor(aParams: IMainMenuButton) {
+  constructor(aParams: IBackButton) {
     super(aParams.scene, aParams.x, aParams.y);
 
     this.buttonBackgroundObject = new Image({

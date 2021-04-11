@@ -8,4 +8,12 @@ interface IMainMenuButton {
   callback: () => void;
 }
 
-export { IMainMenuButton };
+interface IBackButton {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  label: string;
+  callback: () => void;
+}
+
+export { IMainMenuButton, IBackButton };
