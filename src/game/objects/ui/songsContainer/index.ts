@@ -1,6 +1,5 @@
 import { easeInOutExpo } from './../../../utils/eases';
 import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
-import { IMap } from '../../../interfaces/map.interface';
 import { Text } from '../../basic/text';
 import { LabelValue } from '../labelValue';
 
