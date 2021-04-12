@@ -2,6 +2,7 @@ import { easeInOutExpo } from './../../../utils/eases';
 import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
 import { IMap } from '../../../interfaces/map.interface';
 import { Text } from '../../basic/text';
+import { LabelValue } from '../labelValue';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
   currentBeatmapId: number;
@@ -22,10 +23,12 @@ export class SongsContainer extends Phaser.GameObjects.Container {
     const width = this.scene.sys.game.canvas.width;
     const height = this.scene.sys.game.canvas.height;
 
+    this.currentBeatmapId = 0;
+
     aParams.beatmaps.map((beatmap, index) => {
       const newBeatmap = this.scene.add.container(
         0 + (this.beatmpasWidth + this.beatmapsMargin) * index,
-        height / 2 - 100,
+        this.currentBeatmapId === index ? height / 2 - 150 : height / 2 - 50,
       );
       const newBeatmapDataBackground = this.scene.add.rectangle(
         0,
@@ -55,12 +58,50 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         color: 'white',
       });
 
+      const newBeatmapLengthLabel = new LabelValue({
+        scene: this.scene,
+        x: newBeatmap.getBounds().width / 2 - 120,
+        y: 150,
+        label: 'Length',
+        value: `1:30`,
+        color: 'white',
+        labelFontSize: '23px',
+        valueFontSize: '44px',
+        margin: 50,
+      });
+      const newBeatmapDifficultyLabel = new LabelValue({
+        scene: this.scene,
+        x: newBeatmap.getBounds().width / 2,
+        y: 150,
+        label: 'Difficulty',
+        value: `4`,
+        color: 'white',
+        labelFontSize: '23px',
+        valueFontSize: '44px',
+        margin: 50,
+      });
+      const newBeatmapBPMLabel = new LabelValue({
+        scene: this.scene,
+        x: newBeatmap.getBounds().width / 2 + 120,
+        y: 150,
+        label: 'BPM',
+        value: `120`,
+        color: 'white',
+        labelFontSize: '23px',
+        valueFontSize: '44px',
+        margin: 50,
+      });
+
       newBeatmap.add(newBeatmapDataBackground);
       newBeatmap.add(newBeatmapBackground);
       newBeatmap.add(newBeatmapBackgroundDim);
       newBeatmap.add(newBeatmapTitle);
+      newBeatmap.add(newBeatmapLengthLabel);
+      newBeatmap.add(newBeatmapDifficultyLabel);
+      newBeatmap.add(newBeatmapBPMLabel);
 
       this.add(newBeatmap);
+      this.beatmaps = [...this.beatmaps, newBeatmap];
     });
 
     this.scene.add.existing(this);
@@ -72,7 +113,6 @@ export class SongsContainer extends Phaser.GameObjects.Container {
 
     const mask = maskShape.createGeometryMask();
 
-    this.currentBeatmapId = 0;
     this.numberOfBeatmaps = aParams.beatmaps.length;
 
     this.x = width / 2;
@@ -99,8 +139,27 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         },
       });
 
+      this.showHideAnimation(this.currentBeatmapId, 'show');
+      this.showHideAnimation(this.currentBeatmapId - 1, 'hide');
+
       showAnimation.play();
     }
+  }
+
+  private showHideAnimation(index: number, type: 'show' | 'hide'): void {
+    const animation = this.scene.tweens.createTimeline();
+
+    animation.add({
+      targets: this.beatmaps[index],
+      y:
+        type === 'show'
+          ? this.beatmaps[index].y - 100
+          : this.beatmaps[index].y + 100,
+      ease: easeInOutExpo,
+      duration: 300,
+    });
+
+    animation.play();
   }
 
   prevousBeatmap(): void {
@@ -118,6 +177,9 @@ export class SongsContainer extends Phaser.GameObjects.Container {
           this.canBeScrolled = true;
         },
       });
+
+      this.showHideAnimation(this.currentBeatmapId, 'show');
+      this.showHideAnimation(this.currentBeatmapId + 1, 'hide');
 
       showAnimation.play();
     }
