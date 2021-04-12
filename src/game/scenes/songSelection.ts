@@ -15,6 +15,7 @@ import background from '../../../assets/backgrounds/bg.png';
 import { TopBar } from '../objects/ui/topBar';
 import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
+import { SongsContainer } from '../objects/ui/songsContainer';
 
 const songs: IMap[] = [
   {
@@ -110,17 +111,19 @@ const songs: IMap[] = [
 ];
 
 export class SongSelection extends Phaser.Scene {
+  keyboard: any;
   sceneTitle: Text;
   selectedSongTitle: Text;
   selectedSongAuthor: Text;
   selectedSongNotesCount: Text;
-  songsContainer: Phaser.GameObjects.Container;
+  // songsContainer: Phaser.GameObjects.Container;
   songsObject: Phaser.GameObjects.Container[] = [];
   selectedSongMaxCombo: Text;
   score: Score;
   transition: SceneTransition;
   leaderboardButton: LeaderboardButton;
   background: UiBackground;
+  songsContainer: SongsContainer;
   topBar: TopBar;
 
   constructor() {
@@ -163,7 +166,7 @@ export class SongSelection extends Phaser.Scene {
       y: 50,
       text: 'Song selection',
     });
-    this.songsContainer = this.add.container(500, 100);
+    // this.songsContainer = this.add.container(500, 100);
     this.selectedSongTitle = new Text({
       scene: this,
       x: 100,
@@ -211,7 +214,7 @@ export class SongSelection extends Phaser.Scene {
         this.scene.start('MainScene');
       });
 
-      this.songsContainer.add(newContainer);
+      // this.songsContainer.add(newContainer);
 
       this.songsObject = [...this.songsObject, newContainer];
     });
@@ -230,6 +233,13 @@ export class SongSelection extends Phaser.Scene {
       callback: () => {},
     });
 
+    this.songsContainer = new SongsContainer({
+      scene: this,
+      x: 0,
+      y: 0,
+      beatmaps: songs,
+    });
+
     this.topBar = new TopBar({
       scene: this,
       onBackClick: () => {
@@ -242,5 +252,19 @@ export class SongSelection extends Phaser.Scene {
       isShow: true,
     });
     this.transition.show();
+
+    this.keyboard = this.input.keyboard.addKeys({
+      next: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
+      prevous: Phaser.Input.Keyboard.KeyCodes.Z,
+    });
+  }
+
+  update(): void {
+    if (this.keyboard.next.isDown) {
+      this.songsContainer.nextBeatmap();
+    }
+    if (this.keyboard.prevous.isDown) {
+      this.songsContainer.prevousBeatmap();
+    }
   }
 }
