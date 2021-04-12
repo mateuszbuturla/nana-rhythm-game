@@ -4,6 +4,57 @@ import {
   INoteTypeAndCount,
 } from '../../interfaces/noteAccuracy.interface';
 import { IMap } from '../../interfaces/map.interface';
+import store from '../../redux/store';
+import { addHittedNote, setCombo } from '../../redux/mapResult';
+
+class Score {
+  combo: number;
+  maxCombo: number;
+  hittedNotes: string[];
+
+  constructor() {
+    this.combo = 0;
+    this.maxCombo = 0;
+    this.hittedNotes = [];
+  }
+
+  addHittedNotes(type: ENoteAccuracy): void {
+    this.hittedNotes = [...this.hittedNotes, type];
+    store.dispatch(addHittedNote(type));
+  }
+
+  increaseCombo(): void {
+    this.combo++;
+    if (this.combo > this.maxCombo) {
+      this.maxCombo = this.combo;
+    }
+    store.dispatch(
+      setCombo({
+        combo: this.combo,
+        maxCombo: this.maxCombo,
+      }),
+    );
+  }
+
+  breakCombo(): void {
+    this.combo = 0;
+  }
+
+  getCombo(): any {
+    return {
+      combo: this.combo,
+      maxCombo: this.maxCombo,
+    };
+  }
+
+  getMaxCombo(map: IMap): number {
+    return this.calculateMaxCombo(map);
+  }
+
+  private calculateMaxCombo(map: IMap): number {
+    return map.notes.length;
+  }
+}
 
 const calculateCurrentScore = (hittedNotes: string[]): number => {
   const notesAccuracy = noteAccuracyConfig.accuracy;
@@ -48,40 +99,22 @@ const getAllTypesAndCoundHittedNotes = (
   return newCount;
 };
 
-class Score {
-  combo: number;
-  maxCombo: number;
-
-  constructor() {
-    this.combo = 0;
-    this.maxCombo = 0;
-  }
-
-  increaseCombo(): void {
-    this.combo++;
-    if (this.combo > this.maxCombo) {
-      this.maxCombo = this.combo;
+const getCountOfHittedNotesFromType = (
+  type: ENoteAccuracy,
+  hittedNotes: string[],
+): number => {
+  let count: number = 0;
+  hittedNotes.forEach((note) => {
+    if (note === type) {
+      count++;
     }
-  }
+  });
+  return count;
+};
 
-  breakCombo(): void {
-    this.combo = 0;
-  }
-
-  getCombo(): any {
-    return {
-      combo: this.combo,
-      maxCombo: this.maxCombo,
-    };
-  }
-
-  getMaxCombo(map: IMap): number {
-    return this.calculateMaxCombo(map);
-  }
-
-  private calculateMaxCombo(map: IMap): number {
-    return map.notes.length;
-  }
-}
-
-export { calculateCurrentScore, getAllTypesAndCoundHittedNotes, Score };
+export {
+  calculateCurrentScore,
+  getAllTypesAndCoundHittedNotes,
+  getCountOfHittedNotesFromType,
+  Score,
+};

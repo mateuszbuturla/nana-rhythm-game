@@ -4,17 +4,22 @@ import { IIserConfig } from '../interfaces/userConfig.interface';
 import { CheckBox } from './ui/checkBox';
 import { SelectInput } from './ui/select';
 import { SliderInput } from './ui/slider';
+import { getObjectBottomEdgePosition } from '../helpers/getObjectBottomEdgePosition';
+import { easeInOutExpo } from '../utils/eases';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
   optionsHeader: Text;
-  closeButton: Text;
   isShow: boolean = false;
   userConfig: UserConfig;
   config: IIserConfig;
   showNoteAccuracyInput: CheckBox;
   showPerfectHitInput: CheckBox;
   hitPositionInput: SliderInput;
+  inGameLabel: Text;
+  escIsPressed: any;
+  showAnimation: any;
+  hideAnimation: any;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -24,15 +29,14 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   }
 
   private initOptionsPanel(): void {
-    const width = this.scene.sys.game.canvas.width;
     const height = this.scene.sys.game.canvas.height;
     this.userConfig = new UserConfig();
     this.config = this.userConfig.getUserConfig();
 
     this.background = this.scene.add.rectangle(
-      width / 2,
+      250,
       height / 2,
-      width,
+      500,
       height,
       0x000000,
     );
@@ -44,22 +48,23 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       y: 50,
       text: 'Options',
       color: 'white',
+      fontSize: '50px',
+      align: 'left',
     });
 
-    this.closeButton = new Text({
+    this.inGameLabel = new Text({
       scene: this.scene,
-      x: 600,
-      y: 50,
-      text: 'Back',
+      x: 50,
+      y: getObjectBottomEdgePosition(this.optionsHeader) + 30,
+      text: 'In game',
       color: 'white',
+      fontSize: '30px',
     });
-    this.closeButton.setInteractive();
-    this.closeButton.on('pointerdown', () => this.handleClose());
 
     this.showNoteAccuracyInput = new CheckBox({
       scene: this.scene,
-      x: 100,
-      y: 100,
+      x: 50,
+      y: getObjectBottomEdgePosition(this.inGameLabel) + 30,
       state: this.config.showNoteAccuracy,
       label: 'Show note accuracy',
     });
@@ -74,8 +79,8 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
 
     this.showPerfectHitInput = new CheckBox({
       scene: this.scene,
-      x: 100,
-      y: 150,
+      x: 50,
+      y: getObjectBottomEdgePosition(this.showNoteAccuracyInput) + 60,
       state: this.config.showPerfectHit,
       label: 'Show perfect hits',
     });
@@ -90,8 +95,8 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
 
     this.hitPositionInput = new SliderInput({
       scene: this.scene,
-      x: 100,
-      y: 200,
+      x: 50,
+      y: getObjectBottomEdgePosition(this.showPerfectHitInput) + 60,
       label: 'hit position',
       width: 300,
       min: 50,
@@ -101,10 +106,14 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
 
     this.add(this.background);
     this.add(this.optionsHeader);
-    this.add(this.closeButton);
+    this.add(this.inGameLabel);
     this.add(this.showNoteAccuracyInput);
     this.add(this.showPerfectHitInput);
     this.add(this.hitPositionInput);
+    this.escIsPressed = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.ESC,
+    );
+    this.setPosition(-this.getBounds().width, 0);
   }
 
   private handleClose(): void {
@@ -118,10 +127,44 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   }
 
   showPanel() {
-    this.setPosition(0, 0);
+    if (this.isShow) {
+      return;
+    }
+
+    this.isShow = true;
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      targets: this,
+      x: 0,
+      ease: easeInOutExpo,
+      duration: 1000,
+    });
+
+    showAnimation.play();
   }
 
   hidePanel() {
-    this.setPosition(0, -this.scene.sys.game.canvas.height);
+    if (!this.isShow) {
+      return;
+    }
+
+    this.isShow = false;
+    const hideAnimation = this.scene.tweens.createTimeline();
+
+    hideAnimation.add({
+      targets: this,
+      x: -this.getBounds().width,
+      ease: easeInOutExpo,
+      duration: 1000,
+    });
+
+    hideAnimation.play();
+  }
+
+  update(): void {
+    if (this.escIsPressed.isDown && this.isShow) {
+      this.hidePanel();
+    }
   }
 }
