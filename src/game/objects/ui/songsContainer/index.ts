@@ -53,7 +53,7 @@ export class SongsContainer extends Phaser.GameObjects.Container {
     this.setMask(mask);
   }
 
-  nextBeatmap(): void {
+  nextBeatmap(): number {
     if (
       this.currentBeatmapId + 1 < this.numberOfBeatmaps &&
       this.canBeScrolled
@@ -77,9 +77,10 @@ export class SongsContainer extends Phaser.GameObjects.Container {
 
       showAnimation.play();
     }
+    return this.currentBeatmapId;
   }
 
-  prevousBeatmap(): void {
+  prevousBeatmap(): number {
     if (this.currentBeatmapId > 0 && this.canBeScrolled) {
       this.currentBeatmapId--;
       this.canBeScrolled = false;
@@ -100,5 +101,6 @@ export class SongsContainer extends Phaser.GameObjects.Container {
 
       showAnimation.play();
     }
+    return this.currentBeatmapId;
   }
 }

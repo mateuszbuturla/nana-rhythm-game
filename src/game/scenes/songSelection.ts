@@ -1,10 +1,5 @@
-import { Text } from '../objects/basic/text';
 import store from '../redux/store';
-import {
-  setCurrentMap,
-  setCurrentMapId,
-  getCurrentMapId,
-} from '../redux/currentMap';
+import { setCurrentMap, setCurrentMapId } from '../redux/currentMap';
 import { Score } from '../core/score';
 import { IMap } from '../interfaces/map.interface';
 import { SceneTransition } from '../objects/ui/sceneTransition';
@@ -214,13 +209,6 @@ const songs: IMap[] = [
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
-  sceneTitle: Text;
-  selectedSongTitle: Text;
-  selectedSongAuthor: Text;
-  selectedSongNotesCount: Text;
-  // songsContainer: Phaser.GameObjects.Container;
-  songsObject: Phaser.GameObjects.Container[] = [];
-  selectedSongMaxCombo: Text;
   score: Score;
   transition: SceneTransition;
   leaderboardButton: LeaderboardButton;
@@ -241,17 +229,9 @@ export class SongSelection extends Phaser.Scene {
     this.score = new Score();
   }
 
-  updateSelectedSong(newSelectedSong: number): void {
+  updateSelectedBeatmap(newSelectedSong: number): void {
     store.dispatch(setCurrentMap(songs[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
-    songs[newSelectedSong].title;
-    this.selectedSongAuthor.text = songs[newSelectedSong].author;
-    this.selectedSongNotesCount.text = String(
-      songs[newSelectedSong].notes.length,
-    );
-    this.selectedSongMaxCombo.text = `max combo: ${this.score.getMaxCombo(
-      songs[newSelectedSong],
-    )}`;
   }
 
   create(): void {
@@ -261,67 +241,6 @@ export class SongSelection extends Phaser.Scene {
     this.background = new UiBackground({
       scene: this,
       background: 'background',
-    });
-    this.sceneTitle = new Text({
-      scene: this,
-      x: 100,
-      y: 50,
-      text: 'Song selection',
-    });
-    this.selectedSongTitle = new Text({
-      scene: this,
-      x: 100,
-      y: 140,
-      text: songs[getCurrentMapId()].title,
-    });
-    this.selectedSongAuthor = new Text({
-      scene: this,
-      x: 100,
-      y: 170,
-      text: songs[getCurrentMapId()].author,
-    });
-    this.selectedSongNotesCount = new Text({
-      scene: this,
-      x: 100,
-      y: 200,
-      text: String(songs[getCurrentMapId()].notes.length),
-    });
-    songs.map((song, index) => {
-      const newContainer = this.add.container(0, index * 100);
-      const newSongTitle = new Text({
-        scene: this,
-        x: 0,
-        y: 0,
-        text: song.title,
-      });
-      const newSongAuthor = new Text({
-        scene: this,
-        x: 0,
-        y: 35,
-        text: song.author,
-      });
-      newContainer.add(newSongTitle);
-      newContainer.add(newSongAuthor);
-
-      newContainer.setInteractive(
-        new Phaser.Geom.Rectangle(0, 0, 300, 100),
-        Phaser.Geom.Rectangle.Contains,
-      );
-      newContainer.on('pointerdown', () => {
-        if (getCurrentMapId() !== index) {
-          return this.updateSelectedSong(index);
-        }
-
-        this.scene.start('MainScene');
-      });
-
-      this.songsObject = [...this.songsObject, newContainer];
-    });
-    this.selectedSongMaxCombo = new Text({
-      scene: this,
-      x: 100,
-      y: 230,
-      text: `max combo: ${this.score.getMaxCombo(songs[getCurrentMapId()])}`,
     });
 
     this.leaderboardButton = new LeaderboardButton({
@@ -355,15 +274,19 @@ export class SongSelection extends Phaser.Scene {
     this.keyboard = this.input.keyboard.addKeys({
       next: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
       prevous: Phaser.Input.Keyboard.KeyCodes.Z,
+      select: Phaser.Input.Keyboard.KeyCodes.ENTER,
     });
   }
 
   update(): void {
     if (this.keyboard.next.isDown) {
-      this.songsContainer.nextBeatmap();
+      this.updateSelectedBeatmap(this.songsContainer.nextBeatmap());
     }
     if (this.keyboard.prevous.isDown) {
-      this.songsContainer.prevousBeatmap();
+      this.updateSelectedBeatmap(this.songsContainer.prevousBeatmap());
+    }
+    if (this.keyboard.select.isDown) {
+      this.scene.start('MainScene');
     }
   }
 }
