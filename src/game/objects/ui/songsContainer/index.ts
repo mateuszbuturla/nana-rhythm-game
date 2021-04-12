@@ -38,6 +38,8 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         0x000000,
       );
       newBeatmapDataBackground.setAlpha(0.8);
+      newBeatmapDataBackground.height +=
+        this.currentBeatmapId === index ? 100 : 0;
       const newBeatmapBackground = this.scene.add.sprite(0, 0, 'background');
       newBeatmapBackground.setDisplaySize(380, 230);
       const newBeatmapBackgroundDim = this.scene.add.rectangle(
@@ -91,6 +93,31 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         valueFontSize: '44px',
         margin: 50,
       });
+      const newBeatmapNotesCountLabel = new LabelValue({
+        scene: this.scene,
+        x: newBeatmap.getBounds().width / 2 - 60,
+        y: 260,
+        label: 'Notes',
+        value: `${beatmap.notes.length}`,
+        color: 'white',
+        labelFontSize: '23px',
+        valueFontSize: '44px',
+        margin: 50,
+      });
+      newBeatmapNotesCountLabel.alpha = this.currentBeatmapId === index ? 1 : 0;
+      const newBeatmapSlidersCountLabel = new LabelValue({
+        scene: this.scene,
+        x: newBeatmap.getBounds().width / 2 + 60,
+        y: 260,
+        label: 'Sliders',
+        value: `5`,
+        color: 'white',
+        labelFontSize: '23px',
+        valueFontSize: '44px',
+        margin: 50,
+      });
+      newBeatmapSlidersCountLabel.alpha =
+        this.currentBeatmapId === index ? 1 : 0;
 
       newBeatmap.add(newBeatmapDataBackground);
       newBeatmap.add(newBeatmapBackground);
@@ -99,6 +126,10 @@ export class SongsContainer extends Phaser.GameObjects.Container {
       newBeatmap.add(newBeatmapLengthLabel);
       newBeatmap.add(newBeatmapDifficultyLabel);
       newBeatmap.add(newBeatmapBPMLabel);
+      newBeatmap.add(newBeatmapNotesCountLabel);
+      newBeatmap.add(newBeatmapSlidersCountLabel);
+
+      console.log(newBeatmap);
 
       this.add(newBeatmap);
       this.beatmaps = [...this.beatmaps, newBeatmap];
@@ -147,9 +178,9 @@ export class SongsContainer extends Phaser.GameObjects.Container {
   }
 
   private showHideAnimation(index: number, type: 'show' | 'hide'): void {
-    const animation = this.scene.tweens.createTimeline();
+    const animationTile = this.scene.tweens.createTimeline();
 
-    animation.add({
+    animationTile.add({
       targets: this.beatmaps[index],
       y:
         type === 'show'
@@ -159,7 +190,32 @@ export class SongsContainer extends Phaser.GameObjects.Container {
       duration: 300,
     });
 
-    animation.play();
+    animationTile.play();
+
+    const animationDataBackground = this.scene.tweens.createTimeline();
+
+    animationDataBackground.add({
+      targets: this.beatmaps[index].list[0],
+      height:
+        type === 'show'
+          ? this.beatmaps[index].list[0].height + 100
+          : this.beatmaps[index].list[0].height - 100,
+      ease: easeInOutExpo,
+      duration: 300,
+    });
+
+    animationDataBackground.play();
+
+    const animationLabels = this.scene.tweens.createTimeline();
+
+    animationLabels.add({
+      targets: [this.beatmaps[index].list[7], this.beatmaps[index].list[8]],
+      alpha: type === 'show' ? 1 : 0,
+      ease: easeInOutExpo,
+      duration: 300,
+    });
+
+    animationLabels.play();
   }
 
   prevousBeatmap(): void {
