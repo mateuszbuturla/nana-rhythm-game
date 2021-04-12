@@ -9,7 +9,7 @@ export class SongsContainer extends Phaser.GameObjects.Container {
   numberOfBeatmaps: number;
   beatmaps: any[] = [];
   canBeScrolled: boolean = true;
-  beatmapsMargin: number = 100;
+  beatmapsMargin: number = 200;
   beatmpasWidth: number = 300;
 
   constructor(aParams: ISongsContainer) {
