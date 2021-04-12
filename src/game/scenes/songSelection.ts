@@ -108,6 +108,108 @@ const songs: IMap[] = [
       },
     ],
   },
+  {
+    title: 'Test title3',
+    author: 'Test author3',
+    notes: [
+      {
+        direction: 'up',
+        delay: 1000,
+      },
+      {
+        direction: 'down',
+        delay: 1500,
+      },
+      {
+        direction: 'up',
+        delay: 2000,
+      },
+      {
+        direction: 'down',
+        delay: 2200,
+      },
+      {
+        direction: 'down',
+        delay: 2300,
+      },
+      {
+        direction: 'down',
+        delay: 2400,
+      },
+      {
+        direction: 'down',
+        delay: 2500,
+      },
+    ],
+  },
+  {
+    title: 'Test title3',
+    author: 'Test author3',
+    notes: [
+      {
+        direction: 'up',
+        delay: 1000,
+      },
+      {
+        direction: 'down',
+        delay: 1500,
+      },
+      {
+        direction: 'up',
+        delay: 2000,
+      },
+      {
+        direction: 'down',
+        delay: 2200,
+      },
+      {
+        direction: 'down',
+        delay: 2300,
+      },
+      {
+        direction: 'down',
+        delay: 2400,
+      },
+      {
+        direction: 'down',
+        delay: 2500,
+      },
+    ],
+  },
+  {
+    title: 'Test title3',
+    author: 'Test author3',
+    notes: [
+      {
+        direction: 'up',
+        delay: 1000,
+      },
+      {
+        direction: 'down',
+        delay: 1500,
+      },
+      {
+        direction: 'up',
+        delay: 2000,
+      },
+      {
+        direction: 'down',
+        delay: 2200,
+      },
+      {
+        direction: 'down',
+        delay: 2300,
+      },
+      {
+        direction: 'down',
+        delay: 2400,
+      },
+      {
+        direction: 'down',
+        delay: 2500,
+      },
+    ],
+  },
 ];
 
 export class SongSelection extends Phaser.Scene {
