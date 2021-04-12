@@ -1,12 +1,11 @@
 import { easeInOutExpo } from './../../../utils/eases';
 import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
-import { Text } from '../../basic/text';
-import { LabelValue } from '../labelValue';
+import { BeatmapTile } from '../beatmapTile';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
   currentBeatmapId: number;
   numberOfBeatmaps: number;
-  beatmaps: any[] = [];
+  beatmaps: BeatmapTile[] = [];
   canBeScrolled: boolean = true;
   beatmapsMargin: number = 200;
   beatmpasWidth: number = 300;
@@ -25,110 +24,14 @@ export class SongsContainer extends Phaser.GameObjects.Container {
     this.currentBeatmapId = 0;
 
     aParams.beatmaps.map((beatmap, index) => {
-      const newBeatmap = this.scene.add.container(
-        0 + (this.beatmpasWidth + this.beatmapsMargin) * index,
-        this.currentBeatmapId === index ? height / 2 - 150 : height / 2 - 50,
-      );
-      const newBeatmapDataBackground = this.scene.add.rectangle(
-        0,
-        150,
-        380,
-        200,
-        0x000000,
-      );
-      newBeatmapDataBackground.setAlpha(0.8);
-      newBeatmapDataBackground.height +=
-        this.currentBeatmapId === index ? 100 : 0;
-      const newBeatmapBackground = this.scene.add.sprite(0, 0, 'background');
-      newBeatmapBackground.setDisplaySize(380, 230);
-      const newBeatmapBackgroundDim = this.scene.add.rectangle(
-        0,
-        0,
-        380,
-        230,
-        0x000000,
-      );
-      newBeatmapBackgroundDim.setAlpha(0.35);
-      const newBeatmapTitle = new Text({
+      const newBeatmap = new BeatmapTile({
         scene: this.scene,
-        x: newBeatmap.getBounds().width / 2,
-        y: 0,
-        text: beatmap.title,
-        align: 'center',
-        fontSize: '36px',
-        color: 'white',
+        x: (this.beatmpasWidth + this.beatmapsMargin) * index,
+        y: height / 2,
+        title: beatmap.title,
+        active: this.currentBeatmapId === index,
+        notes: beatmap.notes,
       });
-
-      const newBeatmapLengthLabel = new LabelValue({
-        scene: this.scene,
-        x: newBeatmap.getBounds().width / 2 - 120,
-        y: 150,
-        label: 'Length',
-        value: `1:30`,
-        color: 'white',
-        labelFontSize: '23px',
-        valueFontSize: '44px',
-        margin: 50,
-      });
-      const newBeatmapDifficultyLabel = new LabelValue({
-        scene: this.scene,
-        x: newBeatmap.getBounds().width / 2,
-        y: 150,
-        label: 'Difficulty',
-        value: `4`,
-        color: 'white',
-        labelFontSize: '23px',
-        valueFontSize: '44px',
-        margin: 50,
-      });
-      const newBeatmapBPMLabel = new LabelValue({
-        scene: this.scene,
-        x: newBeatmap.getBounds().width / 2 + 120,
-        y: 150,
-        label: 'BPM',
-        value: `120`,
-        color: 'white',
-        labelFontSize: '23px',
-        valueFontSize: '44px',
-        margin: 50,
-      });
-      const newBeatmapNotesCountLabel = new LabelValue({
-        scene: this.scene,
-        x: newBeatmap.getBounds().width / 2 - 60,
-        y: 260,
-        label: 'Notes',
-        value: `${beatmap.notes.length}`,
-        color: 'white',
-        labelFontSize: '23px',
-        valueFontSize: '44px',
-        margin: 50,
-      });
-      newBeatmapNotesCountLabel.alpha = this.currentBeatmapId === index ? 1 : 0;
-      const newBeatmapSlidersCountLabel = new LabelValue({
-        scene: this.scene,
-        x: newBeatmap.getBounds().width / 2 + 60,
-        y: 260,
-        label: 'Sliders',
-        value: `5`,
-        color: 'white',
-        labelFontSize: '23px',
-        valueFontSize: '44px',
-        margin: 50,
-      });
-      newBeatmapSlidersCountLabel.alpha =
-        this.currentBeatmapId === index ? 1 : 0;
-
-      newBeatmap.add(newBeatmapDataBackground);
-      newBeatmap.add(newBeatmapBackground);
-      newBeatmap.add(newBeatmapBackgroundDim);
-      newBeatmap.add(newBeatmapTitle);
-      newBeatmap.add(newBeatmapLengthLabel);
-      newBeatmap.add(newBeatmapDifficultyLabel);
-      newBeatmap.add(newBeatmapBPMLabel);
-      newBeatmap.add(newBeatmapNotesCountLabel);
-      newBeatmap.add(newBeatmapSlidersCountLabel);
-
-      console.log(newBeatmap);
 
       this.add(newBeatmap);
       this.beatmaps = [...this.beatmaps, newBeatmap];
@@ -150,7 +53,7 @@ export class SongsContainer extends Phaser.GameObjects.Container {
     this.setMask(mask);
   }
 
-  nextBeatmap(): void {
+  nextBeatmap(): number {
     if (
       this.currentBeatmapId + 1 < this.numberOfBeatmaps &&
       this.canBeScrolled
@@ -169,55 +72,15 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         },
       });
 
-      this.showHideAnimation(this.currentBeatmapId, 'show');
-      this.showHideAnimation(this.currentBeatmapId - 1, 'hide');
+      this.beatmaps[this.currentBeatmapId].showHide('show');
+      this.beatmaps[this.currentBeatmapId - 1].showHide('hide');
 
       showAnimation.play();
     }
+    return this.currentBeatmapId;
   }
 
-  private showHideAnimation(index: number, type: 'show' | 'hide'): void {
-    const animationTile = this.scene.tweens.createTimeline();
-
-    animationTile.add({
-      targets: this.beatmaps[index],
-      y:
-        type === 'show'
-          ? this.beatmaps[index].y - 100
-          : this.beatmaps[index].y + 100,
-      ease: easeInOutExpo,
-      duration: 300,
-    });
-
-    animationTile.play();
-
-    const animationDataBackground = this.scene.tweens.createTimeline();
-
-    animationDataBackground.add({
-      targets: this.beatmaps[index].list[0],
-      height:
-        type === 'show'
-          ? this.beatmaps[index].list[0].height + 100
-          : this.beatmaps[index].list[0].height - 100,
-      ease: easeInOutExpo,
-      duration: 300,
-    });
-
-    animationDataBackground.play();
-
-    const animationLabels = this.scene.tweens.createTimeline();
-
-    animationLabels.add({
-      targets: [this.beatmaps[index].list[7], this.beatmaps[index].list[8]],
-      alpha: type === 'show' ? 1 : 0,
-      ease: easeInOutExpo,
-      duration: 300,
-    });
-
-    animationLabels.play();
-  }
-
-  prevousBeatmap(): void {
+  prevousBeatmap(): number {
     if (this.currentBeatmapId > 0 && this.canBeScrolled) {
       this.currentBeatmapId--;
       this.canBeScrolled = false;
@@ -233,10 +96,11 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         },
       });
 
-      this.showHideAnimation(this.currentBeatmapId, 'show');
-      this.showHideAnimation(this.currentBeatmapId + 1, 'hide');
+      this.beatmaps[this.currentBeatmapId].showHide('show');
+      this.beatmaps[this.currentBeatmapId + 1].showHide('hide');
 
       showAnimation.play();
     }
+    return this.currentBeatmapId;
   }
 }
