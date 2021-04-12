@@ -268,7 +268,6 @@ export class SongSelection extends Phaser.Scene {
       y: 50,
       text: 'Song selection',
     });
-    // this.songsContainer = this.add.container(500, 100);
     this.selectedSongTitle = new Text({
       scene: this,
       x: 100,
@@ -315,8 +314,6 @@ export class SongSelection extends Phaser.Scene {
 
         this.scene.start('MainScene');
       });
-
-      // this.songsContainer.add(newContainer);
 
       this.songsObject = [...this.songsObject, newContainer];
     });
