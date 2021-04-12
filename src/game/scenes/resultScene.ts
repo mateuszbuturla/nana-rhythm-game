@@ -5,7 +5,7 @@ import {
   calculateCurrentScore,
   getCountOfHittedNotesFromType,
 } from '../core/score';
-import { ResultLabelValue } from '../objects/ui/resultLabelValue';
+import { LabelValue } from '../objects/ui/labelValue';
 import { ENoteAccuracy } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
 import { UiBackground } from '../objects/ui/uiBackground';
@@ -18,13 +18,13 @@ import { TopBar } from '../objects/ui/topBar';
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;
   mark: Text;
-  score: ResultLabelValue;
-  accuracy: ResultLabelValue;
-  perfect: ResultLabelValue;
-  good: ResultLabelValue;
-  bad: ResultLabelValue;
-  miss: ResultLabelValue;
-  maxCombo: ResultLabelValue;
+  score: LabelValue;
+  accuracy: LabelValue;
+  perfect: LabelValue;
+  good: LabelValue;
+  bad: LabelValue;
+  miss: LabelValue;
+  maxCombo: LabelValue;
   topBar: TopBar;
 
   constructor() {
@@ -59,24 +59,30 @@ export class ResultScene extends Phaser.Scene {
       fontFamily: 'mainFontB',
     });
 
-    this.score = new ResultLabelValue({
+    this.score = new LabelValue({
       scene: this,
       x: width / 2 - 300,
       y: height / 3 + 200,
       label: 'Score',
       value: `${calculateCurrentScore(getHittedNotes())}`,
       color: 'white',
+      labelFontSize: '44px',
+      valueFontSize: '95px',
+      margin: 100,
     });
-    this.accuracy = new ResultLabelValue({
+    this.accuracy = new LabelValue({
       scene: this,
       x: width / 2 + 300,
       y: height / 3 + 200,
       label: 'Accuracy',
       value: `${calculateOveralAccuracy(getHittedNotes())}%`,
       color: 'white',
+      labelFontSize: '44px',
+      valueFontSize: '95px',
+      margin: 100,
     });
 
-    this.perfect = new ResultLabelValue({
+    this.perfect = new LabelValue({
       scene: this,
       x: width / 2 - 600,
       y: height / 3 + 400,
@@ -86,9 +92,12 @@ export class ResultScene extends Phaser.Scene {
         getHittedNotes(),
       )}`,
       color: noteAccuracyConfig.accuracy.Perfect.color,
+      labelFontSize: '44px',
+      valueFontSize: '95px',
+      margin: 100,
     });
 
-    this.good = new ResultLabelValue({
+    this.good = new LabelValue({
       scene: this,
       x: width / 2 - 300,
       y: height / 3 + 400,
@@ -98,9 +107,12 @@ export class ResultScene extends Phaser.Scene {
         getHittedNotes(),
       )}`,
       color: noteAccuracyConfig.accuracy.Good.color,
+      labelFontSize: '44px',
+      valueFontSize: '95px',
+      margin: 100,
     });
 
-    this.bad = new ResultLabelValue({
+    this.bad = new LabelValue({
       scene: this,
       x: width / 2,
       y: height / 3 + 400,
@@ -110,9 +122,12 @@ export class ResultScene extends Phaser.Scene {
         getHittedNotes(),
       )}`,
       color: noteAccuracyConfig.accuracy.Bad.color,
+      labelFontSize: '44px',
+      valueFontSize: '95px',
+      margin: 100,
     });
 
-    this.miss = new ResultLabelValue({
+    this.miss = new LabelValue({
       scene: this,
       x: width / 2 + 300,
       y: height / 3 + 400,
@@ -122,15 +137,21 @@ export class ResultScene extends Phaser.Scene {
         getHittedNotes(),
       )}`,
       color: noteAccuracyConfig.accuracy.Miss.color,
+      labelFontSize: '44px',
+      valueFontSize: '95px',
+      margin: 100,
     });
 
-    this.maxCombo = new ResultLabelValue({
+    this.maxCombo = new LabelValue({
       scene: this,
       x: width / 2 + 600,
       y: height / 3 + 400,
       label: 'Max combo',
       value: `${getCombo().maxCombo}x`,
       color: 'white',
+      labelFontSize: '44px',
+      valueFontSize: '95px',
+      margin: 100,
     });
 
     this.topBar = new TopBar({

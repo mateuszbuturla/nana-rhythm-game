@@ -1,34 +1,34 @@
-import { IResultLabelValue } from '../../../interfaces/resultLabelValue.interface';
+import { ILabelValue } from '../../../interfaces/labelValue.interface';
 import { Text } from '../../basic/text';
 
-export class ResultLabelValue extends Phaser.GameObjects.Container {
+export class LabelValue extends Phaser.GameObjects.Container {
   label: Text;
   value: Text;
 
-  constructor(aParams: IResultLabelValue) {
+  constructor(aParams: ILabelValue) {
     super(aParams.scene, aParams.x, aParams.y);
 
-    this.initResultLabelValue(aParams);
+    this.initLabelValue(aParams);
     this.scene.add.existing(this);
   }
 
-  private initResultLabelValue(aParams: IResultLabelValue) {
+  private initLabelValue(aParams: ILabelValue) {
     this.label = new Text({
       scene: this.scene,
       x: 0,
       y: 0,
       text: aParams.label,
       color: aParams.color,
-      fontSize: '44px',
+      fontSize: aParams.labelFontSize,
       align: 'center',
     });
     this.value = new Text({
       scene: this.scene,
       x: 0,
-      y: 100,
+      y: aParams.margin,
       text: aParams.value,
       color: aParams.color,
-      fontSize: '95px',
+      fontSize: aParams.valueFontSize,
       align: 'center',
     });
     this.add(this.label);
