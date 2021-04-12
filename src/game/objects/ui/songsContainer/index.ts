@@ -1,7 +1,5 @@
 import { easeInOutExpo } from './../../../utils/eases';
 import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
-import { Text } from '../../basic/text';
-import { LabelValue } from '../labelValue';
 import { BeatmapTile } from '../beatmapTile';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
