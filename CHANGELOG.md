@@ -1,3 +1,13 @@
+## 2.3.0 (2021-04-12)
+
+Ui design change:
+
+- change main menu
+- change beatmap select
+- change game field
+- change result screen
+- change settings panel
+
 ## 2.2.1 (2021-04-07)
 
 - selection map add max combo of map
@@ -24,7 +34,7 @@
 
 - create song selection
 - create game field
-- create result screan
+- create result screen
 
 ## v0.0.0 (2021-03-31)
 
