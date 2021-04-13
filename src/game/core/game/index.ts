@@ -18,6 +18,7 @@ export class Game {
   keyboard: any;
   scene: Phaser.Scene;
   breakBeforeTakeOff: number = 3000;
+  breakAfterLastNote: number = 1500;
   scrollSpeed: number = 10;
   beatmap: IMap;
   audio: Audio;
@@ -27,6 +28,7 @@ export class Game {
   score: Score;
   notesAccuracy: INotesAccuracyArray[] = [];
   hitPositionObj: HitPosition;
+  isLoadingResultScrean: boolean = false;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -152,5 +154,15 @@ export class Game {
         this.notesAccuracy.splice(index, 1);
       }
     });
+    if (
+      store.getState().mapResult.hittedNotes.length ===
+        this.beatmap.notes.length &&
+      !this.isLoadingResultScrean
+    ) {
+      this.isLoadingResultScrean = true;
+      setTimeout(() => {
+        this.scene.scene.start('ResultScene');
+      }, this.breakAfterLastNote);
+    }
   }
 }
