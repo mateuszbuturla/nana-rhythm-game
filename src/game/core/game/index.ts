@@ -44,6 +44,8 @@ export class Game {
     this.score = new Score();
     this.hitPosition = 100 + 100;
 
+    this.scene.add.rectangle(this.hitPosition, 150, 1, 800, 0xffffff);
+
     this.hitPositionObj = new HitPosition({
       scene: this.scene,
       hitPositionDistance: this.hitPosition,
@@ -56,10 +58,11 @@ export class Game {
 
     this.generateNotes();
 
+    this.startTime = Date.now();
+
     setTimeout(() => {
-      this.startTime = Date.now();
       this.audio.playMusic();
-    }, this.breakBeforeTakeOff);
+    }, this.breakBeforeTakeOff + 500);
   }
 
   generateNotes(): void {
@@ -73,7 +76,7 @@ export class Game {
           texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
         });
         this.notesObject = [...this.notesObject, newNote];
-      }, note.delay);
+      }, note.delay - width / this.scrollSpeed);
     });
   }
 
@@ -93,7 +96,7 @@ export class Game {
 
   handleNoteClick(): void {
     const width: number = this.scene.game.canvas.width;
-    const time = Date.now() - this.startTime;
+    const time = Date.now() - (this.startTime + this.breakBeforeTakeOff);
 
     if (this.startTime !== 0) {
       const hittedNotes = store.getState().mapResult.hittedNotes;
