@@ -170,6 +170,7 @@ export class Game {
     ) {
       this.isLoadingResultScrean = true;
       setTimeout(() => {
+        this.audio.stopMusic();
         this.scene.scene.start('ResultScene');
       }, this.breakAfterLastNote);
     }

@@ -1,6 +1,11 @@
 import { Text } from '../objects/basic/text';
 import { calculateOveralAccuracy } from '../core/accuracy';
-import { getCombo, getHittedNotes } from '../redux/mapResult';
+import {
+  getCombo,
+  getHittedNotes,
+  setCombo,
+  setHittedNotes,
+} from '../redux/mapResult';
 import {
   calculateCurrentScore,
   getCountOfHittedNotesFromType,
@@ -14,6 +19,7 @@ import gradient from '../../../assets/ui/gradient.png';
 import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { TopBar } from '../objects/ui/topBar';
+import store from '../redux/store';
 
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;
@@ -32,6 +38,7 @@ export class ResultScene extends Phaser.Scene {
   }
 
   preload(): void {
+    this.scene.stop('MainScene');
     this.load.image('background', background);
     this.load.image('gradient', gradient);
     this.load.image('backButton', backButton);
@@ -157,6 +164,8 @@ export class ResultScene extends Phaser.Scene {
     this.topBar = new TopBar({
       scene: this,
       onBackClick: () => {
+        store.dispatch(setHittedNotes([]));
+        store.dispatch(setCombo({ combo: 0, maxCombo: 0 }));
         this.scene.start('SongSelection');
       },
     });
