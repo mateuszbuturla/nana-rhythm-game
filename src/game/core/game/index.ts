@@ -4,7 +4,6 @@ import { IGame } from '../../interfaces/game.interface';
 import { IMap } from '../../interfaces/map.interface';
 import { Audio } from '../audio';
 import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
-import { getHittedNotes } from '../../redux/mapResult';
 import { calculateNoteAccuracy } from '../accuracy';
 import store from '../../redux/store';
 import { Score } from '../score';
