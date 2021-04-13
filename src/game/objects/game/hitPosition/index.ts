@@ -21,7 +21,7 @@ export class HitPosition extends Phaser.GameObjects.Container {
       y: 150,
       texture: 'hitPositionTop',
     });
-    this.top.setOrigin(0);
+    this.top.setOrigin(0.5);
 
     this.bottom = new Image({
       scene: this.scene,
@@ -29,6 +29,6 @@ export class HitPosition extends Phaser.GameObjects.Container {
       y: 450,
       texture: 'hitPositionBottom',
     });
-    this.bottom.setOrigin(0);
+    this.bottom.setOrigin(0.5);
   }
 }
