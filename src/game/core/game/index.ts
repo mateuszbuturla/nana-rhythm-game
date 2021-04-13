@@ -95,9 +95,6 @@ export class Game {
     const width: number = this.scene.game.canvas.width;
     const time = Date.now() - this.startTime;
 
-    if (this.keyboard.up.isDown) {
-      console.log('asdasd');
-    }
     if (this.startTime !== 0) {
       const hittedNotes = store.getState().mapResult.hittedNotes;
       this.beatmap.notes.map((note, index) => {
@@ -110,6 +107,7 @@ export class Game {
             case 'up':
               if (this.keyboard.up.isDown) {
                 const accuracy = calculateNoteAccuracy(note.delay, time);
+                this.audio.playHitsound();
                 this.createNoteAccuracy('up', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
@@ -118,6 +116,7 @@ export class Game {
             case 'down':
               if (this.keyboard.down.isDown) {
                 const accuracy = calculateNoteAccuracy(note.delay, time);
+                this.audio.playHitsound();
                 this.createNoteAccuracy('down', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
