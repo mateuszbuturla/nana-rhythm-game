@@ -9,7 +9,7 @@ export class HitNote extends Phaser.GameObjects.Image {
   }
 
   private initSprite(): void {
-    // this.setScale(0.3);
+    this.setOrigin(0.5, 0.5);
   }
 
   updatePosition(scrollSpeed: number): void {
