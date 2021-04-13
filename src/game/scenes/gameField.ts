@@ -22,6 +22,8 @@ import { UiBackground } from '../objects/ui/uiBackground';
 import { ScoreBar } from '../objects/game/scoreBar';
 import hitSound from '../../../assets/sounds/hitSound.ogg';
 import { Audio } from '../core/audio';
+import music1 from '../../../assets/sounds/music.mp3';
+import music2 from '../../../assets/sounds/music2.mp3';
 
 export class GameField extends Phaser.Scene {
   keyboard: any;
@@ -50,6 +52,8 @@ export class GameField extends Phaser.Scene {
     this.load.image('hitPositionTop', hitPositionTop);
     this.load.image('hitPositionBottom', hitPositionBottom);
     this.load.audio('hitSound', hitSound);
+    this.load.audio('music1', music1);
+    this.load.audio('music2', music2);
 
     this.currentMap = getCurrentMap();
     this.score = new Score();
@@ -72,7 +76,13 @@ export class GameField extends Phaser.Scene {
       hitPositionDistance: this.hitPositionDistance,
     });
     this.scoreBar = new ScoreBar(this, this.score);
-    this.audio = new Audio({ scene: this });
+    this.audio = new Audio({
+      scene: this,
+      beatmapMusic: this.currentMap.music,
+    });
+    setTimeout(() => {
+      this.audio.playMusic();
+    }, 3000);
   }
 
   createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {

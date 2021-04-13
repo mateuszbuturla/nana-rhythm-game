@@ -7,14 +7,19 @@ export class Audio {
 
   constructor(aParams: IAudio) {
     this.scene = aParams.scene;
-    this.initAudio();
+    this.initAudio(aParams);
   }
 
-  initAudio(): void {
+  initAudio(aParams: IAudio): void {
     this.hitsoundAudio = this.scene.sound.add('hitSound');
+    this.musicAudio = this.scene.sound.add(aParams.beatmapMusic);
   }
 
   playHitsound(): void {
     this.hitsoundAudio.play();
+  }
+
+  playMusic(): void {
+    this.musicAudio.play();
   }
 }
