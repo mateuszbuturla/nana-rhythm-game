@@ -12,11 +12,12 @@ let mainWindow: Electron.BrowserWindow | null;
 function createWindow(): void {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    height: 610,
+    height: 605,
     width: 1080,
-    // frame: false,
-    // resizable: false,
-    // fullscreen: false,
+    useContentSize: true,
+    frame: true,
+    resizable: true,
+    fullscreen: false,
     webPreferences: {
       webSecurity: false,
       devTools: process.env.NODE_ENV !== 'production',
