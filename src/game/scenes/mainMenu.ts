@@ -13,23 +13,21 @@ import settingsButtonDecoration from '../../../assets/ui/settingsButtonDecoratio
 import exitButtonDecoration from '../../../assets/ui/exitButtonDecoration.png';
 import { GameConfig } from '../config/config';
 import { SceneTransition } from '../objects/ui/sceneTransition';
+import { UiBackground } from '../objects/ui/uiBackground';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
 
 export class MainMenu extends Phaser.Scene {
   optionsPanel: OptionsPanel;
-  background: any;
-  backgroundDim: any;
   playButton: MainMenuButton;
   editorButton: MainMenuButton;
   settingsButton: MainMenuButton;
   exitButton: MainMenuButton;
   logo: any;
-  gradientTop: Image;
-  gradientBottom: Image;
   versionLabel: Text;
   version: Text;
   transition: SceneTransition;
+  mainMenubackground: UiBackground;
 
   constructor() {
     super({ key: 'MainMenu' });
@@ -52,20 +50,12 @@ export class MainMenu extends Phaser.Scene {
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
     this.preload();
-    this.background = this.add.sprite(width / 2, height / 2, 'background');
-    this.background.setDisplaySize(width, height);
-    this.backgroundDim = this.add.rectangle(0, 0, width, height, 0x000000);
-    this.backgroundDim.setOrigin(0);
-    this.backgroundDim.alpha = 0.4;
-    this.gradientTop = new Image({
+
+    this.mainMenubackground = new UiBackground({
       scene: this,
-      x: 0,
-      y: 0,
-      texture: 'gradient',
+      background: 'background',
     });
-    this.gradientTop.setOrigin(1, 0);
-    this.gradientTop.y = this.gradientTop.height;
-    this.gradientTop.angle = 180;
+
     this.playButton = new MainMenuButton({
       scene: this,
       x: 250,
@@ -78,12 +68,6 @@ export class MainMenu extends Phaser.Scene {
           this.scene.start('SongSelection');
         });
       },
-    });
-    this.gradientBottom = new Image({
-      scene: this,
-      x: 0,
-      y: 0,
-      texture: 'gradient',
     });
     this.versionLabel = new Text({
       scene: this,
@@ -103,8 +87,6 @@ export class MainMenu extends Phaser.Scene {
       fontSize: '25px',
       color: 'white',
     });
-    this.gradientBottom.setOrigin(0, 0);
-    this.gradientBottom.y = height - this.gradientBottom.height;
     this.editorButton = new MainMenuButton({
       scene: this,
       x: 550,
