@@ -16,10 +16,11 @@ const songs: IMap[] = [
   {
     title: 'Test title1',
     author: 'Test author1',
+    music: 'music1',
     notes: [
       {
         direction: 'up',
-        delay: 1000,
+        delay: 500,
       },
       {
         direction: 'down',
@@ -31,13 +32,14 @@ const songs: IMap[] = [
       },
       {
         direction: 'down',
-        delay: 2200,
+        delay: 2500,
       },
     ],
   },
   {
     title: 'Test title2',
     author: 'Test author2',
+    music: 'music2',
     notes: [
       {
         direction: 'up',
@@ -67,141 +69,17 @@ const songs: IMap[] = [
         direction: 'up',
         delay: 2500,
       },
-    ],
-  },
-  {
-    title: 'Test title3',
-    author: 'Test author3',
-    notes: [
       {
         direction: 'up',
-        delay: 1000,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
+        delay: 3500,
       },
       {
         direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2200,
-      },
-      {
-        direction: 'down',
-        delay: 2300,
-      },
-      {
-        direction: 'down',
-        delay: 2400,
-      },
-      {
-        direction: 'down',
-        delay: 2500,
-      },
-    ],
-  },
-  {
-    title: 'Test title3',
-    author: 'Test author3',
-    notes: [
-      {
-        direction: 'up',
-        delay: 1000,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
+        delay: 3600,
       },
       {
         direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2200,
-      },
-      {
-        direction: 'down',
-        delay: 2300,
-      },
-      {
-        direction: 'down',
-        delay: 2400,
-      },
-      {
-        direction: 'down',
-        delay: 2500,
-      },
-    ],
-  },
-  {
-    title: 'Test title3',
-    author: 'Test author3',
-    notes: [
-      {
-        direction: 'up',
-        delay: 1000,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
-      },
-      {
-        direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2200,
-      },
-      {
-        direction: 'down',
-        delay: 2300,
-      },
-      {
-        direction: 'down',
-        delay: 2400,
-      },
-      {
-        direction: 'down',
-        delay: 2500,
-      },
-    ],
-  },
-  {
-    title: 'Test title3',
-    author: 'Test author3',
-    notes: [
-      {
-        direction: 'up',
-        delay: 1000,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
-      },
-      {
-        direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2200,
-      },
-      {
-        direction: 'down',
-        delay: 2300,
-      },
-      {
-        direction: 'down',
-        delay: 2400,
-      },
-      {
-        direction: 'down',
-        delay: 2500,
+        delay: 3700,
       },
     ],
   },
