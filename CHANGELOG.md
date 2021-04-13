@@ -1,3 +1,9 @@
+## 2.4.0 (2021-04-13)
+
+- rebuild game field scene
+- fix ui bottom gradient
+- create beatmap timer
+
 ## 2.3.0 (2021-04-12)
 
 Ui design change:
