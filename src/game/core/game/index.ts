@@ -1,9 +1,21 @@
+import { HitPosition } from './../../objects/game/hitPosition';
 import { HitNote } from './../../objects/game/hitNote/index';
 import { IGame } from '../../interfaces/game.interface';
 import { IMap } from '../../interfaces/map.interface';
 import { Audio } from '../audio';
+import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
+import { getHittedNotes } from '../../redux/mapResult';
+import { calculateNoteAccuracy } from '../accuracy';
+import store from '../../redux/store';
+import { Score } from '../score';
+import {
+  ENoteAccuracy,
+  INotesAccuracyArray,
+} from '../../interfaces/noteAccuracy.interface';
+import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 
 export class Game {
+  keyboard: any;
   scene: Phaser.Scene;
   breakBeforeTakeOff: number = 3000;
   scrollSpeed: number = 10;
@@ -11,6 +23,10 @@ export class Game {
   audio: Audio;
   notesObject: HitNote[] = [];
   hitPosition: number = 0;
+  startTime: number = 0;
+  score: Score;
+  notesAccuracy: INotesAccuracyArray[] = [];
+  hitPositionObj: HitPosition;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -25,11 +41,23 @@ export class Game {
       scene: this.scene,
       beatmapMusic: this.beatmap.music,
     });
+    this.score = new Score();
     this.hitPosition = 100 + 100;
+
+    this.hitPositionObj = new HitPosition({
+      scene: this.scene,
+      hitPositionDistance: this.hitPosition,
+    });
+
+    this.keyboard = this.scene.input.keyboard.addKeys({
+      up: Phaser.Input.Keyboard.KeyCodes.Z,
+      down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
+    });
 
     this.generateNotes();
 
     setTimeout(() => {
+      this.startTime = Date.now();
       this.audio.playMusic();
     }, this.breakBeforeTakeOff);
   }
@@ -45,13 +73,56 @@ export class Game {
           texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
         });
         this.notesObject = [...this.notesObject, newNote];
-      }, note.delay + width / this.scrollSpeed);
+      }, note.delay);
     });
   }
 
-  handleNoteClick(): void {}
+  handleNoteClick(): void {
+    const width: number = this.scene.game.canvas.width;
+    const time = Date.now() - this.startTime;
+
+    if (this.keyboard.up.isDown) {
+      console.log('asdasd');
+    }
+    if (this.startTime !== 0) {
+      const hittedNotes = store.getState().mapResult.hittedNotes;
+      this.beatmap.notes.map((note, index) => {
+        if (
+          time - noteAccuracyConfig.hitTime / 2 < note.delay &&
+          time + noteAccuracyConfig.hitTime / 2 > note.delay &&
+          hittedNotes[index] === undefined
+        ) {
+          switch (note.direction) {
+            case 'up':
+              if (this.keyboard.up.isDown) {
+                const accuracy = calculateNoteAccuracy(note.delay, time);
+                this.score.addHittedNotes(accuracy);
+                this.score.increaseCombo();
+              }
+              break;
+            case 'down':
+              if (this.keyboard.down.isDown) {
+                const accuracy = calculateNoteAccuracy(note.delay, time);
+                this.score.addHittedNotes(accuracy);
+                this.score.increaseCombo();
+              }
+              break;
+            default:
+              break;
+          }
+        } else if (
+          time > note.delay + noteAccuracyConfig.hitTime / 2 &&
+          hittedNotes[index] === undefined
+        ) {
+          this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
+          this.score.breakCombo();
+        }
+      });
+    }
+  }
 
   update(): void {
+    this.handleNoteClick();
     this.notesObject.map((note) => {
       note.updatePosition(this.scrollSpeed);
     });
