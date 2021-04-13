@@ -13,6 +13,7 @@ import {
   INotesAccuracyArray,
 } from '../../interfaces/noteAccuracy.interface';
 import { NoteAccuracy } from '../../objects/game/noteAccuracy';
+import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 
 export class Game {
   keyboard: any;
@@ -29,6 +30,8 @@ export class Game {
   notesAccuracy: INotesAccuracyArray[] = [];
   hitPositionObj: HitPosition;
   isLoadingResultScrean: boolean = false;
+  totalBeatmapTime: number;
+  beatmapTimer: BeatmapTimer;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -45,6 +48,12 @@ export class Game {
     });
     this.score = new Score();
     this.hitPosition = 100 + 100;
+    this.totalBeatmapTime =
+      this.beatmap.notes[this.beatmap.notes.length - 1].delay +
+      this.breakBeforeTakeOff +
+      this.breakAfterLastNote;
+
+    this.beatmapTimer = new BeatmapTimer({ scene: this.scene });
 
     this.scene.add.rectangle(this.hitPosition, 150, 1, 800, 0xffffff);
 
@@ -144,6 +153,7 @@ export class Game {
 
   update(): void {
     this.handleNoteClick();
+    this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
     this.notesObject.map((note) => {
       note.updatePosition(this.scrollSpeed);
     });
