@@ -88,7 +88,7 @@ export class MainMenu extends Phaser.Scene {
     this.versionLabel = new Text({
       scene: this,
       x: 30,
-      y: height - 130,
+      y: height - 75,
       text: `version`,
       fontSize: '25px',
       color: 'white',
@@ -103,7 +103,7 @@ export class MainMenu extends Phaser.Scene {
       fontSize: '25px',
       color: 'white',
     });
-    this.gradientBottom.setOrigin(0, 0.3);
+    this.gradientBottom.setOrigin(0, 0);
     this.gradientBottom.y = height - this.gradientBottom.height;
     this.editorButton = new MainMenuButton({
       scene: this,

@@ -44,7 +44,7 @@ export class UiBackground extends Phaser.GameObjects.Container {
       y: 0,
       texture: 'gradient',
     });
-    this.gradientBottom.setOrigin(0, 0.3);
+    this.gradientBottom.setOrigin(0, 0);
     this.gradientBottom.y = height - this.gradientBottom.height;
   }
 }
