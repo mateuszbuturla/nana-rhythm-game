@@ -69,6 +69,18 @@ const songs: IMap[] = [
         direction: 'up',
         delay: 2500,
       },
+      {
+        direction: 'up',
+        delay: 3500,
+      },
+      {
+        direction: 'up',
+        delay: 3600,
+      },
+      {
+        direction: 'up',
+        delay: 3700,
+      },
     ],
   },
 ];
