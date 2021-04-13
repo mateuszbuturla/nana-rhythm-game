@@ -77,6 +77,20 @@ export class Game {
     });
   }
 
+  createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
+    const noteAccuracy = new NoteAccuracy({
+      scene: this.scene,
+      x: this.hitPosition,
+      y: direction === 'up' ? 150 : 450,
+      text: noteAccuracyConfig.accuracy[type].text,
+      color: noteAccuracyConfig.accuracy[type].color,
+    });
+    this.notesAccuracy = [
+      ...this.notesAccuracy,
+      { object: noteAccuracy, createdTime: Date.now() },
+    ];
+  }
+
   handleNoteClick(): void {
     const width: number = this.scene.game.canvas.width;
     const time = Date.now() - this.startTime;
@@ -96,6 +110,7 @@ export class Game {
             case 'up':
               if (this.keyboard.up.isDown) {
                 const accuracy = calculateNoteAccuracy(note.delay, time);
+                this.createNoteAccuracy('up', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
               }
@@ -103,6 +118,7 @@ export class Game {
             case 'down':
               if (this.keyboard.down.isDown) {
                 const accuracy = calculateNoteAccuracy(note.delay, time);
+                this.createNoteAccuracy('down', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
               }
@@ -115,6 +131,7 @@ export class Game {
           hittedNotes[index] === undefined
         ) {
           this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
+          this.score.addHittedNotes(ENoteAccuracy.Miss);
           this.score.breakCombo();
         }
       });
@@ -125,6 +142,13 @@ export class Game {
     this.handleNoteClick();
     this.notesObject.map((note) => {
       note.updatePosition(this.scrollSpeed);
+    });
+    this.notesAccuracy.map((noteAccuracy, index) => {
+      noteAccuracy.object.updatePosition();
+      if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
+        noteAccuracy.object.destroy();
+        this.notesAccuracy.splice(index, 1);
+      }
     });
   }
 }
