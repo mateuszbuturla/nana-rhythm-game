@@ -22,4 +22,8 @@ export class Audio {
   playMusic(): void {
     this.musicAudio.play();
   }
+
+  stopMusic(): void {
+    this.musicAudio.stop();
+  }
 }
