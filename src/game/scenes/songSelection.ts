@@ -20,7 +20,7 @@ const songs: IMap[] = [
     notes: [
       {
         direction: 'up',
-        delay: 1000,
+        delay: 0,
       },
       {
         direction: 'down',
