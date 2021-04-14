@@ -1,3 +1,4 @@
+import { SceneTransition } from './../../objects/ui/sceneTransition';
 import { HitPosition } from './../../objects/game/hitPosition';
 import { HitNote } from './../../objects/game/hitNote/index';
 import { IGame } from '../../interfaces/game.interface';
@@ -31,6 +32,7 @@ export class Game {
   isLoadingResultScrean: boolean = false;
   totalBeatmapTime: number;
   beatmapTimer: BeatmapTimer;
+  transition: SceneTransition;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -65,6 +67,12 @@ export class Game {
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
+
+    this.transition = new SceneTransition({
+      scene: this.scene,
+      isShow: true,
+    });
+    this.transition.show();
 
     this.generateNotes();
 
@@ -171,7 +179,9 @@ export class Game {
       this.isLoadingResultScrean = true;
       setTimeout(() => {
         this.audio.stopMusic();
-        this.scene.scene.start('ResultScene');
+        this.transition.hide(() => {
+          this.scene.scene.start('ResultScene');
+        });
       }, this.breakAfterLastNote);
     }
   }

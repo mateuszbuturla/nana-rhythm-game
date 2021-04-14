@@ -20,6 +20,7 @@ import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { TopBar } from '../objects/ui/topBar';
 import store from '../redux/store';
+import { SceneTransition } from '../objects/ui/sceneTransition';
 
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;
@@ -32,6 +33,7 @@ export class ResultScene extends Phaser.Scene {
   miss: LabelValue;
   maxCombo: LabelValue;
   topBar: TopBar;
+  transition: SceneTransition;
 
   constructor() {
     super({ key: 'ResultScene' });
@@ -169,6 +171,12 @@ export class ResultScene extends Phaser.Scene {
         this.scene.start('SongSelection');
       },
     });
+
+    this.transition = new SceneTransition({
+      scene: this,
+      isShow: true,
+    });
+    this.transition.show();
   }
 
   update(): void {
