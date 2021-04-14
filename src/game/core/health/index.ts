@@ -1,4 +1,6 @@
 import { IHealth } from '../../interfaces/health.interface';
+import { ENoteAccuracy } from '../../interfaces/noteAccuracy.interface';
+import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 
 export class Health {
   scene: Phaser.Scene;
@@ -16,11 +18,11 @@ export class Health {
 
   decrementHealth(): void {
     this.currentHealth -= this.healthDrain;
-    console.log(this.currentHealth);
   }
 
-  increaseHealth(): void {
-    this.currentHealth += this.healthDrain / 4;
-    console.log(this.currentHealth);
+  increaseHealth(accuracy: ENoteAccuracy): void {
+    this.currentHealth +=
+      (this.healthDrain / 4) *
+      noteAccuracyConfig.accuracy[accuracy].accuracyValue;
   }
 }

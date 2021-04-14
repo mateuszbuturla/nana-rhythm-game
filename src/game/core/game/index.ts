@@ -139,7 +139,7 @@ export class Game {
                 this.createNoteAccuracy('up', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
-                this.health.increaseHealth();
+                this.health.increaseHealth(accuracy);
               }
               break;
             case 'down':
@@ -149,7 +149,7 @@ export class Game {
                 this.createNoteAccuracy('down', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
-                this.health.increaseHealth();
+                this.health.increaseHealth(accuracy);
               }
               break;
             default:
