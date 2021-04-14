@@ -11,6 +11,8 @@ import gradient from '../../../assets/ui/gradient.png';
 import hitSound from '../../../assets/sounds/hitSound.ogg';
 import music1 from '../../../assets/sounds/music.mp3';
 import music2 from '../../../assets/sounds/music2.mp3';
+import healthBarBackground from '../../../assets/ui/healthBarBackground.png';
+import healthBar from '../../../assets/ui/healthBar.png';
 
 export class GameField extends Phaser.Scene {
   currentMap: IMap;
@@ -31,6 +33,8 @@ export class GameField extends Phaser.Scene {
     this.load.audio('hitSound', hitSound);
     this.load.audio('music1', music1);
     this.load.audio('music2', music2);
+    this.load.image('healthBarBackground', healthBarBackground);
+    this.load.image('healthBar', healthBar);
 
     this.currentMap = store.getState().currentMap.currentMap;
   }

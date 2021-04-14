@@ -14,6 +14,7 @@ import {
 } from '../../interfaces/noteAccuracy.interface';
 import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
+import { Health } from '../health';
 
 export class Game {
   keyboard: any;
@@ -33,6 +34,7 @@ export class Game {
   totalBeatmapTime: number;
   beatmapTimer: BeatmapTimer;
   transition: SceneTransition;
+  health: Health;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -66,6 +68,11 @@ export class Game {
     this.keyboard = this.scene.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
+    });
+
+    this.health = new Health({
+      scene: this.scene,
+      healthDrain: 30,
     });
 
     this.transition = new SceneTransition({
@@ -132,6 +139,7 @@ export class Game {
                 this.createNoteAccuracy('up', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
+                this.health.increaseHealth(accuracy);
               }
               break;
             case 'down':
@@ -141,6 +149,7 @@ export class Game {
                 this.createNoteAccuracy('down', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
+                this.health.increaseHealth(accuracy);
               }
               break;
             default:
@@ -153,12 +162,19 @@ export class Game {
           this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
           this.score.addHittedNotes(ENoteAccuracy.Miss);
           this.score.breakCombo();
+          this.health.decrementHealth();
         }
       });
     }
   }
 
   update(): void {
+    if (!this.health.checkIfIsAliver()) {
+      console.log('game over');
+      this.audio.stopMusic();
+      return;
+    }
+
     this.handleNoteClick();
     this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
     this.notesObject.map((note) => {
@@ -171,6 +187,7 @@ export class Game {
         this.notesAccuracy.splice(index, 1);
       }
     });
+
     if (
       store.getState().mapResult.hittedNotes.length ===
         this.beatmap.notes.length &&
