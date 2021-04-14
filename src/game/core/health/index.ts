@@ -9,6 +9,7 @@ export class Health {
   currentHealth: number = 100;
   healthDrain: number;
   healthBar: HealthBar;
+  isAlive: boolean = true;
 
   constructor(aParams: IHealth) {
     this.scene = aParams.scene;
@@ -26,6 +27,7 @@ export class Health {
     this.currentHealth -= this.healthDrain;
     if (this.currentHealth < 0) {
       this.currentHealth = 0;
+      this.isAlive = false;
     }
     this.healthBar.updateHealthBar((this.currentHealth / this.maxHealth) * 100);
   }
@@ -40,5 +42,9 @@ export class Health {
     }
 
     this.healthBar.updateHealthBar((this.currentHealth / this.maxHealth) * 100);
+  }
+
+  checkIfIsAliver(): boolean {
+    return this.isAlive;
   }
 }

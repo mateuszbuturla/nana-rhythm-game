@@ -169,6 +169,12 @@ export class Game {
   }
 
   update(): void {
+    if (!this.health.checkIfIsAliver()) {
+      console.log('game over');
+      this.audio.stopMusic();
+      return;
+    }
+
     this.handleNoteClick();
     this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
     this.notesObject.map((note) => {
@@ -181,6 +187,7 @@ export class Game {
         this.notesAccuracy.splice(index, 1);
       }
     });
+
     if (
       store.getState().mapResult.hittedNotes.length ===
         this.beatmap.notes.length &&
