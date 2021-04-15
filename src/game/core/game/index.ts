@@ -17,6 +17,7 @@ import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 import { Health } from '../health';
 import { LoseScreen } from '../../objects/loseScreen';
 import { EGameState } from '../../enums/game.enum';
+import { fallAnimation } from '../../animations/fall.animation';
 
 export class Game {
   keyboard: any;
@@ -185,10 +186,10 @@ export class Game {
       this.audio.stopMusic();
       this.loseScreen.show();
       this.notesObject.map((note) => {
-        note.drop();
+        fallAnimation(this.scene, note);
       });
-      this.hitPositionObj.drop();
-      this.health.drop();
+      fallAnimation(this.scene, this.hitPositionObj);
+      fallAnimation(this.scene, this.health.getHealthBar());
     } else if (this.gameState === EGameState.playing) {
       this.handleNoteClick();
       this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
