@@ -3,4 +3,5 @@ export interface IIserConfig {
   showPerfectHit: boolean;
   hitPosition: number;
   musicVolume: number;
+  hitsoundVolume: number;
 }

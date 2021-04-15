@@ -21,6 +21,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   showAnimation: any;
   hideAnimation: any;
   musicVolumeInput: SliderInput;
+  hitsoundVolumeInput: SliderInput;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -116,6 +117,17 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       value: this.config.musicVolume,
     });
 
+    this.hitsoundVolumeInput = new SliderInput({
+      scene: this.scene,
+      x: 50,
+      y: getObjectBottomEdgePosition(this.musicVolumeInput) + 80,
+      label: 'hitsound volume',
+      width: 300,
+      min: 0,
+      max: 100,
+      value: this.config.hitsoundVolume,
+    });
+
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.inGameLabel);
@@ -123,6 +135,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     this.add(this.showPerfectHitInput);
     this.add(this.hitPositionInput);
     this.add(this.musicVolumeInput);
+    this.add(this.hitsoundVolumeInput);
     this.escIsPressed = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.ESC,
     );
@@ -136,6 +149,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       showPerfectHit: this.showPerfectHitInput.getValue(),
       hitPosition: this.hitPositionInput.getValue(),
       musicVolume: this.musicVolumeInput.getValue(),
+      hitsoundVolume: this.hitsoundVolumeInput.getValue(),
     };
     this.userConfig.setUserConfig(newConfig);
     this.hidePanel();

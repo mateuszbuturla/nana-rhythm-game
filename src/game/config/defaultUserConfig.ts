@@ -3,4 +3,5 @@ export const defaultUserConfig = {
   showPerfectHit: true,
   hitPosition: 100,
   musicVolume: 50,
+  hitsoundVolume: 50,
 };
