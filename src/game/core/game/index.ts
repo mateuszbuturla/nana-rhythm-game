@@ -15,6 +15,7 @@ import {
 import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 import { Health } from '../health';
+import { LoseScreen } from '../../objects/loseScreen';
 
 export class Game {
   keyboard: any;
@@ -35,6 +36,7 @@ export class Game {
   beatmapTimer: BeatmapTimer;
   transition: SceneTransition;
   health: Health;
+  loseScreen: LoseScreen;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -84,6 +86,8 @@ export class Game {
     this.generateNotes();
 
     this.startTime = Date.now();
+
+    this.loseScreen = new LoseScreen(this.scene);
 
     setTimeout(() => {
       this.audio.playMusic();
@@ -172,6 +176,7 @@ export class Game {
     if (!this.health.checkIfIsAliver()) {
       console.log('game over');
       this.audio.stopMusic();
+      this.loseScreen.show();
       return;
     }
 
