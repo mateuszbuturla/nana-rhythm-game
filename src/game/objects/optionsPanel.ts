@@ -70,14 +70,6 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       state: this.config.showNoteAccuracy,
       label: 'Show note accuracy',
     });
-    this.showNoteAccuracyInput.setInteractive(
-      new Phaser.Geom.Rectangle(0, 0, 100, 50),
-      Phaser.Geom.Rectangle.Contains,
-    );
-    this.showNoteAccuracyInput.on('pointerdown', () => {
-      this.config.showNoteAccuracy = !this.config.showNoteAccuracy;
-      this.showNoteAccuracyInput.setCheck(this.config.showNoteAccuracy);
-    });
 
     this.showPerfectHitInput = new CheckBox({
       scene: this.scene,
@@ -85,14 +77,6 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       y: getObjectBottomEdgePosition(this.showNoteAccuracyInput) + 60,
       state: this.config.showPerfectHit,
       label: 'Show perfect hits',
-    });
-    this.showPerfectHitInput.setInteractive(
-      new Phaser.Geom.Rectangle(0, 0, 100, 50),
-      Phaser.Geom.Rectangle.Contains,
-    );
-    this.showPerfectHitInput.on('pointerdown', () => {
-      this.config.showPerfectHit = !this.config.showPerfectHit;
-      this.showPerfectHitInput.setCheck(this.config.showPerfectHit);
     });
 
     this.hitPositionInput = new SliderInput({
