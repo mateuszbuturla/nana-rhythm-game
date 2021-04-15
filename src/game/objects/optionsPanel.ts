@@ -20,6 +20,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   escIsPressed: any;
   showAnimation: any;
   hideAnimation: any;
+  musicVolumeInput: SliderInput;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -104,12 +105,24 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       value: this.config.hitPosition,
     });
 
+    this.musicVolumeInput = new SliderInput({
+      scene: this.scene,
+      x: 50,
+      y: getObjectBottomEdgePosition(this.hitPositionInput) + 80,
+      label: 'music volume',
+      width: 300,
+      min: 0,
+      max: 100,
+      value: this.config.musicVolume,
+    });
+
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.inGameLabel);
     this.add(this.showNoteAccuracyInput);
     this.add(this.showPerfectHitInput);
     this.add(this.hitPositionInput);
+    this.add(this.musicVolumeInput);
     this.escIsPressed = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.ESC,
     );
@@ -122,6 +135,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       showNoteAccuracy: this.showNoteAccuracyInput.getValue(),
       showPerfectHit: this.showPerfectHitInput.getValue(),
       hitPosition: this.hitPositionInput.getValue(),
+      musicVolume: this.musicVolumeInput.getValue(),
     };
     this.userConfig.setUserConfig(newConfig);
     this.hidePanel();
