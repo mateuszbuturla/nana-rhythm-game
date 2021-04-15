@@ -104,7 +104,7 @@ export class Game {
         const newNote = new HitNote({
           scene: this.scene,
           x: width + this.hitPosition,
-          y: note.direction === 'up' ? 150 : 450,
+          y: note.direction === 'up' ? 350 : 650,
           texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
         });
         this.notesObject = [...this.notesObject, newNote];
@@ -116,7 +116,7 @@ export class Game {
     const noteAccuracy = new NoteAccuracy({
       scene: this.scene,
       x: this.hitPosition,
-      y: direction === 'up' ? 150 : 450,
+      y: direction === 'up' ? 350 : 650,
       text: noteAccuracyConfig.accuracy[type].text,
       color: noteAccuracyConfig.accuracy[type].color,
     });
