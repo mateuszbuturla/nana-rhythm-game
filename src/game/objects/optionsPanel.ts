@@ -114,6 +114,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       Phaser.Input.Keyboard.KeyCodes.ESC,
     );
     this.setPosition(-this.getBounds().width, 0);
+    this.setDepth(2);
   }
 
   private handleClose(): void {
