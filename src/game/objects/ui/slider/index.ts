@@ -39,13 +39,23 @@ export class SliderInput extends Phaser.GameObjects.Container {
 
     this.sliderDot = this.scene.add.circle(sliderDotPosition, 50, 5, 0xffffff);
 
-    this.scene.input.on('pointerdown', this.handlePointerDown, this);
-    this.scene.input.on('pointermove', this.handleDrag, this);
-    this.scene.input.on('pointerup', this.handlePointerUp, this);
-
     this.add(this.label);
     this.add(this.sliderBar);
     this.add(this.sliderDot);
+
+    this.setInteractive(
+      new Phaser.Geom.Rectangle(
+        this.getBounds().width / 2,
+        0,
+        this.getBounds().width,
+        this.getBounds().height,
+      ),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.on('pointerdown', this.handlePointerDown);
+
+    this.scene.input.on('pointermove', this.handleDrag, this);
+    this.scene.input.on('pointerup', this.handlePointerUp, this);
   }
 
   handlePointerDown(): void {
