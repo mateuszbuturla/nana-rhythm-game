@@ -16,6 +16,7 @@ import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 import { Health } from '../health';
 import { LoseScreen } from '../../objects/loseScreen';
+import { EGameState } from '../../enums/game.enum';
 
 export class Game {
   keyboard: any;
@@ -37,6 +38,7 @@ export class Game {
   transition: SceneTransition;
   health: Health;
   loseScreen: LoseScreen;
+  gameState: EGameState;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -84,6 +86,8 @@ export class Game {
     this.transition.show();
 
     this.generateNotes();
+
+    this.gameState = EGameState.playing;
 
     this.startTime = Date.now();
 
@@ -173,16 +177,11 @@ export class Game {
   }
 
   update(): void {
-    this.notesAccuracy.map((noteAccuracy, index) => {
-      noteAccuracy.object.updatePosition();
-      if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
-        noteAccuracy.object.destroy();
-        this.notesAccuracy.splice(index, 1);
-      }
-    });
-
-    if (!this.health.checkIfIsAliver()) {
-      console.log('game over');
+    if (
+      !this.health.checkIfIsAliver() &&
+      this.gameState === EGameState.playing
+    ) {
+      this.gameState = EGameState.lose;
       this.audio.stopMusic();
       this.loseScreen.show();
       this.notesObject.map((note) => {
@@ -190,27 +189,34 @@ export class Game {
       });
       this.hitPositionObj.drop();
       this.health.drop();
-      return;
+    } else if (this.gameState === EGameState.playing) {
+      this.handleNoteClick();
+      this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
+      this.notesObject.map((note) => {
+        note.updatePosition(this.scrollSpeed);
+      });
+
+      if (
+        store.getState().mapResult.hittedNotes.length ===
+          this.beatmap.notes.length &&
+        !this.isLoadingResultScrean
+      ) {
+        this.isLoadingResultScrean = true;
+        setTimeout(() => {
+          this.audio.stopMusic();
+          this.transition.hide(() => {
+            this.scene.scene.start('ResultScene');
+          });
+        }, this.breakAfterLastNote);
+      }
     }
 
-    this.handleNoteClick();
-    this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
-    this.notesObject.map((note) => {
-      note.updatePosition(this.scrollSpeed);
+    this.notesAccuracy.map((noteAccuracy, index) => {
+      noteAccuracy.object.updatePosition();
+      if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
+        noteAccuracy.object.destroy();
+        this.notesAccuracy.splice(index, 1);
+      }
     });
-
-    if (
-      store.getState().mapResult.hittedNotes.length ===
-        this.beatmap.notes.length &&
-      !this.isLoadingResultScrean
-    ) {
-      this.isLoadingResultScrean = true;
-      setTimeout(() => {
-        this.audio.stopMusic();
-        this.transition.hide(() => {
-          this.scene.scene.start('ResultScene');
-        });
-      }, this.breakAfterLastNote);
-    }
   }
 }
