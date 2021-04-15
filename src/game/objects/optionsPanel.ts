@@ -161,6 +161,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     });
 
     hideAnimation.play();
+    this.handleClose();
   }
 
   update(): void {
