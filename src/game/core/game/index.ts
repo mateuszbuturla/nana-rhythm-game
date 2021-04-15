@@ -173,10 +173,23 @@ export class Game {
   }
 
   update(): void {
+    this.notesAccuracy.map((noteAccuracy, index) => {
+      noteAccuracy.object.updatePosition();
+      if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
+        noteAccuracy.object.destroy();
+        this.notesAccuracy.splice(index, 1);
+      }
+    });
+
     if (!this.health.checkIfIsAliver()) {
       console.log('game over');
       this.audio.stopMusic();
       this.loseScreen.show();
+      this.notesObject.map((note) => {
+        note.drop();
+      });
+      this.hitPositionObj.drop();
+      this.health.drop();
       return;
     }
 
@@ -184,13 +197,6 @@ export class Game {
     this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
     this.notesObject.map((note) => {
       note.updatePosition(this.scrollSpeed);
-    });
-    this.notesAccuracy.map((noteAccuracy, index) => {
-      noteAccuracy.object.updatePosition();
-      if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
-        noteAccuracy.object.destroy();
-        this.notesAccuracy.splice(index, 1);
-      }
     });
 
     if (

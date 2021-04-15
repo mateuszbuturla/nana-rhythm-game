@@ -7,6 +7,7 @@ export class HealthBar extends Phaser.GameObjects.Container {
   healthBarBackground: Image;
   healthBar: Image;
   healthLabel: Text;
+  dropped: boolean = false;
 
   constructor(aParams: IHealthBar) {
     super(aParams.scene, 75, 75);
@@ -53,5 +54,20 @@ export class HealthBar extends Phaser.GameObjects.Container {
       newWidth > 0 ? newWidth : 0,
       this.healthBarBackground.height,
     );
+  }
+
+  drop(): void {
+    if (!this.dropped) {
+      const showAnimation = this.scene.tweens.createTimeline();
+
+      showAnimation.add({
+        targets: this,
+        y: this.scene.game.canvas.height + this.height + 100,
+        duration: 1000,
+      });
+
+      showAnimation.play();
+      this.dropped = true;
+    }
   }
 }

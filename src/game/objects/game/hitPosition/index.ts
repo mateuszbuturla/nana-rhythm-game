@@ -5,6 +5,7 @@ export class HitPosition extends Phaser.GameObjects.Container {
   top: Image;
   bottom: Image;
   hitPositionDistance: number;
+  dropped: boolean = false;
 
   constructor(aParams: IHitPosition) {
     super(aParams.scene, 0, 0);
@@ -30,5 +31,22 @@ export class HitPosition extends Phaser.GameObjects.Container {
       texture: 'hitPositionBottom',
     });
     this.bottom.setOrigin(0.5);
+    this.add(this.top);
+    this.add(this.bottom);
+  }
+
+  drop(): void {
+    if (!this.dropped) {
+      const showAnimation = this.scene.tweens.createTimeline();
+
+      showAnimation.add({
+        targets: this,
+        y: this.scene.game.canvas.height + this.height + 100,
+        duration: 1000,
+      });
+
+      showAnimation.play();
+      this.dropped = true;
+    }
   }
 }
