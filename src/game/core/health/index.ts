@@ -47,4 +47,8 @@ export class Health {
   checkIfIsAliver(): boolean {
     return this.isAlive;
   }
+
+  getHealthBar(): HealthBar {
+    return this.healthBar;
+  }
 }

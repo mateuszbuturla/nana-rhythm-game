@@ -7,6 +7,7 @@ export class HealthBar extends Phaser.GameObjects.Container {
   healthBarBackground: Image;
   healthBar: Image;
   healthLabel: Text;
+  dropped: boolean = false;
 
   constructor(aParams: IHealthBar) {
     super(aParams.scene, 75, 75);

@@ -24,4 +24,16 @@ interface ILedearboardButton {
   callback: () => void;
 }
 
-export { IMainMenuButton, IBackButton, ILedearboardButton };
+interface ITextButton {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  label: string;
+  fontSize?: string;
+  color?: string;
+  fontFamily?: string;
+  align?: 'left' | 'center' | 'right';
+  callback: () => void;
+}
+
+export { IMainMenuButton, IBackButton, ILedearboardButton, ITextButton };

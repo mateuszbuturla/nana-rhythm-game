@@ -13,6 +13,7 @@ import music1 from '../../../assets/sounds/music.mp3';
 import music2 from '../../../assets/sounds/music2.mp3';
 import healthBarBackground from '../../../assets/ui/healthBarBackground.png';
 import healthBar from '../../../assets/ui/healthBar.png';
+import { setCombo, setHittedNotes } from '../redux/mapResult';
 
 export class GameField extends Phaser.Scene {
   currentMap: IMap;
@@ -40,6 +41,8 @@ export class GameField extends Phaser.Scene {
   }
 
   create(): void {
+    store.dispatch(setHittedNotes([]));
+    store.dispatch(setCombo({ combo: 0, maxCombo: 0 }));
     this.gameBackground = new UiBackground({
       scene: this,
       background: 'background',
