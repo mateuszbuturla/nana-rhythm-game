@@ -1,6 +1,8 @@
 import { IImageConstructor } from '../../../interfaces/image.interface';
 
 export class HitNote extends Phaser.GameObjects.Image {
+  dropped: boolean = false;
+
   constructor(aParams: IImageConstructor) {
     super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
 

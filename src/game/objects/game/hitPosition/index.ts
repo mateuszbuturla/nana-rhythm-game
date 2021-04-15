@@ -30,5 +30,7 @@ export class HitPosition extends Phaser.GameObjects.Container {
       texture: 'hitPositionBottom',
     });
     this.bottom.setOrigin(0.5);
+    this.add(this.top);
+    this.add(this.bottom);
   }
 }

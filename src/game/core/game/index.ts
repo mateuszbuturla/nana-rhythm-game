@@ -1,3 +1,4 @@
+import { SceneTransition } from './../../objects/ui/sceneTransition';
 import { HitPosition } from './../../objects/game/hitPosition';
 import { HitNote } from './../../objects/game/hitNote/index';
 import { IGame } from '../../interfaces/game.interface';
@@ -13,6 +14,10 @@ import {
 } from '../../interfaces/noteAccuracy.interface';
 import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
+import { Health } from '../health';
+import { LoseScreen } from '../../objects/loseScreen';
+import { EGameState } from '../../enums/game.enum';
+import { fallAnimation } from '../../animations/fall.animation';
 
 export class Game {
   keyboard: any;
@@ -31,6 +36,10 @@ export class Game {
   isLoadingResultScrean: boolean = false;
   totalBeatmapTime: number;
   beatmapTimer: BeatmapTimer;
+  transition: SceneTransition;
+  health: Health;
+  loseScreen: LoseScreen;
+  gameState: EGameState;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -54,8 +63,6 @@ export class Game {
 
     this.beatmapTimer = new BeatmapTimer({ scene: this.scene });
 
-    this.scene.add.rectangle(this.hitPosition, 150, 1, 800, 0xffffff);
-
     this.hitPositionObj = new HitPosition({
       scene: this.scene,
       hitPositionDistance: this.hitPosition,
@@ -66,7 +73,22 @@ export class Game {
       down: Phaser.Input.Keyboard.KeyCodes.FORWARD_SLASH,
     });
 
+    this.health = new Health({
+      scene: this.scene,
+      healthDrain: 30,
+    });
+
+    this.transition = new SceneTransition({
+      scene: this.scene,
+      isShow: true,
+    });
+    this.transition.show();
+
     this.generateNotes();
+
+    this.loseScreen = new LoseScreen(this.scene);
+
+    this.gameState = EGameState.playing;
 
     this.startTime = Date.now();
 
@@ -124,6 +146,7 @@ export class Game {
                 this.createNoteAccuracy('up', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
+                this.health.increaseHealth(accuracy);
               }
               break;
             case 'down':
@@ -133,6 +156,7 @@ export class Game {
                 this.createNoteAccuracy('down', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
+                this.health.increaseHealth(accuracy);
               }
               break;
             default:
@@ -145,17 +169,47 @@ export class Game {
           this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
           this.score.addHittedNotes(ENoteAccuracy.Miss);
           this.score.breakCombo();
+          this.health.decrementHealth();
         }
       });
     }
   }
 
   update(): void {
-    this.handleNoteClick();
-    this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
-    this.notesObject.map((note) => {
-      note.updatePosition(this.scrollSpeed);
-    });
+    if (
+      !this.health.checkIfIsAliver() &&
+      this.gameState === EGameState.playing
+    ) {
+      this.gameState = EGameState.lose;
+      this.audio.stopMusic();
+      this.loseScreen.show();
+      this.notesObject.map((note) => {
+        fallAnimation(this.scene, note);
+      });
+      fallAnimation(this.scene, this.hitPositionObj);
+      fallAnimation(this.scene, this.health.getHealthBar());
+    } else if (this.gameState === EGameState.playing) {
+      this.handleNoteClick();
+      this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
+      this.notesObject.map((note) => {
+        note.updatePosition(this.scrollSpeed);
+      });
+
+      if (
+        store.getState().mapResult.hittedNotes.length ===
+          this.beatmap.notes.length &&
+        !this.isLoadingResultScrean
+      ) {
+        this.isLoadingResultScrean = true;
+        setTimeout(() => {
+          this.audio.stopMusic();
+          this.transition.hide(() => {
+            this.scene.scene.start('ResultScene');
+          });
+        }, this.breakAfterLastNote);
+      }
+    }
+
     this.notesAccuracy.map((noteAccuracy, index) => {
       noteAccuracy.object.updatePosition();
       if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
@@ -163,15 +217,5 @@ export class Game {
         this.notesAccuracy.splice(index, 1);
       }
     });
-    if (
-      store.getState().mapResult.hittedNotes.length ===
-        this.beatmap.notes.length &&
-      !this.isLoadingResultScrean
-    ) {
-      this.isLoadingResultScrean = true;
-      setTimeout(() => {
-        this.scene.scene.start('ResultScene');
-      }, this.breakAfterLastNote);
-    }
   }
 }

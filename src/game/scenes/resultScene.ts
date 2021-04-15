@@ -1,6 +1,11 @@
 import { Text } from '../objects/basic/text';
 import { calculateOveralAccuracy } from '../core/accuracy';
-import { getCombo, getHittedNotes } from '../redux/mapResult';
+import {
+  getCombo,
+  getHittedNotes,
+  setCombo,
+  setHittedNotes,
+} from '../redux/mapResult';
 import {
   calculateCurrentScore,
   getCountOfHittedNotesFromType,
@@ -14,6 +19,8 @@ import gradient from '../../../assets/ui/gradient.png';
 import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { TopBar } from '../objects/ui/topBar';
+import store from '../redux/store';
+import { SceneTransition } from '../objects/ui/sceneTransition';
 
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;
@@ -26,12 +33,14 @@ export class ResultScene extends Phaser.Scene {
   miss: LabelValue;
   maxCombo: LabelValue;
   topBar: TopBar;
+  transition: SceneTransition;
 
   constructor() {
     super({ key: 'ResultScene' });
   }
 
   preload(): void {
+    this.scene.stop('MainScene');
     this.load.image('background', background);
     this.load.image('gradient', gradient);
     this.load.image('backButton', backButton);
@@ -160,6 +169,12 @@ export class ResultScene extends Phaser.Scene {
         this.scene.start('SongSelection');
       },
     });
+
+    this.transition = new SceneTransition({
+      scene: this,
+      isShow: true,
+    });
+    this.transition.show();
   }
 
   update(): void {
