@@ -48,7 +48,7 @@ export class Health {
     return this.isAlive;
   }
 
-  drop(): void {
-    this.healthBar.drop();
+  getHealthBar(): HealthBar {
+    return this.healthBar;
   }
 }

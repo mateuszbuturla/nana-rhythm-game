@@ -16,6 +16,8 @@ import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 import { Health } from '../health';
 import { LoseScreen } from '../../objects/loseScreen';
+import { EGameState } from '../../enums/game.enum';
+import { fallAnimation } from '../../animations/fall.animation';
 
 export class Game {
   keyboard: any;
@@ -37,6 +39,7 @@ export class Game {
   transition: SceneTransition;
   health: Health;
   loseScreen: LoseScreen;
+  gameState: EGameState;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -84,6 +87,8 @@ export class Game {
     this.transition.show();
 
     this.generateNotes();
+
+    this.gameState = EGameState.playing;
 
     this.startTime = Date.now();
 
@@ -173,6 +178,40 @@ export class Game {
   }
 
   update(): void {
+    if (
+      !this.health.checkIfIsAliver() &&
+      this.gameState === EGameState.playing
+    ) {
+      this.gameState = EGameState.lose;
+      this.audio.stopMusic();
+      this.loseScreen.show();
+      this.notesObject.map((note) => {
+        fallAnimation(this.scene, note);
+      });
+      fallAnimation(this.scene, this.hitPositionObj);
+      fallAnimation(this.scene, this.health.getHealthBar());
+    } else if (this.gameState === EGameState.playing) {
+      this.handleNoteClick();
+      this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
+      this.notesObject.map((note) => {
+        note.updatePosition(this.scrollSpeed);
+      });
+
+      if (
+        store.getState().mapResult.hittedNotes.length ===
+          this.beatmap.notes.length &&
+        !this.isLoadingResultScrean
+      ) {
+        this.isLoadingResultScrean = true;
+        setTimeout(() => {
+          this.audio.stopMusic();
+          this.transition.hide(() => {
+            this.scene.scene.start('ResultScene');
+          });
+        }, this.breakAfterLastNote);
+      }
+    }
+
     this.notesAccuracy.map((noteAccuracy, index) => {
       noteAccuracy.object.updatePosition();
       if (Date.now() - noteAccuracy.createdTime > noteAccuracyConfig.lifeTime) {
@@ -180,37 +219,5 @@ export class Game {
         this.notesAccuracy.splice(index, 1);
       }
     });
-
-    if (!this.health.checkIfIsAliver()) {
-      console.log('game over');
-      this.audio.stopMusic();
-      this.loseScreen.show();
-      this.notesObject.map((note) => {
-        note.drop();
-      });
-      this.hitPositionObj.drop();
-      this.health.drop();
-      return;
-    }
-
-    this.handleNoteClick();
-    this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
-    this.notesObject.map((note) => {
-      note.updatePosition(this.scrollSpeed);
-    });
-
-    if (
-      store.getState().mapResult.hittedNotes.length ===
-        this.beatmap.notes.length &&
-      !this.isLoadingResultScrean
-    ) {
-      this.isLoadingResultScrean = true;
-      setTimeout(() => {
-        this.audio.stopMusic();
-        this.transition.hide(() => {
-          this.scene.scene.start('ResultScene');
-        });
-      }, this.breakAfterLastNote);
-    }
   }
 }
