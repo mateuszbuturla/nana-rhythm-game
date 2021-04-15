@@ -63,8 +63,6 @@ export class Game {
 
     this.beatmapTimer = new BeatmapTimer({ scene: this.scene });
 
-    this.scene.add.rectangle(this.hitPosition, 150, 1, 800, 0xffffff);
-
     this.hitPositionObj = new HitPosition({
       scene: this.scene,
       hitPositionDistance: this.hitPosition,
@@ -88,11 +86,11 @@ export class Game {
 
     this.generateNotes();
 
+    this.loseScreen = new LoseScreen(this.scene);
+
     this.gameState = EGameState.playing;
 
     this.startTime = Date.now();
-
-    this.loseScreen = new LoseScreen(this.scene);
 
     setTimeout(() => {
       this.audio.playMusic();

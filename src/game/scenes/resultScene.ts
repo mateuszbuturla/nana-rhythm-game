@@ -166,8 +166,6 @@ export class ResultScene extends Phaser.Scene {
     this.topBar = new TopBar({
       scene: this,
       onBackClick: () => {
-        store.dispatch(setHittedNotes([]));
-        store.dispatch(setCombo({ combo: 0, maxCombo: 0 }));
         this.scene.start('SongSelection');
       },
     });

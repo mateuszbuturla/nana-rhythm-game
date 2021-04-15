@@ -1,13 +1,14 @@
 import { Text } from './basic/text';
 import { getObjectBottomEdgePosition } from '../helpers/getObjectBottomEdgePosition';
 import { easeInOutExpo } from '../utils/eases';
+import { TextButton } from './ui/textButton';
 
 export class LoseScreen extends Phaser.GameObjects.Container {
   background: any;
   isShow: boolean = false;
   failed: Text;
-  restart: Text;
-  exit: Text;
+  restart: TextButton;
+  exit: TextButton;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -26,24 +27,30 @@ export class LoseScreen extends Phaser.GameObjects.Container {
       x: 100 - width / 2,
       y: 300 - height / 2,
       text: 'Failed',
-      fontSize: '65px',
+      fontSize: '55px',
       color: 'white',
     });
-    this.restart = new Text({
+    this.restart = new TextButton({
       scene: this.scene,
       x: 100 - width / 2,
-      y: getObjectBottomEdgePosition(this.failed) + 50,
-      text: 'Restart',
+      y: getObjectBottomEdgePosition(this.failed) + 30,
+      label: 'Restart',
       fontSize: '75px',
       color: 'white',
+      callback: () => {
+        this.scene.scene.start('MainScene');
+      },
     });
-    this.exit = new Text({
+    this.exit = new TextButton({
       scene: this.scene,
       x: 100 - width / 2,
-      y: getObjectBottomEdgePosition(this.restart) + 50,
-      text: 'Exit',
+      y: getObjectBottomEdgePosition(this.restart) + 100,
+      label: 'Exit',
       fontSize: '75px',
       color: 'white',
+      callback: () => {
+        this.scene.scene.start('MainMenu');
+      },
     });
 
     this.add(this.background);
