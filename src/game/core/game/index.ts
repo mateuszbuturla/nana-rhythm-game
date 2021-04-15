@@ -1,3 +1,4 @@
+import { UserConfig } from '../userConfig/index';
 import { SceneTransition } from './../../objects/ui/sceneTransition';
 import { HitPosition } from './../../objects/game/hitPosition';
 import { HitNote } from './../../objects/game/hitNote/index';
@@ -18,6 +19,7 @@ import { Health } from '../health';
 import { LoseScreen } from '../../objects/loseScreen';
 import { EGameState } from '../../enums/game.enum';
 import { fallAnimation } from '../../animations/fall.animation';
+import { IIserConfig } from '../../interfaces/userConfig.interface';
 
 export class Game {
   keyboard: any;
@@ -40,6 +42,7 @@ export class Game {
   health: Health;
   loseScreen: LoseScreen;
   gameState: EGameState;
+  userConfig: IIserConfig;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -55,7 +58,8 @@ export class Game {
       beatmapMusic: this.beatmap.music,
     });
     this.score = new Score();
-    this.hitPosition = 100 + 100;
+    this.userConfig = new UserConfig().getUserConfig();
+    this.hitPosition = this.userConfig.hitPosition;
     this.totalBeatmapTime =
       this.beatmap.notes[this.beatmap.notes.length - 1].delay +
       this.breakBeforeTakeOff +
