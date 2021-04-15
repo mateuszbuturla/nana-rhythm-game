@@ -1,3 +1,9 @@
+## 2.5.0 (2021-04-15)
+
+- health system
+- lose screen
+- restart beatmap
+
 ## 2.4.0 (2021-04-13)
 
 - rebuild game field scene
