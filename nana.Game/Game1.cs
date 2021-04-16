@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
+using nanaGame.Screens;
 
-namespace NaNa_Rhythm_Game
+namespace nanaGame
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private NanaScreens nanaScreens;
 
         public Game1()
         {
@@ -26,7 +27,7 @@ namespace NaNa_Rhythm_Game
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            nanaScreens = new NanaScreens(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -44,6 +45,8 @@ namespace NaNa_Rhythm_Game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            nanaScreens.draw();
 
             base.Draw(gameTime);
         }

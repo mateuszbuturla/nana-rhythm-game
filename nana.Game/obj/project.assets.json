@@ -181,9 +181,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\nana-rhythm-game\\nana.Game\\NaNa Rhythm Game.csproj",
-      "projectName": "NaNa Rhythm Game",
-      "projectPath": "E:\\nana-rhythm-game\\nana.Game\\NaNa Rhythm Game.csproj",
+      "projectUniqueName": "E:\\nana-rhythm-game\\nana.Game\\nanaGame.csproj",
+      "projectName": "nanaGame",
+      "projectPath": "E:\\nana-rhythm-game\\nana.Game\\nanaGame.csproj",
       "packagesPath": "C:\\Users\\Mateusz\\.nuget\\packages\\",
       "outputPath": "E:\\nana-rhythm-game\\nana.Game\\obj\\",
       "projectStyle": "PackageReference",

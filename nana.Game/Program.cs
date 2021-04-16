@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NaNa_Rhythm_Game
+namespace nanaGame
 {
     public static class Program
     {
