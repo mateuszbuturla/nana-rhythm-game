@@ -1,20 +1,20 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using nanaGame.Utils;
+using nanaGame.Screens.Menu;
 
 namespace nanaGame.Screens
 {
     class NanaScreens
     {
-        private NanaUtils utils;
-        private SpriteBatch _spriteBatch;
+        public SpriteBatch _spriteBatch;
         private GraphicsDevice _graphicsDevice;
         private NanaScreensTypes currentScene = NanaScreensTypes.MainMenu;
+        private MainMenu menu;
 
         public NanaScreens (GraphicsDevice _graphicsDevice)
         {
-            this.utils = new NanaUtils();
             this._spriteBatch = new SpriteBatch(_graphicsDevice);
             this._graphicsDevice = _graphicsDevice;
+            this.menu = new MainMenu(_graphicsDevice);
         }
 
         public void draw ()
@@ -22,6 +22,7 @@ namespace nanaGame.Screens
             switch(currentScene)
             {
                 case NanaScreensTypes.MainMenu:
+                    menu.Draw();
                     break;
                 case NanaScreensTypes.Game:
                     break;
