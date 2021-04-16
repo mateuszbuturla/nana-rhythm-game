@@ -1,0 +1,46 @@
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.exe
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.deps.json
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.runtimeconfig.json
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.runtimeconfig.dev.json
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.dll
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.pdb
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libSDL2-2.0.so.0
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libopenal.so.1
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\osx\native\libSDL2-2.0.0.dylib
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\osx\native\libopenal.1.dylib
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\SDL2.dll
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
+E:\nana-rhythm-game\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.csprojAssemblyReference.cache
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.AssemblyInfoInputs.cache
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.AssemblyInfo.cs
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.csproj.CoreCompileInputs.cache
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.csproj.CopyComplete
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.dll
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.pdb
+E:\nana-rhythm-game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.genruntimeconfig.cache
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.exe
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.deps.json
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.runtimeconfig.json
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.runtimeconfig.dev.json
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.dll
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\NaNa Rhythm Game.pdb
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libSDL2-2.0.so.0
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libopenal.so.1
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\osx\native\libSDL2-2.0.0.dylib
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\osx\native\libopenal.1.dylib
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\SDL2.dll
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
+E:\nana-rhythm-game\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.csprojAssemblyReference.cache
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.AssemblyInfoInputs.cache
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.AssemblyInfo.cs
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.csproj.CoreCompileInputs.cache
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.csproj.CopyComplete
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.dll
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.pdb
+E:\nana-rhythm-game\nana.Game\obj\Debug\netcoreapp3.1\NaNa Rhythm Game.genruntimeconfig.cache
