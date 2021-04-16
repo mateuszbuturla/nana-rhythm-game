@@ -40,5 +40,18 @@ export class CheckBox extends Phaser.GameObjects.Container {
     });
     this.add(this.box);
     this.add(this.label);
+
+    this.setInteractive(
+      new Phaser.Geom.Rectangle(
+        0,
+        0,
+        this.getBounds().width,
+        this.getBounds().height,
+      ),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.on('pointerdown', () => {
+      this.setCheck(!this.value);
+    });
   }
 }

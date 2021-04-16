@@ -20,6 +20,8 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   escIsPressed: any;
   showAnimation: any;
   hideAnimation: any;
+  musicVolumeInput: SliderInput;
+  hitsoundVolumeInput: SliderInput;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0);
@@ -68,14 +70,6 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       state: this.config.showNoteAccuracy,
       label: 'Show note accuracy',
     });
-    this.showNoteAccuracyInput.setInteractive(
-      new Phaser.Geom.Rectangle(0, 0, 100, 50),
-      Phaser.Geom.Rectangle.Contains,
-    );
-    this.showNoteAccuracyInput.on('pointerdown', () => {
-      this.config.showNoteAccuracy = !this.config.showNoteAccuracy;
-      this.showNoteAccuracyInput.setCheck(this.config.showNoteAccuracy);
-    });
 
     this.showPerfectHitInput = new CheckBox({
       scene: this.scene,
@@ -83,14 +77,6 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       y: getObjectBottomEdgePosition(this.showNoteAccuracyInput) + 60,
       state: this.config.showPerfectHit,
       label: 'Show perfect hits',
-    });
-    this.showPerfectHitInput.setInteractive(
-      new Phaser.Geom.Rectangle(0, 0, 100, 50),
-      Phaser.Geom.Rectangle.Contains,
-    );
-    this.showPerfectHitInput.on('pointerdown', () => {
-      this.config.showPerfectHit = !this.config.showPerfectHit;
-      this.showPerfectHitInput.setCheck(this.config.showPerfectHit);
     });
 
     this.hitPositionInput = new SliderInput({
@@ -104,16 +90,41 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       value: this.config.hitPosition,
     });
 
+    this.musicVolumeInput = new SliderInput({
+      scene: this.scene,
+      x: 50,
+      y: getObjectBottomEdgePosition(this.hitPositionInput) + 80,
+      label: 'music volume',
+      width: 300,
+      min: 0,
+      max: 100,
+      value: this.config.musicVolume,
+    });
+
+    this.hitsoundVolumeInput = new SliderInput({
+      scene: this.scene,
+      x: 50,
+      y: getObjectBottomEdgePosition(this.musicVolumeInput) + 80,
+      label: 'hitsound volume',
+      width: 300,
+      min: 0,
+      max: 100,
+      value: this.config.hitsoundVolume,
+    });
+
     this.add(this.background);
     this.add(this.optionsHeader);
     this.add(this.inGameLabel);
     this.add(this.showNoteAccuracyInput);
     this.add(this.showPerfectHitInput);
     this.add(this.hitPositionInput);
+    this.add(this.musicVolumeInput);
+    this.add(this.hitsoundVolumeInput);
     this.escIsPressed = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.ESC,
     );
     this.setPosition(-this.getBounds().width, 0);
+    this.setDepth(2);
   }
 
   private handleClose(): void {
@@ -121,6 +132,8 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       showNoteAccuracy: this.showNoteAccuracyInput.getValue(),
       showPerfectHit: this.showPerfectHitInput.getValue(),
       hitPosition: this.hitPositionInput.getValue(),
+      musicVolume: this.musicVolumeInput.getValue(),
+      hitsoundVolume: this.hitsoundVolumeInput.getValue(),
     };
     this.userConfig.setUserConfig(newConfig);
     this.hidePanel();
@@ -160,6 +173,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     });
 
     hideAnimation.play();
+    this.handleClose();
   }
 
   update(): void {
