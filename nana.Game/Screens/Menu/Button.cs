@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using nanaGame.GameObjects;
 using System;
+using nanaGame.Utils;
 
 namespace nanaGame.Screens.Menu
 {
@@ -20,6 +21,8 @@ namespace nanaGame.Screens.Menu
         public Color PenColour { get; set; }
 
         public Vector2 position { get; set; }
+
+        public Vector2 scale { get; set; }
 
         public Rectangle Rectangle
         {
@@ -41,7 +44,7 @@ namespace nanaGame.Screens.Menu
             if (_isHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(_texture, Rectangle, colour);
+            spriteBatch.Draw(_texture, position, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
         }
 
         public override void Update(GameTime gameTime)
