@@ -70,7 +70,7 @@ namespace nanaGame.Screens.Menu
                 exitButton
             };
 
-            _settingsPanel = new SettingsPanel(graphicsDevice)
+            _settingsPanel = new SettingsPanel(graphicsDevice, content)
             {
                 scale = scale,
             };

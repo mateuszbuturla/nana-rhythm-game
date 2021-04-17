@@ -2,15 +2,16 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using nanaGame.Screens.Menu;
-using System;
+using System.Collections.Generic;
+using nanaGame.GameObjects;
+using nanaGame.GameObjects.Container;
 
 namespace nanaGame.Screens.Settings
 {
 
-    public class SettingsPanel
+    public class SettingsPanel : Container
     {
-
+        private SpriteFont font;
         GraphicsDevice _graphicsDevice;
         Texture2D backgroundTexture;
         public bool isShow = false;
@@ -18,11 +19,11 @@ namespace nanaGame.Screens.Settings
 
         public Vector2 scale { get; set; }
 
-        Vector2 position;
-
-        public SettingsPanel(GraphicsDevice graphicsDevice)
+        public SettingsPanel(GraphicsDevice graphicsDevice, ContentManager content)
         {
             this._graphicsDevice = graphicsDevice;
+
+            font = content.Load<SpriteFont>("Font");
 
             backgroundTexture = new Texture2D(graphicsDevice, 700, 1080);
             Color[] data = new Color[700 * 1080];
@@ -35,14 +36,26 @@ namespace nanaGame.Screens.Settings
             {
                 position = new Vector2(0, 0);
             }
+
+            Init();
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        private void Init ()
+        {
+            _components = new List<Component>()
+            { };
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(backgroundTexture, position, new Rectangle(0,0, backgroundTexture.Width, backgroundTexture.Height), Color.White * 0.8f, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
+            foreach (var component in _components)
+            {
+                component.Draw(gameTime, spriteBatch);
+            }
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (isShow && Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
@@ -56,6 +69,11 @@ namespace nanaGame.Screens.Settings
             else if (!isShow && position.X > -700 * scale.X)
             {
                 position = new Vector2(position.X - openSpeed * scale.X, 0);
+            }
+
+            foreach (var component in _components)
+            {
+                component.Update(gameTime);
             }
         }
 
