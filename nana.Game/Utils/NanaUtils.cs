@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
 namespace nanaGame.Utils
@@ -13,9 +15,13 @@ namespace nanaGame.Utils
             }
         }
 
-        public float ScaleTexture (int textureSize, int newSize)
+
+        public Vector2 GetScale (GraphicsDevice graphicsDevice)
         {
-            return textureSize / (textureSize + newSize);
+            var scaleX = (float) graphicsDevice.Viewport.Width / 1920;
+            var scaleY = (float)graphicsDevice.Viewport.Height / 1080;
+
+            return new Vector2(scaleX, scaleY);
         }
     }
 }

@@ -25,6 +25,7 @@ namespace nanaGame.Screens.Menu
             var playButton = new Button(playButtonTexture)
             {
                 position = new Vector2(200, 400),
+                scale = utils.GetScale(graphicsDevice),
             };
             playButton.Click += PlayButtonClick;
 
