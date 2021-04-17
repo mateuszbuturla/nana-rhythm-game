@@ -24,11 +24,13 @@ namespace nanaGame.Screens.Menu
 
         public Vector2 scale { get; set; }
 
+        private Vector2 size;
+
         public Rectangle Rectangle
         {
             get
             {
-                return new Rectangle((int)position.X, (int)position.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)position.X - (int)size.X / 2, (int)position.Y - (int)size.Y / 2, (int)size.X, (int)size.Y);
             }
         }
 
@@ -44,7 +46,9 @@ namespace nanaGame.Screens.Menu
             if (_isHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(_texture, position, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
+            size = new Vector2(_texture.Width / 2, _texture.Height / 2);
+
+            spriteBatch.Draw(_texture, position, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
         }
 
         public override void Update(GameTime gameTime)

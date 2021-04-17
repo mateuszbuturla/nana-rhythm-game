@@ -17,6 +17,8 @@ namespace nanaGame.Screens.Menu
 
         public MainMenu (Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
+            var gameWidth = graphicsDevice.Viewport.Width;
+            var gameHeight = graphicsDevice.Viewport.Height;
             this.game = game;
             utils = new NanaUtils();
 
@@ -24,7 +26,7 @@ namespace nanaGame.Screens.Menu
 
             var playButton = new Button(playButtonTexture)
             {
-                position = new Vector2(200, 400),
+                position = new Vector2(gameWidth / 2, gameHeight / 2),
                 scale = utils.GetScale(graphicsDevice),
             };
             playButton.Click += PlayButtonClick;
