@@ -11,6 +11,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="assets\ball.png" />
+    <None Remove="assets\checkbox.png" />
+    <None Remove="assets\checkboxChecked.png" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
@@ -30,6 +32,14 @@
   </ItemGroup>
   <ItemGroup>
     <AssetsSourceFiles Include="assets/**/*.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <AssetsSourceFiles Remove="assets\checkbox.png" />
+    <AssetsSourceFiles Remove="assets\checkboxChecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\checkbox.png" />
+    <Content Include="assets\checkboxChecked.png" />
   </ItemGroup>
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
     <Copy SourceFiles="@(AssetsSourceFiles)" DestinationFolder="$(OutDir)/assets" SkipUnchangedFiles="true" />

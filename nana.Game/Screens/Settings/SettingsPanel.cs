@@ -6,23 +6,29 @@ using System.Collections.Generic;
 using nanaGame.GameObjects;
 using nanaGame.GameObjects.Container;
 using nanaGame.GameObjects.Text;
+using nanaGame.GameObjects.Checkbox;
+using nanaGame.Utils;
 
 namespace nanaGame.Screens.Settings
 {
 
     public class SettingsPanel : Container
     {
+        private NanaUtils utils;
         private SpriteFont font;
         GraphicsDevice _graphicsDevice;
         Texture2D backgroundTexture;
         public bool isShow = false;
         int openSpeed = 45;
+        ContentManager _content;
 
         public Vector2 scale { get; set; }
 
         public SettingsPanel(GraphicsDevice graphicsDevice, ContentManager content)
         {
+            utils = new NanaUtils();
             this._graphicsDevice = graphicsDevice;
+            this._content = content;
 
             font = content.Load<SpriteFont>("Font");
 
@@ -43,14 +49,23 @@ namespace nanaGame.Screens.Settings
 
         private void Init ()
         {
+            var scale = utils.GetScale(_graphicsDevice);
+
             var settingsTabelText = new Text("Settings", font, Color.White, this)
             {
                 originalPosition = new Vector2(25, 50),
             };
 
+            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", _graphicsDevice, _content, parent: this)
+            {
+                scale = scale,
+                originalPosition = new Vector2(25, 120),
+            };
+
             _components = new List<Component>()
             {
-                settingsTabelText
+                settingsTabelText,
+                hitHittedNotesAccuracyCheckbox
             };
         }
 
