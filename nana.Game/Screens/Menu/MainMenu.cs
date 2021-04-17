@@ -6,6 +6,7 @@ using nanaGame.Utils;
 using nanaGame.GameObjects;
 using System;
 using System.Collections.Generic;
+using nanaGame.GameObjects.Button;
 
 namespace nanaGame.Screens.Menu
 {

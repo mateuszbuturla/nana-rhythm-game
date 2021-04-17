@@ -1,11 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using nanaGame.GameObjects;
 using System;
 using nanaGame.Utils;
 
-namespace nanaGame.Screens.Menu
+namespace nanaGame.GameObjects.Button
 {
     public class Button : Component
     {
