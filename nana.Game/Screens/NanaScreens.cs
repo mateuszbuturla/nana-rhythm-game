@@ -1,28 +1,40 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using nanaGame.Screens.Menu;
 
 namespace nanaGame.Screens
 {
     class NanaScreens
     {
-        public SpriteBatch _spriteBatch;
-        private GraphicsDevice _graphicsDevice;
         private NanaScreensTypes currentScene = NanaScreensTypes.MainMenu;
         private MainMenu menu;
 
-        public NanaScreens (GraphicsDevice _graphicsDevice)
+        public NanaScreens (Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
         {
-            this._spriteBatch = new SpriteBatch(_graphicsDevice);
-            this._graphicsDevice = _graphicsDevice;
-            this.menu = new MainMenu(_graphicsDevice);
+            menu = new MainMenu(game, graphicsDevice, content);
         }
 
-        public void draw ()
+        public void Draw (GameTime gameTime, SpriteBatch spriteBatch)
         {
             switch(currentScene)
             {
                 case NanaScreensTypes.MainMenu:
-                    menu.Draw();
+                    menu.Draw(gameTime, spriteBatch);
+                    break;
+                case NanaScreensTypes.Game:
+                    break;
+                case NanaScreensTypes.ResultScreen:
+                    break;
+            }
+        }
+
+        public void Update (GameTime gameTime)
+        {
+            switch (currentScene)
+            {
+                case NanaScreensTypes.MainMenu:
+                    menu.Update(gameTime);
                     break;
                 case NanaScreensTypes.Game:
                     break;

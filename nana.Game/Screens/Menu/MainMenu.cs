@@ -1,28 +1,65 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 using nanaGame.Utils;
+using nanaGame.GameObjects;
+using System;
+using System.Collections.Generic;
 
 namespace nanaGame.Screens.Menu
 {
-    class MainMenu
+    public class MainMenu : Scene
     {
+        Game1 game;
         NanaUtils utils;
-        SpriteBatch _spriteBatch;
-        GraphicsDevice _graphicsDevice;
-        Button playButton;
+        private List<Component> _components;
 
-        public MainMenu (GraphicsDevice _graphicsDevice)
+        public MainMenu (Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
-            this.utils = new NanaUtils();
-            this._spriteBatch = new SpriteBatch(_graphicsDevice);
-            this._graphicsDevice = _graphicsDevice;
-            this.playButton = new Button(utils.LoadTextureFromFile("assets/playButton.png", _graphicsDevice), new Vector2(100, 100));
+            this.game = game;
+            utils = new NanaUtils();
+
+            var playButtonTexture = utils.LoadTextureFromFile("assets/playButton.png", _graphicsDevice);
+
+            var playButton = new Button(playButtonTexture)
+            {
+                position = new Vector2(200, 400),
+            };
+            playButton.Click += PlayButtonClick;
+
+            _components = new List<Component>()
+            {
+                playButton,
+            };
         }
 
-        public void Draw ()
+        private void PlayButtonClick (object sender, EventArgs e)
         {
-            playButton.Draw(_spriteBatch);
+           
+        }
+
+        public override void Draw (GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin();
+            foreach (var component in _components)
+            {
+                component.Draw(gameTime, spriteBatch);
+            }
+            spriteBatch.End();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            foreach (var component in _components)
+            {
+                component.Update(gameTime);
+            }
+        }
+
+        public override void PostUpdate(GameTime gameTime)
+        {
+            // remove sprites if they're not needed
         }
     }
 }
