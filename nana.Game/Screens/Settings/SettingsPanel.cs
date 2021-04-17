@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using nanaGame.GameObjects;
 using nanaGame.GameObjects.Container;
+using nanaGame.GameObjects.Text;
 
 namespace nanaGame.Screens.Settings
 {
@@ -42,8 +43,15 @@ namespace nanaGame.Screens.Settings
 
         private void Init ()
         {
+            var settingsTabelText = new Text("Settings", font, Color.White, this)
+            {
+                originalPosition = new Vector2(25, 50),
+            };
+
             _components = new List<Component>()
-            { };
+            {
+                settingsTabelText
+            };
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
