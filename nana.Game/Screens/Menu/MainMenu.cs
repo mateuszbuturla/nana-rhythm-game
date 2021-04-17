@@ -23,17 +23,46 @@ namespace nanaGame.Screens.Menu
             utils = new NanaUtils();
 
             var playButtonTexture = utils.LoadTextureFromFile("assets/playButton.png", _graphicsDevice);
+            var editorButtonTexture = utils.LoadTextureFromFile("assets/editorButton.png", _graphicsDevice);
+            var settingsButtonTexture = utils.LoadTextureFromFile("assets/settingsButton.png", _graphicsDevice);
+            var exitButtonTexture = utils.LoadTextureFromFile("assets/exitButton.png", _graphicsDevice);
+
+            var scale = utils.GetScale(graphicsDevice);
 
             var playButton = new Button(playButtonTexture)
             {
-                position = new Vector2(gameWidth / 2, gameHeight / 2),
-                scale = utils.GetScale(graphicsDevice),
+                position = new Vector2(100, gameHeight / 2),
+                scale = scale,
             };
             playButton.Click += PlayButtonClick;
+
+            var editorButton = new Button(editorButtonTexture)
+            {
+                position = new Vector2(100 + playButtonTexture.Width * scale.X, gameHeight / 2),
+                scale = scale,
+            };
+            editorButton.Click += EditorButtonClick;
+
+            var settingsButton = new Button(settingsButtonTexture)
+            {
+                position = new Vector2(gameWidth - 100 - exitButtonTexture.Width * scale.X, gameHeight / 2),
+                scale = scale,
+            };
+            settingsButton.Click += SettignsButtonClick;
+
+            var exitButton = new Button(exitButtonTexture)
+            {
+                position = new Vector2(gameWidth - 100, gameHeight / 2),
+                scale = scale,
+            };
+            exitButton.Click += ExitButtonClick;
 
             _components = new List<Component>()
             {
                 playButton,
+                editorButton,
+                settingsButton,
+                exitButton
             };
         }
 
@@ -41,6 +70,21 @@ namespace nanaGame.Screens.Menu
         {
            
         }
+        private void EditorButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SettignsButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ExitButtonClick(object sender, EventArgs e)
+        {
+            game.Exit();
+        }
+
 
         public override void Draw (GameTime gameTime, SpriteBatch spriteBatch)
         {

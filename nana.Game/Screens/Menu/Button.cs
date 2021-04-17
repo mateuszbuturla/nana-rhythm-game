@@ -24,7 +24,7 @@ namespace nanaGame.Screens.Menu
 
         public Vector2 scale { get; set; }
 
-        private Vector2 size;
+        public Vector2 size;
 
         public Rectangle Rectangle
         {
@@ -37,6 +37,7 @@ namespace nanaGame.Screens.Menu
         public Button(Texture2D texture)
         {
             _texture = texture;
+            size = new Vector2(_texture.Width / 2, _texture.Height / 2);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -45,8 +46,6 @@ namespace nanaGame.Screens.Menu
 
             if (_isHovering)
                 colour = Color.Gray;
-
-            size = new Vector2(_texture.Width / 2, _texture.Height / 2);
 
             spriteBatch.Draw(_texture, position, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
         }
