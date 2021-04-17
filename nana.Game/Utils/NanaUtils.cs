@@ -12,5 +12,10 @@ namespace nanaGame.Utils
                 return Texture2D.FromStream(GraphicsDevice, stream);
             }
         }
+
+        public float ScaleTexture (int textureSize, int newSize)
+        {
+            return textureSize / (textureSize + newSize);
+        }
     }
 }

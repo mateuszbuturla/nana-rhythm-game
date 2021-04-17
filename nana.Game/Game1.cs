@@ -3,11 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
 using nanaGame.Screens;
+using nanaGame.Screens.Menu;
+using System;
 
 namespace nanaGame
 {
     public class Game1 : Game
     {
+        private SpriteBatch _spriteBatch;
         private GraphicsDeviceManager _graphics;
         private NanaScreens nanaScreens;
 
@@ -27,7 +30,9 @@ namespace nanaGame
 
         protected override void LoadContent()
         {
-            nanaScreens = new NanaScreens(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            nanaScreens = new NanaScreens(this, GraphicsDevice, Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -36,6 +41,8 @@ namespace nanaGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            nanaScreens.Update(gameTime);
 
             // TODO: Add your update logic here
 
@@ -46,7 +53,7 @@ namespace nanaGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            nanaScreens.draw();
+            nanaScreens.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
         }
