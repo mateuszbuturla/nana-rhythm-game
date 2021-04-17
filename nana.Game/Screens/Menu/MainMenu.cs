@@ -7,6 +7,9 @@ using nanaGame.GameObjects;
 using System;
 using System.Collections.Generic;
 using nanaGame.GameObjects.Button;
+using nanaGame.Screens.Settings;
+using System.Data;
+using System.Diagnostics;
 
 namespace nanaGame.Screens.Menu
 {
@@ -15,6 +18,7 @@ namespace nanaGame.Screens.Menu
         Game1 game;
         NanaUtils utils;
         private List<Component> _components;
+        private SettingsPanel _settingsPanel;
 
         public MainMenu (Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
         {
@@ -65,6 +69,11 @@ namespace nanaGame.Screens.Menu
                 settingsButton,
                 exitButton
             };
+
+            _settingsPanel = new SettingsPanel(graphicsDevice)
+            {
+                scale = scale,
+            };
         }
 
         private void PlayButtonClick (object sender, EventArgs e)
@@ -78,7 +87,7 @@ namespace nanaGame.Screens.Menu
 
         private void SettignsButtonClick(object sender, EventArgs e)
         {
-
+            _settingsPanel.Toggle();
         }
 
         private void ExitButtonClick(object sender, EventArgs e)
@@ -94,6 +103,7 @@ namespace nanaGame.Screens.Menu
             {
                 component.Draw(gameTime, spriteBatch);
             }
+            _settingsPanel.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
 
@@ -103,6 +113,7 @@ namespace nanaGame.Screens.Menu
             {
                 component.Update(gameTime);
             }
+            _settingsPanel.Update(gameTime);
         }
 
         public override void PostUpdate(GameTime gameTime)
