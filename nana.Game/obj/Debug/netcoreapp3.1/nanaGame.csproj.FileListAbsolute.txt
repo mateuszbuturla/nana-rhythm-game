@@ -38,7 +38,6 @@ E:\nana-rhythm-game12\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\
 E:\nana-rhythm-game12\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
 E:\nana-rhythm-game12\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
 E:\nana-rhythm-game12\nana.Game\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
-E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.csprojAssemblyReference.cache
 E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.AssemblyInfoInputs.cache
 E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.AssemblyInfo.cs
 E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.csproj.CoreCompileInputs.cache

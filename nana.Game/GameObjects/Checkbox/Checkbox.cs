@@ -40,8 +40,8 @@ namespace nanaGame.GameObjects.Checkbox
             this.label = label;
             this.parent = parent;
             font = GlobalVar.Content.Load<SpriteFont>("Font");
-            checkedTexture = utils.LoadTextureFromFile("assets/checkboxChecked.png", GlobalVar.Graphic.GraphicsDevice);
-            unCheckedTexture = utils.LoadTextureFromFile("assets/checkbox.png", GlobalVar.Graphic.GraphicsDevice);
+            checkedTexture = utils.LoadTextureFromFile("assets/checkboxChecked.png");
+            unCheckedTexture = utils.LoadTextureFromFile("assets/checkbox.png");
             UpdateTexture();
             size = new Vector2(currentTexture.Width / 2, currentTexture.Height / 2);
         }
