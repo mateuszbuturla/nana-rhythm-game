@@ -8,6 +8,8 @@ namespace nanaGame.Screens
         {
             ScreensEnum currentScreen = ScreensEnum.BEATMAP_SELECTION;
 
+            Test test = new Test();
+
             while (!Raylib.WindowShouldClose())
             {
                 ChangeScreen(ref currentScreen);
@@ -16,7 +18,7 @@ namespace nanaGame.Screens
                 switch(currentScreen)
                 {
                     case ScreensEnum.MAIN_MENU:
-                        Raylib.DrawText("Main menu", 12, 12, 20, Color.WHITE);
+                        test.Draw();
                         break;
                     case ScreensEnum.BEATMAP_SELECTION:
                         Raylib.DrawText("Beatmap selection", 12, 12, 20, Color.WHITE);
