@@ -85,11 +85,15 @@ namespace nanaGame.Screens.Menu
         }
         private void EditorButtonClick(object sender, EventArgs e)
         {
+            Console.WriteLine("test");
+          //  var test = new Beatmap();
 
+          //  Console.WriteLine(test);
         }
 
         private void SettignsButtonClick(object sender, EventArgs e)
         {
+            Console.WriteLine("test");
             _settingsPanel.Toggle();
         }
 
