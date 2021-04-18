@@ -22,9 +22,9 @@ namespace nanaGame.GameObjects.Text
             this.parent = parent;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
-            spriteBatch.DrawString(font, text, position, color);
+            GlobalVar.SpriteBatch.DrawString(font, text, position, color);
         }
 
         public override void Update(GameTime gameTime)

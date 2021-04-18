@@ -33,23 +33,23 @@ namespace nanaGame.GameObjects.Checkbox
 
         public Vector2 size;
 
-        public Checkbox(string label, GraphicsDevice _graphicsDevice, ContentManager content, bool isChecked = false, Component parent = null)
+        public Checkbox(string label, bool isChecked = false, Component parent = null)
         {
             utils = new NanaUtils();
             this.isChecked = isChecked;
             this.label = label;
             this.parent = parent;
-            font = content.Load<SpriteFont>("Font");
-            checkedTexture = utils.LoadTextureFromFile("assets/checkboxChecked.png", _graphicsDevice);
-            unCheckedTexture = utils.LoadTextureFromFile("assets/checkbox.png", _graphicsDevice);
+            font = GlobalVar.Content.Load<SpriteFont>("Font");
+            checkedTexture = utils.LoadTextureFromFile("assets/checkboxChecked.png", GlobalVar.Graphic.GraphicsDevice);
+            unCheckedTexture = utils.LoadTextureFromFile("assets/checkbox.png", GlobalVar.Graphic.GraphicsDevice);
             UpdateTexture();
             size = new Vector2(currentTexture.Width / 2, currentTexture.Height / 2);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(currentTexture, new Vector2(position.X, position.Y + size.Y / 2), new Rectangle(0, 0, currentTexture.Width, currentTexture.Height), Color.White, 0, size, new Vector2(scale.X, scale.X), SpriteEffects.None, 1);
-            spriteBatch.DrawString(font, label, new Vector2(position.X + 25, position.Y + 5), Color.White);
+            GlobalVar.SpriteBatch.Draw(currentTexture, new Vector2(position.X, position.Y + size.Y / 2), new Rectangle(0, 0, currentTexture.Width, currentTexture.Height), Color.White, 0, size, new Vector2(scale.X, scale.X), SpriteEffects.None, 1);
+            GlobalVar.SpriteBatch.DrawString(font, label, new Vector2(position.X + 25, position.Y + 5), Color.White);
         }
 
         private void UpdateTexture ()

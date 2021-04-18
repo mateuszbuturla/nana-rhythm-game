@@ -17,17 +17,17 @@ namespace nanaGame.Screens
 
         protected Game1 _game;
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public abstract void Draw(GameTime gameTime);
 
         public abstract void PostUpdate(GameTime gameTime);
 
-        public Scene(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
+        public Scene(Game1 game)
         {
             _game = game;
 
-            _graphicsDevice = graphicsDevice;
+            _graphicsDevice = GlobalVar.Graphic.GraphicsDevice;
 
-            _content = content;
+            _content = GlobalVar.Content;
         }
 
         public abstract void Update(GameTime gameTime);

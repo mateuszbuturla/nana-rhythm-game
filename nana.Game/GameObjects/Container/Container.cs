@@ -8,11 +8,11 @@ namespace nanaGame.GameObjects.Container
     {
         public List<Component> _components;
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
             foreach (var component in _components)
             {
-                component.Draw(gameTime, spriteBatch);
+                component.Draw(gameTime);
             }
         }
 

@@ -10,17 +10,17 @@ namespace nanaGame.Screens
         private NanaScreensTypes currentScene = NanaScreensTypes.MainMenu;
         private MainMenu menu;
 
-        public NanaScreens (Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
+        public NanaScreens (Game1 game)
         {
-            menu = new MainMenu(game, graphicsDevice, content);
+            menu = new MainMenu(game);
         }
 
-        public void Draw (GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw (GameTime gameTime)
         {
             switch(currentScene)
             {
                 case NanaScreensTypes.MainMenu:
-                    menu.Draw(gameTime, spriteBatch);
+                    menu.Draw(gameTime);
                     break;
                 case NanaScreensTypes.Game:
                     break;

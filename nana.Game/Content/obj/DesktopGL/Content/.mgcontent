@@ -4,7 +4,7 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>E:/nana-rhythm-game/nana.Game/Content/File.spritefont</File>
+    <File>E:/nana-rhythm-game12/nana.Game/Content/File.spritefont</File>
   </SourceFiles>
   <DestFiles>
     <File>Font.spritefont</File>

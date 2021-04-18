@@ -20,19 +20,22 @@ namespace nanaGame.Screens.Menu
         private List<Component> _components;
         private SettingsPanel _settingsPanel;
 
-        public MainMenu (Game1 game, GraphicsDevice graphicsDevice, ContentManager content) : base(game, graphicsDevice, content)
+        public MainMenu (Game1 game) : base(game)
         {
+            var graphicsDevice = GlobalVar.Graphic.GraphicsDevice;
+            var content = GlobalVar.Content;
+
             var gameWidth = graphicsDevice.Viewport.Width;
             var gameHeight = graphicsDevice.Viewport.Height;
             this.game = game;
             utils = new NanaUtils();
 
-            var playButtonTexture = utils.LoadTextureFromFile("assets/playButton.png", _graphicsDevice);
-            var editorButtonTexture = utils.LoadTextureFromFile("assets/editorButton.png", _graphicsDevice);
-            var settingsButtonTexture = utils.LoadTextureFromFile("assets/settingsButton.png", _graphicsDevice);
-            var exitButtonTexture = utils.LoadTextureFromFile("assets/exitButton.png", _graphicsDevice);
+            var playButtonTexture = utils.LoadTextureFromFile("assets/playButton.png");
+            var editorButtonTexture = utils.LoadTextureFromFile("assets/editorButton.png");
+            var settingsButtonTexture = utils.LoadTextureFromFile("assets/settingsButton.png");
+            var exitButtonTexture = utils.LoadTextureFromFile("assets/exitButton.png");
 
-            var scale = utils.GetScale(graphicsDevice);
+            var scale = utils.GetScale();
 
             var playButton = new Button(playButtonTexture)
             {
@@ -70,7 +73,7 @@ namespace nanaGame.Screens.Menu
                 exitButton
             };
 
-            _settingsPanel = new SettingsPanel(graphicsDevice, content)
+            _settingsPanel = new SettingsPanel()
             {
                 scale = scale,
             };
@@ -96,15 +99,15 @@ namespace nanaGame.Screens.Menu
         }
 
 
-        public override void Draw (GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw (GameTime gameTime)
         {
-            spriteBatch.Begin();
+            GlobalVar.SpriteBatch.Begin();
             foreach (var component in _components)
             {
-                component.Draw(gameTime, spriteBatch);
+                component.Draw(gameTime);
             }
-            _settingsPanel.Draw(gameTime, spriteBatch);
-            spriteBatch.End();
+            _settingsPanel.Draw(gameTime);
+            GlobalVar.SpriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
