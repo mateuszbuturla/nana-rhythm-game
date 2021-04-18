@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "5cSWJrwLvhV3pgjxL7QJ1nJSwppv/yFjmahD7uGQZqiyHFjlHLrJssSBnQc1AyPG5EF9oZS2ROcBXI/2Yy8lrw==",
+  "success": true,
+  "projectFilePath": "E:\\nana-rhythm-game\\nana.Game\\nana.Game.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mateusz\\.nuget\\packages\\raylib-cs\\3.5.0\\raylib-cs.3.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

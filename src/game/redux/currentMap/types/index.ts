@@ -1,7 +1,0 @@
-const SET_CURRENT_MAP = 'SET_CURRENT_MAP';
-const SET_CURRENT_MAP_ID = 'SET_CURRENT_MAP_ID';
-
-export default {
-  SET_CURRENT_MAP,
-  SET_CURRENT_MAP_ID,
-};
