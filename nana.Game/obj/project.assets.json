@@ -181,11 +181,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\nana-rhythm-game\\nana.Game\\nanaGame.csproj",
+      "projectUniqueName": "E:\\nana-rhythm-game12\\nana.Game\\nanaGame.csproj",
       "projectName": "nanaGame",
-      "projectPath": "E:\\nana-rhythm-game\\nana.Game\\nanaGame.csproj",
+      "projectPath": "E:\\nana-rhythm-game12\\nana.Game\\nanaGame.csproj",
       "packagesPath": "C:\\Users\\Mateusz\\.nuget\\packages\\",
-      "outputPath": "E:\\nana-rhythm-game\\nana.Game\\obj\\",
+      "outputPath": "E:\\nana-rhythm-game12\\nana.Game\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

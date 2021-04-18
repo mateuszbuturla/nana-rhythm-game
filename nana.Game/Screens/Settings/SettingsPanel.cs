@@ -16,23 +16,19 @@ namespace nanaGame.Screens.Settings
     {
         private NanaUtils utils;
         private SpriteFont font;
-        GraphicsDevice _graphicsDevice;
         Texture2D backgroundTexture;
         public bool isShow = false;
         int openSpeed = 45;
-        ContentManager _content;
 
         public Vector2 scale { get; set; }
 
-        public SettingsPanel(GraphicsDevice graphicsDevice, ContentManager content)
+        public SettingsPanel()
         {
             utils = new NanaUtils();
-            this._graphicsDevice = graphicsDevice;
-            this._content = content;
 
-            font = content.Load<SpriteFont>("Font");
+            font = GlobalVar.Content.Load<SpriteFont>("Font");
 
-            backgroundTexture = new Texture2D(graphicsDevice, 700, 1080);
+            backgroundTexture = new Texture2D(GlobalVar.Graphic.GraphicsDevice, 700, 1080);
             Color[] data = new Color[700 * 1080];
             for (int i = 0; i < data.Length; i++) data[i] = Color.Black;
             backgroundTexture.SetData(data);
@@ -49,14 +45,15 @@ namespace nanaGame.Screens.Settings
 
         private void Init ()
         {
-            var scale = utils.GetScale(_graphicsDevice);
+            var graphicDevice = GlobalVar.Graphic.GraphicsDevice;
+            var scale = utils.GetScale();
 
             var settingsTabelText = new Text("Settings", font, Color.White, this)
             {
                 originalPosition = new Vector2(25, 50),
             };
 
-            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", _graphicsDevice, _content, parent: this)
+            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", parent: this)
             {
                 scale = scale,
                 originalPosition = new Vector2(25, 120),
@@ -69,12 +66,12 @@ namespace nanaGame.Screens.Settings
             };
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(backgroundTexture, position, new Rectangle(0,0, backgroundTexture.Width, backgroundTexture.Height), Color.White * 0.8f, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
+            GlobalVar.SpriteBatch.Draw(backgroundTexture, position, new Rectangle(0,0, backgroundTexture.Width, backgroundTexture.Height), Color.White * 0.8f, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
             foreach (var component in _components)
             {
-                component.Draw(gameTime, spriteBatch);
+                component.Draw(gameTime);
             }
         }
 

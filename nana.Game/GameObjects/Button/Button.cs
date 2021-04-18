@@ -39,14 +39,14 @@ namespace nanaGame.GameObjects.Button
             size = new Vector2(_texture.Width / 2, _texture.Height / 2);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
             var colour = Color.White;
 
             if (_isHovering)
                 colour = Color.Gray;
 
-            spriteBatch.Draw(_texture, position, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
+            GlobalVar.SpriteBatch.Draw(_texture, position, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
         }
 
         public override void Update(GameTime gameTime)

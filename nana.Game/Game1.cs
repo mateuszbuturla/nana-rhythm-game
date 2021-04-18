@@ -32,7 +32,11 @@ namespace nanaGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            nanaScreens = new NanaScreens(this, GraphicsDevice, Content);
+            GlobalVar.SpriteBatch = _spriteBatch;
+            GlobalVar.Graphic = _graphics;
+            GlobalVar.Content = Content;
+
+            nanaScreens = new NanaScreens(this);
 
             // TODO: use this.Content to load your game content here
         }
@@ -53,7 +57,7 @@ namespace nanaGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            nanaScreens.Draw(gameTime, _spriteBatch);
+            nanaScreens.Draw(gameTime);
 
             base.Draw(gameTime);
         }
