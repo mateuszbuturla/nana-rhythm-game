@@ -1,3 +1,11 @@
+## 2.6.0 (2021-04-16)
+
+- music volume
+- hitsounds volume
+- fix slider hitbox
+- fix checkbox hitbox
+- fix saving settings
+
 ## 2.5.1 (2021-04-15)
 
 - fix position of notes
