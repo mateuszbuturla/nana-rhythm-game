@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using nanaGame.Utils;
 
 namespace nanaGame.Beatmap
 {
@@ -38,9 +40,23 @@ namespace nanaGame.Beatmap
                 var beatmapArtist = metaData[FindIndex(metaData, "artist")];
                 var beatmapAuthor = metaData[FindIndex(metaData, "author")];
 
-                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor));
+                var notes = beatmap.Substring(beatmap.IndexOf("[NOTES]"), beatmap.IndexOf("[/NOTES]") - beatmap.IndexOf("[NOTES]")).Split("\n");
+                List<Note> notesList = new List<Note>();
 
-                Console.WriteLine();
+                notes = new NanaUtils().RemoveFromStringArrayByIndex(notes, notes.Length - 1);
+                notes = new NanaUtils().RemoveFromStringArrayByIndex(notes, 0);
+
+                foreach (string note in notes)
+                {
+                    var splitedNote = note.Split(":");
+
+                    int delay = int.Parse(splitedNote[0]);
+                    NoteDirectionEnum noteDirection = (NoteDirectionEnum)Enum.Parse(typeof(NoteDirectionEnum), splitedNote[1], true);
+
+                    notesList.Add(new Note(delay, noteDirection));
+                }
+
+                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor, notesList));
             }
             return beatmaps;
         }

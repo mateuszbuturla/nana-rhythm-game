@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>E:/nana-rhythm-game12/nana.Game/Content/File.spritefont</SourceFile>
-  <SourceTime>2021-04-17T14:10:19.1039151+02:00</SourceTime>
+  <SourceTime>2021-04-19T09:32:03.9451416+02:00</SourceTime>
   <DestFile>E:/nana-rhythm-game12/nana.Game/Content/bin/DesktopGL/Content/Font.xnb</DestFile>
-  <DestTime>2021-04-18T15:36:59.2167531+02:00</DestTime>
+  <DestTime>2021-04-19T09:32:05.7135181+02:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
