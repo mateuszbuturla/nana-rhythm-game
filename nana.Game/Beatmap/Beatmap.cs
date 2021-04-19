@@ -37,13 +37,15 @@ namespace nanaGame.Beatmap
         string title;
         string artist;
         string author;
+        int bpm;
         List<Note> notes;
 
-        public BeatmapEntity(string title, string artist, string author, List<Note> notes)
+        public BeatmapEntity(string title, string artist, string author, int bpm, List<Note> notes)
         {
             this.title = title;
             this.artist = artist;
             this.author = author;
+            this.bpm = bpm;
             this.notes = notes;
         }
 
