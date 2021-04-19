@@ -1,3 +1,13 @@
+## 3.0.0 (2021-04-19)
+
+Change enviroment
+
+- scene manager
+- main Menu
+- .nana file reader
+- settings panel
+- beatmap entity
+
 ## 2.6.0 (2021-04-16)
 
 - music volume
