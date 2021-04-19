@@ -24,11 +24,11 @@ namespace nanaGame.Beatmap
                 string beatmapArtist = metaData[new NanaUtils().FindIndex(metaData, "artist")];
                 string beatmapAuthor = metaData[new NanaUtils().FindIndex(metaData, "author")];
 
-                string[] beatmapInfo = beatmap.Substring(beatmap.IndexOf("[BEATMAPINFO]"), beatmap.IndexOf("[/BEATMAPINFO]")).Split("\n");
+                string[] beatmapInfo = beatmap.Substring(beatmap.IndexOf("[BEATMAPINFO]"), beatmap.IndexOf("[/BEATMAPINFO]") - beatmap.IndexOf("[BEATMAPINFO]")).Split("\n");
 
-                int beatmapBpm = int.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "bpm")]);
-                float beatmapDifficulty = float.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "difficulty")]);
-                int beatmapOffset = int.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "offset")]);
+                int beatmapBpm = int.Parse(beatmapInfo[1].Split(':')[1]);
+                float beatmapDifficulty = float.Parse(beatmapInfo[2].Split(':')[1]);
+                int beatmapOffset = int.Parse(beatmapInfo[3].Split(':')[1]);
 
                 string[] notes = beatmap.Substring(beatmap.IndexOf("[NOTES]"), beatmap.IndexOf("[/NOTES]") - beatmap.IndexOf("[NOTES]")).Split("\n");
                 List<Note> notesList = new List<Note>();
