@@ -20,9 +20,9 @@ namespace nanaGame.Beatmap
 
                 string[] metaData = beatmap.Substring(beatmap.IndexOf("[METADATA]"), beatmap.IndexOf("[/METADATA]") - beatmap.IndexOf("[METADATA]")).Split("\n");
 
-                string beatmapTitle = metaData[new NanaUtils().FindIndex(metaData, "title")];
-                string beatmapArtist = metaData[new NanaUtils().FindIndex(metaData, "artist")];
-                string beatmapAuthor = metaData[new NanaUtils().FindIndex(metaData, "author")];
+                string beatmapTitle = metaData[new NanaUtils().FindIndex(metaData, "title")].Split(':')[1];
+                string beatmapArtist = metaData[new NanaUtils().FindIndex(metaData, "artist")].Split(':')[1];
+                string beatmapAuthor = metaData[new NanaUtils().FindIndex(metaData, "author")].Split(':')[1];
 
                 string[] beatmapInfo = beatmap.Substring(beatmap.IndexOf("[BEATMAPINFO]"), beatmap.IndexOf("[/BEATMAPINFO]") - beatmap.IndexOf("[BEATMAPINFO]")).Split("\n");
 

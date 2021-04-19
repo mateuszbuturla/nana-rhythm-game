@@ -6,6 +6,7 @@ using nanaGame.Screens;
 using nanaGame.Screens.Menu;
 using System;
 using System.Collections.Generic;
+using nanaGame.Beatmap;
 
 namespace nanaGame
 {
@@ -36,6 +37,15 @@ namespace nanaGame
             GlobalVar.SpriteBatch = _spriteBatch;
             GlobalVar.Graphic = _graphics;
             GlobalVar.Content = Content;
+
+            var beatmaps = new BeatmapReader().GetBeatmapsData();
+            BeatmapsState.Beatmaps = beatmaps;
+
+            if (beatmaps.Count > 0)
+            {
+                BeatmapsState.CurrentBeatmapIndex = 0;
+                BeatmapsState.CurrentBeatmap = beatmaps[0];
+            }
 
             nanaScreens = new NanaScreens(this);
 

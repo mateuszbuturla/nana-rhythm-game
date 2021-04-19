@@ -10,4 +10,7 @@ public static class BeatmapsState
     /// Global variable that is constant.
     /// </summary>
     public static List<BeatmapEntity> Beatmaps;
+
+    public static BeatmapEntity CurrentBeatmap;
+    public static int CurrentBeatmapIndex;
 }

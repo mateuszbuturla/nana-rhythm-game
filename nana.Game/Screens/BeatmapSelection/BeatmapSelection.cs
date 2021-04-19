@@ -18,18 +18,16 @@ namespace nanaGame.Screens.Menu
 {
     public class BeatmapSelection : Scene
     {
-        Game1 game;
-        NanaUtils utils;
         private List<Component> _components = new List<Component>();
-        private List<BeatmapEntity> beatmaps;
         SpriteFont font;
         BeatmapsContainer beatmapContainer;
 
         public BeatmapSelection(Game1 game) : base(game)
         {
+            font = GlobalVar.Content.Load<SpriteFont>("Font");
             List<BeatmapEntity> beatmaps = BeatmapsState.Beatmaps;
 
-            for (int i = 0; i < beatmaps.Count; i++)
+            foreach (BeatmapEntity beatmap in beatmaps)
             {
                 BeatmapEntity beatmap = beatmaps[i];
 
