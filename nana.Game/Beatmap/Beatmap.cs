@@ -2,13 +2,13 @@
 
 namespace nanaGame.Beatmap
 {
-    enum NoteDirectionEnum
+    public enum NoteDirectionEnum
     {
         TOP,
         BOTTOM
     }
 
-    class Note
+    public class Note
     {
         int delay;
         NoteDirectionEnum noteDirection;
@@ -32,7 +32,7 @@ namespace nanaGame.Beatmap
         }
     }
 
-    class BeatmapEntity
+    public class BeatmapEntity
     {
         string title;
         string artist;
