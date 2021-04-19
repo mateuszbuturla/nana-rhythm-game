@@ -1,39 +1,45 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
-using nanaGame.Utils;
-using nanaGame.GameObjects;
-using System;
 using System.Collections.Generic;
-using nanaGame.GameObjects.Button;
-using nanaGame.Screens.Settings;
-using System.Data;
-using System.Diagnostics;
-using nanaGame.Beatmap;
-using nanaGame.GameObjects.Text;
+using nanaGame.GameObjects;
 using nanaGame.GameObjects.Container;
+using nanaGame.GameObjects.Text;
+using nanaGame.GameObjects.Checkbox;
+using nanaGame.Utils;
+using nanaGame.Beatmap;
+using System;
 
 namespace nanaGame.Screens.Menu
 {
-    public class BeatmapSelection : Scene
-    {
-        private List<Component> _components = new List<Component>();
-        SpriteFont font;
-        BeatmapsContainer beatmapContainer;
 
-        public BeatmapSelection(Game1 game) : base(game)
+    public class BeatmapsContainer : Container
+    {
+        private NanaUtils utils;
+        private SpriteFont font;
+
+        public Vector2 scale { get; set; }
+
+        public BeatmapsContainer()
         {
             font = GlobalVar.Content.Load<SpriteFont>("Font");
+
+            Init();
+        }
+
+        private void Init()
+        {
+            _components = new List<Component>();
+
             List<BeatmapEntity> beatmaps = BeatmapsState.Beatmaps;
 
-            foreach (BeatmapEntity beatmap in beatmaps)
+            for (int i = 0; i < beatmaps.Count; i++)
             {
                 BeatmapEntity beatmap = beatmaps[i];
-
-                var newBeatmap = new Text(beatmap.Title, font, Color.White)
+                var newBeatmap = new Text(beatmap.Title, font, Color.White, this)
                 {
-                    originalPosition = new Vector2(100, i * 100),
+                    originalPosition = new Vector2(100, (i + 1) * 100),
                 };
                 _components.Add(newBeatmap);
             }
@@ -41,12 +47,10 @@ namespace nanaGame.Screens.Menu
 
         public override void Draw(GameTime gameTime)
         {
-            GlobalVar.SpriteBatch.Begin();
             foreach (var component in _components)
             {
                 component.Draw(gameTime);
             }
-            GlobalVar.SpriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
@@ -55,11 +59,6 @@ namespace nanaGame.Screens.Menu
             {
                 component.Update(gameTime);
             }
-            }
-
-        public override void PostUpdate(GameTime gameTime)
-        {
-            // remove sprites if they're not needed
         }
     }
 }

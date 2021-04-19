@@ -8,6 +8,8 @@ namespace nanaGame.GameObjects.Container
     {
         public List<Component> _components;
 
+        public Vector2 position { get; set; }
+
         public override void Draw(GameTime gameTime)
         {
             foreach (var component in _components)
