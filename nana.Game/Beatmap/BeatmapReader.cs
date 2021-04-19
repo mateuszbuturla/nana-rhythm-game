@@ -18,18 +18,19 @@ namespace nanaGame.Beatmap
             {
                 string beatmap = File.ReadAllText(dir + "/beatmap.nana");
 
-                var metaData = beatmap.Substring(beatmap.IndexOf("[METADATA]"), beatmap.IndexOf("[/METADATA]")).Split("\n");
+                string[] metaData = beatmap.Substring(beatmap.IndexOf("[METADATA]"), beatmap.IndexOf("[/METADATA]")).Split("\n");
 
-                var beatmapTitle = metaData[new NanaUtils().FindIndex(metaData, "title")];
-                var beatmapArtist = metaData[new NanaUtils().FindIndex(metaData, "artist")];
-                var beatmapAuthor = metaData[new NanaUtils().FindIndex(metaData, "author")];
+                string beatmapTitle = metaData[new NanaUtils().FindIndex(metaData, "title")];
+                string beatmapArtist = metaData[new NanaUtils().FindIndex(metaData, "artist")];
+                string beatmapAuthor = metaData[new NanaUtils().FindIndex(metaData, "author")];
 
-                var beatmapInfo = beatmap.Substring(beatmap.IndexOf("[BEATMAPINFO]"), beatmap.IndexOf("[/BEATMAPINFO]")).Split("\n");
+                string[] beatmapInfo = beatmap.Substring(beatmap.IndexOf("[BEATMAPINFO]"), beatmap.IndexOf("[/BEATMAPINFO]")).Split("\n");
 
-                var beatmapBpm = int.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "bpm")]);
-                var beatmapDifficulty = float.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "difficulty")]);
+                int beatmapBpm = int.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "bpm")]);
+                float beatmapDifficulty = float.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "difficulty")]);
+                int beatmapOffset = int.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "offset")]);
 
-                var notes = beatmap.Substring(beatmap.IndexOf("[NOTES]"), beatmap.IndexOf("[/NOTES]") - beatmap.IndexOf("[NOTES]")).Split("\n");
+                string[] notes = beatmap.Substring(beatmap.IndexOf("[NOTES]"), beatmap.IndexOf("[/NOTES]") - beatmap.IndexOf("[NOTES]")).Split("\n");
                 List<Note> notesList = new List<Note>();
 
                 notes = new NanaUtils().RemoveFromStringArrayByIndex(notes, notes.Length - 1);
@@ -37,7 +38,7 @@ namespace nanaGame.Beatmap
 
                 foreach (string note in notes)
                 {
-                    var splitedNote = note.Split(":");
+                    string[] splitedNote = note.Split(":");
 
                     int delay = int.Parse(splitedNote[0]);
                     NoteDirectionEnum noteDirection = (NoteDirectionEnum)Enum.Parse(typeof(NoteDirectionEnum), splitedNote[1], true);
@@ -45,7 +46,7 @@ namespace nanaGame.Beatmap
                     notesList.Add(new Note(delay, noteDirection));
                 }
 
-                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor, beatmapBpm, beatmapDifficulty, notesList));
+                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor, beatmapBpm, beatmapOffset, beatmapDifficulty, notesList));
             }
             return beatmaps;
         }
