@@ -17,19 +17,14 @@ namespace nanaGame.Screens.Menu
 {
     public class BeatmapSelection : Scene
     {
-        Game1 game;
-        NanaUtils utils;
         private List<Component> _components = new List<Component>();
-        private List<BeatmapEntity> beatmaps;
         SpriteFont font;
 
         public BeatmapSelection(Game1 game) : base(game)
         {
-            beatmaps = new BeatmapReader().GetBeatmapsData();
-            BeatmapsState.Beatmaps = beatmaps;
             font = GlobalVar.Content.Load<SpriteFont>("Font");
+            List<BeatmapEntity> beatmaps = BeatmapsState.Beatmaps;
 
-            var i = 1;
             foreach (BeatmapEntity beatmap in beatmaps)
             {
                 var newBeatmap = new Text(beatmap.Title, font, Color.White)
@@ -37,7 +32,6 @@ namespace nanaGame.Screens.Menu
                     originalPosition = new Vector2(100, 100),
                 };
                 _components.Add(newBeatmap);
-                i++;
             }
         }
 
