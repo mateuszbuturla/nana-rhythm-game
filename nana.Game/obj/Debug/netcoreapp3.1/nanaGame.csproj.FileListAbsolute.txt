@@ -45,3 +45,4 @@ E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.csproj.CopyComp
 E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.dll
 E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.pdb
 E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.genruntimeconfig.cache
+E:\nana-rhythm-game12\nana.Game\obj\Debug\netcoreapp3.1\nanaGame.csprojAssemblyReference.cache

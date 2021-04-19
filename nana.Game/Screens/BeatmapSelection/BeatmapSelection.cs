@@ -26,6 +26,7 @@ namespace nanaGame.Screens.Menu
         public BeatmapSelection(Game1 game) : base(game)
         {
             beatmaps = new BeatmapReader().GetBeatmapsData();
+            BeatmapsState.Beatmaps = beatmaps;
             font = GlobalVar.Content.Load<SpriteFont>("Font");
 
             var i = 1;
