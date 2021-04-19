@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace nanaGame.GameObjects.Text
 {
@@ -29,6 +30,7 @@ namespace nanaGame.GameObjects.Text
 
         public override void Update(GameTime gameTime)
         {
+            Console.WriteLine(parent);
             if (!(parent is null))
             {
                 position = new Vector2(parent.position.X + originalPosition.X, parent.position.Y + originalPosition.Y);
