@@ -30,5 +30,20 @@ namespace nanaGame.Utils
             tempList.RemoveAt(index);
             return tempList.ToArray();
         }
+
+        public int FindIndex(string[] array, string key)
+        {
+            int index = -1;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i].Contains(key))
+                {
+                    index = i;
+                }
+            }
+
+            return index;
+        }
     }
 }
