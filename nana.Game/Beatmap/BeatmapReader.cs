@@ -7,11 +7,8 @@ using nanaGame.Utils;
 
 namespace nanaGame.Beatmap
 {
-
     class BeatmapReader
     {
-        
-
         public List<BeatmapEntity> GetBeatmapsData ()
         {
             List<BeatmapEntity> beatmaps = new List<BeatmapEntity>();
@@ -21,7 +18,7 @@ namespace nanaGame.Beatmap
             {
                 string beatmap = File.ReadAllText(dir + "/beatmap.nana");
 
-                var metaData = beatmap.Substring(beatmap.IndexOf("[METADATA]"), beatmap.IndexOf("[NOTES]")).Split("\n");
+                var metaData = beatmap.Substring(beatmap.IndexOf("[METADATA]"), beatmap.IndexOf("[/METADATA]")).Split("\n");
 
                 var beatmapTitle = metaData[new NanaUtils().FindIndex(metaData, "title")];
                 var beatmapArtist = metaData[new NanaUtils().FindIndex(metaData, "artist")];
