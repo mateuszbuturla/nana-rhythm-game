@@ -10,20 +10,7 @@ namespace nanaGame.Beatmap
 
     class BeatmapReader
     {
-        public int FindIndex(string[] array, string key)
-        {
-            int index = -1;
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i].Contains(key))
-                {
-                    index = i;
-                }
-            }
-
-            return index;
-        }
+        
 
         public List<BeatmapEntity> GetBeatmapsData ()
         {
@@ -36,9 +23,9 @@ namespace nanaGame.Beatmap
 
                 var metaData = beatmap.Substring(beatmap.IndexOf("[METADATA]"), beatmap.IndexOf("[NOTES]")).Split("\n");
 
-                var beatmapTitle = metaData[FindIndex(metaData, "title")];
-                var beatmapArtist = metaData[FindIndex(metaData, "artist")];
-                var beatmapAuthor = metaData[FindIndex(metaData, "author")];
+                var beatmapTitle = metaData[new NanaUtils().FindIndex(metaData, "title")];
+                var beatmapArtist = metaData[new NanaUtils().FindIndex(metaData, "artist")];
+                var beatmapAuthor = metaData[new NanaUtils().FindIndex(metaData, "author")];
 
                 var notes = beatmap.Substring(beatmap.IndexOf("[NOTES]"), beatmap.IndexOf("[/NOTES]") - beatmap.IndexOf("[NOTES]")).Split("\n");
                 List<Note> notesList = new List<Note>();
