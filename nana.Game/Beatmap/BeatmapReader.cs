@@ -27,6 +27,7 @@ namespace nanaGame.Beatmap
                 var beatmapInfo = beatmap.Substring(beatmap.IndexOf("[BEATMAPINFO]"), beatmap.IndexOf("[/BEATMAPINFO]")).Split("\n");
 
                 var beatmapBpm = int.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "bpm")]);
+                var beatmapDifficulty = float.Parse(beatmapInfo[new NanaUtils().FindIndex(metaData, "difficulty")]);
 
                 var notes = beatmap.Substring(beatmap.IndexOf("[NOTES]"), beatmap.IndexOf("[/NOTES]") - beatmap.IndexOf("[NOTES]")).Split("\n");
                 List<Note> notesList = new List<Note>();
@@ -44,7 +45,7 @@ namespace nanaGame.Beatmap
                     notesList.Add(new Note(delay, noteDirection));
                 }
 
-                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor, beatmapBpm, notesList));
+                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor, beatmapBpm, beatmapDifficulty, notesList));
             }
             return beatmaps;
         }
