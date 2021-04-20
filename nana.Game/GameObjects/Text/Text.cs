@@ -8,35 +8,25 @@ namespace nanaGame.GameObjects.Text
         string text;
         SpriteFont font;
         Color color;
-        Component parent;
-
-        public Vector2 position;
-        public Vector2 originalPosition { get; set; }
 
 
-        public Text(string text, SpriteFont font, Color color, Component parent = null)
+        public Text(string text, Vector2 position, SpriteFont font, Color color, Component parent = null)
         {
             this.text = text;
             this.font = font;
             this.color = color;
             this.parent = parent;
+            this.position = position;
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void DrawObject(GameTime gameTime)
         {
-            GlobalVar.SpriteBatch.DrawString(font, text, position, color);
+            GlobalVar.SpriteBatch.DrawString(font, text, realPosition, color);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void UpdateObject(GameTime gameTime)
         {
-            if (!(parent is null))
-            {
-                position = new Vector2(parent.position.X + originalPosition.X, parent.position.Y + originalPosition.Y);
-            }
-            else
-            {
-                position = originalPosition;
-            }
+            
         }
     }
 }

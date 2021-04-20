@@ -19,8 +19,6 @@ namespace nanaGame.GameObjects.Button
 
         public Color PenColour { get; set; }
 
-        public Vector2 position { get; set; }
-
         public Vector2 scale { get; set; }
 
         public Vector2 size;
@@ -29,7 +27,7 @@ namespace nanaGame.GameObjects.Button
         {
             get
             {
-                return new Rectangle((int)position.X - (int)size.X / 2, (int)position.Y - (int)size.Y / 2, (int)size.X, (int)size.Y);
+                return new Rectangle((int)realPosition.X - (int)size.X / 2, (int)realPosition.Y - (int)size.Y / 2, (int)size.X, (int)size.Y);
             }
         }
 
@@ -39,17 +37,17 @@ namespace nanaGame.GameObjects.Button
             size = new Vector2(_texture.Width / 2, _texture.Height / 2);
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void DrawObject(GameTime gameTime)
         {
             var colour = Color.White;
 
             if (_isHovering)
                 colour = Color.Gray;
 
-            GlobalVar.SpriteBatch.Draw(_texture, position, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
+            GlobalVar.SpriteBatch.Draw(_texture, realPosition, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void UpdateObject(GameTime gameTime)
         {
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
