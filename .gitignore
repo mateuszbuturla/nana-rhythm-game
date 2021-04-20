@@ -1,6 +1,2 @@
-# nana.Game
-nana.Game/.vs
-nana.Game/bin
-nana.Game/obj
-nana.Game/Content/bin
-nana.Game/Content/obj
+/nanaGame/Logs
+/nanaGame/Temp
