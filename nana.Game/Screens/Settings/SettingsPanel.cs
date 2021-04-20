@@ -48,15 +48,12 @@ namespace nanaGame.Screens.Settings
             var graphicDevice = GlobalVar.Graphic.GraphicsDevice;
             var scale = utils.GetScale();
 
-            var settingsTabelText = new Text("Settings", font, Color.White, this)
-            {
-                originalPosition = new Vector2(25, 50),
-            };
+            var settingsTabelText = new Text("Settings", new Vector2(25, 50), font, Color.White, this);
 
             var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", parent: this)
             {
                 scale = scale,
-                originalPosition = new Vector2(25, 120),
+                position = new Vector2(25, 120),
             };
 
             _components = new List<Component>()
@@ -66,7 +63,7 @@ namespace nanaGame.Screens.Settings
             };
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void DrawObject(GameTime gameTime)
         {
             GlobalVar.SpriteBatch.Draw(backgroundTexture, position, new Rectangle(0,0, backgroundTexture.Width, backgroundTexture.Height), Color.White * 0.8f, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
             foreach (var component in _components)
@@ -75,7 +72,7 @@ namespace nanaGame.Screens.Settings
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public override void UpdateObject(GameTime gameTime)
         {
             if (isShow && Keyboard.GetState().IsKeyDown(Keys.Escape))
             {

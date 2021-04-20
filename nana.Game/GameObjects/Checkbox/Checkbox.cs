@@ -21,9 +21,6 @@ namespace nanaGame.GameObjects.Checkbox
 
         Component parent;
 
-        public Vector2 position;
-        public Vector2 originalPosition { get; set; }
-
         Texture2D currentTexture;
         Texture2D checkedTexture;
         Texture2D unCheckedTexture;
@@ -46,10 +43,10 @@ namespace nanaGame.GameObjects.Checkbox
             size = new Vector2(currentTexture.Width / 2, currentTexture.Height / 2);
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void DrawObject(GameTime gameTime)
         {
-            GlobalVar.SpriteBatch.Draw(currentTexture, new Vector2(position.X, position.Y + size.Y / 2), new Rectangle(0, 0, currentTexture.Width, currentTexture.Height), Color.White, 0, size, new Vector2(scale.X, scale.X), SpriteEffects.None, 1);
-            GlobalVar.SpriteBatch.DrawString(font, label, new Vector2(position.X + 25, position.Y + 5), Color.White);
+            GlobalVar.SpriteBatch.Draw(currentTexture, new Vector2(realPosition.X, realPosition.Y + size.Y / 2), new Rectangle(0, 0, currentTexture.Width, currentTexture.Height), Color.White, 0, size, new Vector2(scale.X, scale.X), SpriteEffects.None, 1);
+            GlobalVar.SpriteBatch.DrawString(font, label, new Vector2(realPosition.X + 25, realPosition.Y + 5), Color.White);
         }
 
         private void UpdateTexture ()
@@ -64,16 +61,8 @@ namespace nanaGame.GameObjects.Checkbox
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public override void UpdateObject(GameTime gameTime)
         {
-            if (!(parent is null))
-            {
-                position = new Vector2(parent.position.X + originalPosition.X, parent.position.Y + originalPosition.Y);
-            }
-            else
-            {
-                position = originalPosition;
-            }
         }
     }
 }

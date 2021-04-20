@@ -27,10 +27,7 @@ namespace nanaGame.Screens.Menu
 
             foreach (BeatmapEntity beatmap in beatmaps)
             {
-                var newBeatmap = new Text(beatmap.Title, font, Color.White)
-                {
-                    originalPosition = new Vector2(100, 100),
-                };
+                var newBeatmap = new Text(beatmap.Title, new Vector2(100, 100), font, Color.White);
                 _components.Add(newBeatmap);
             }
         }

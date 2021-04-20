@@ -8,7 +8,7 @@ namespace nanaGame.GameObjects.Container
     {
         public List<Component> _components;
 
-        public override void Draw(GameTime gameTime)
+        public override void DrawObject(GameTime gameTime)
         {
             foreach (var component in _components)
             {
@@ -16,7 +16,7 @@ namespace nanaGame.GameObjects.Container
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public override void UpdateObject(GameTime gameTime)
         {
             foreach (var component in _components)
             {
