@@ -12,6 +12,7 @@ namespace nanaGame.GameObjects.Button
         private bool _isHovering;
         private MouseState _previousMouse;
         private Texture2D _texture;
+        private string label;
 
         public event EventHandler Click;
 
@@ -27,7 +28,7 @@ namespace nanaGame.GameObjects.Button
         {
             get
             {
-                return new Rectangle((int)realPosition.X - (int)size.X / 2, (int)realPosition.Y - (int)size.Y / 2, (int)size.X, (int)size.Y);
+                return new Rectangle((int)realPosition.X, (int)realPosition.Y, (int)size.X, (int)size.Y);
             }
         }
 
@@ -44,7 +45,7 @@ namespace nanaGame.GameObjects.Button
             if (_isHovering)
                 colour = Color.Gray;
 
-            GlobalVar.SpriteBatch.Draw(_texture, realPosition, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
+            GlobalVar.SpriteBatch.Draw(_texture, realPosition, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
         }
 
         public override void UpdateObject(GameTime gameTime)
