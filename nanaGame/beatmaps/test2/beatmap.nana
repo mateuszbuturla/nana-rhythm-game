@@ -1,0 +1,18 @@
+[METADATA]
+title: Test12;
+artist: Test2;
+author: TestA2;
+[/METADATA]
+
+[BEATMAPINFO]
+bmp:120
+difficulty: 4.5
+offset:53
+[/BEATMAPINFO]
+
+[NOTES]
+0:TOP
+500:BOTTOM
+1500:TOP
+1600:TOP
+[/NOTES]

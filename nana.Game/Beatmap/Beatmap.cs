@@ -41,8 +41,9 @@ namespace nanaGame.Beatmap
         int beatmapOffset;
         float beatmapDifficulty;
         List<Note> notes;
+        string path;
 
-        public BeatmapEntity(string title, string artist, string author, int bpm, int beatmapOffset, float beatmapDifficulty, List<Note> notes)
+        public BeatmapEntity(string title, string artist, string author, int bpm, int beatmapOffset, float beatmapDifficulty, List<Note> notes, string path)
         {
             this.title = title;
             this.artist = artist;
@@ -51,12 +52,19 @@ namespace nanaGame.Beatmap
             this.beatmapOffset = beatmapOffset;
             this.beatmapDifficulty = beatmapDifficulty;
             this.notes = notes;
+            this.path = path;
         }
 
         public string Title
         {
             get { return title; }
             set { title = value; }
+        }
+
+        public string Path
+        {
+            get { return path; }
+            set { path = value; }
         }
     }
 }
