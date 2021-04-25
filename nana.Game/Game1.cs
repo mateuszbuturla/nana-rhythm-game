@@ -37,6 +37,7 @@ namespace nanaGame
             GlobalVar.SpriteBatch = _spriteBatch;
             GlobalVar.Graphic = _graphics;
             GlobalVar.Content = Content;
+            GlobalVar.MainFont = Content.Load<SpriteFont>("mainFont");
 
             var beatmaps = new BeatmapReader().GetBeatmapsData();
             BeatmapsState.Beatmaps = beatmaps;

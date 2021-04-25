@@ -39,35 +39,35 @@ namespace nanaGame.Screens.Menu
 
             var scale = utils.GetScale();
 
-            var playButton = new Button(playButtonTexture)
+            var playButton = new Button(playButtonTexture, "Play")
             {
                 position = new Vector2(0, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             playButton.Click += PlayButtonClick;
 
-            var multiplayerButton = new Button(multiplayerButtonTexture)
+            var multiplayerButton = new Button(multiplayerButtonTexture, "Multiplayer")
             {
                 position = new Vector2(buttonTextureWidth * scale.X, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             playButton.Click += PlayButtonClick;
 
-            var editorButton = new Button(editorButtonTexture)
+            var editorButton = new Button(editorButtonTexture, "Editor")
             {
                 position = new Vector2(buttonTextureWidth * scale.X * 2, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             editorButton.Click += EditorButtonClick;
 
-            var settingsButton = new Button(settingsButtonTexture)
+            var settingsButton = new Button(settingsButtonTexture, "Settings")
             {
                 position = new Vector2(buttonTextureWidth * scale.X * 3, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             settingsButton.Click += SettignsButtonClick;
 
-            var exitButton = new Button(exitButtonTexture)
+            var exitButton = new Button(exitButtonTexture, "Exit")
             {
                 position = new Vector2(buttonTextureWidth * scale.X * 4, gameHeight - (300 * scale.Y)),
                 scale = scale,
