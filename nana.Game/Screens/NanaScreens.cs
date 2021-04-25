@@ -7,7 +7,7 @@ namespace nanaGame.Screens
 {
     class NanaScreens
     {
-        private NanaScreensTypes currentScene = NanaScreensTypes.Game;
+        private NanaScreensTypes currentScene = NanaScreensTypes.MainMenu;
         private MainMenu menu;
         private BeatmapSelection beatmapSelection;
 

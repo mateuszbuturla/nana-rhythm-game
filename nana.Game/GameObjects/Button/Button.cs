@@ -12,6 +12,7 @@ namespace nanaGame.GameObjects.Button
         private bool _isHovering;
         private MouseState _previousMouse;
         private Texture2D _texture;
+        private string label;
 
         public event EventHandler Click;
 
@@ -27,13 +28,14 @@ namespace nanaGame.GameObjects.Button
         {
             get
             {
-                return new Rectangle((int)realPosition.X - (int)size.X / 2, (int)realPosition.Y - (int)size.Y / 2, (int)size.X, (int)size.Y);
+                return new Rectangle((int)realPosition.X, (int)realPosition.Y, (int)size.X, (int)size.Y);
             }
         }
 
-        public Button(Texture2D texture)
+        public Button(Texture2D texture, string label = null)
         {
             _texture = texture;
+            this.label = label;
             size = new Vector2(_texture.Width / 2, _texture.Height / 2);
         }
 
@@ -44,7 +46,14 @@ namespace nanaGame.GameObjects.Button
             if (_isHovering)
                 colour = Color.Gray;
 
-            GlobalVar.SpriteBatch.Draw(_texture, realPosition, new Rectangle(0,0, _texture.Width, _texture.Height), colour, 0, size, scale, SpriteEffects.None, 1);
+            GlobalVar.SpriteBatch.Draw(_texture, realPosition, new Rectangle(0, 0, _texture.Width, _texture.Height), colour, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+            if (label != null)
+            {
+                Vector2 fontSize = new Vector2(0, 0);
+                fontSize = GlobalVar.MainFont.MeasureString(label);
+
+                GlobalVar.SpriteBatch.DrawString(GlobalVar.MainFont, label, new Vector2(realPosition.X + _texture.Width * scale.X / 2 - fontSize.X / 2, realPosition.Y + _texture.Height * scale.Y / 2 - fontSize.Y / 2), Color.White);
+            }
         }
 
         public override void UpdateObject(GameTime gameTime)

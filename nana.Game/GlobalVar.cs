@@ -17,4 +17,6 @@ public static class GlobalVar
     public static GraphicsDeviceManager Graphic;
 
     public static ContentManager Content;
+
+    public static SpriteFont MainFont;
 }
