@@ -10,6 +10,7 @@ using nanaGame.GameObjects.Button;
 using nanaGame.Screens.Settings;
 using System.Data;
 using System.Diagnostics;
+using nanaGame.GameObjects.Background;
 
 namespace nanaGame.Screens.Menu
 {
@@ -38,6 +39,11 @@ namespace nanaGame.Screens.Menu
             var buttonTextureWidth = playButtonTexture.Width;
 
             var scale = utils.GetScale();
+
+            var uiBackground = new UiBackground()
+            {
+                scale = scale,
+            };
 
             var playButton = new Button(playButtonTexture, "Play")
             {
@@ -76,6 +82,7 @@ namespace nanaGame.Screens.Menu
 
             _components = new List<Component>()
             {
+                uiBackground,
                 playButton,
                 multiplayerButton,
                 editorButton,
