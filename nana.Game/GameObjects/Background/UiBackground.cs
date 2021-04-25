@@ -8,12 +8,19 @@ namespace nanaGame.GameObjects.Background
     class UiBackground : Component
     {
         private Texture2D image;
+        private string currentImagePath;
 
         public Vector2 scale { get; set; }
 
         public UiBackground()
         {
+            LoadImage();
+        }
+
+        private void LoadImage ()
+        {
             image = new NanaUtils().LoadTextureFromFile(BeatmapsState.CurrentBeatmap.Path + "/background.png");
+            currentImagePath = BeatmapsState.CurrentBeatmap.Path;
         }
 
         public override void DrawObject(GameTime gameTime)
@@ -23,7 +30,10 @@ namespace nanaGame.GameObjects.Background
 
         public override void UpdateObject(GameTime gameTime)
         {
-            
+            if (currentImagePath != BeatmapsState.CurrentBeatmap.Path)
+            {
+                LoadImage();
+            }
         }
     }
 }
