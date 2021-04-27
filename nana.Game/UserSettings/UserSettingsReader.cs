@@ -12,12 +12,21 @@ namespace nanaGame.UserSettings
     {
         private string settingsFilePath = Directory.GetCurrentDirectory() + "/settings.cfg";
 
-        public List<String> GetUserSettings ()
+        public List<UserSettingEntity> GetUserSettings ()
         {
-            List<String> settings = new List<String>();
+            List<UserSettingEntity> settings = new List<UserSettingEntity>();
             
             try {
                 string[] userSettingsFile =  File.ReadAllText(settingsFilePath).Split("\n");
+
+                foreach (string setting in userSettingsFile)
+                {
+                    string[] splittedSetting = setting.Split('=');
+
+                    UserSettingEnum settingType = (UserSettingEnum)Enum.Parse(typeof(UserSettingEnum), splittedSetting[0], true);
+
+                    settings.Add(new UserSettingEntity(settingType, splittedSetting[1]));
+                }
 
                 return settings;
             }
