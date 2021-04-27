@@ -8,6 +8,8 @@ using nanaGame.GameObjects.Container;
 using nanaGame.GameObjects.Text;
 using nanaGame.GameObjects.Checkbox;
 using nanaGame.Utils;
+using nanaGame.UserSettings;
+using System;
 
 namespace nanaGame.Screens.Settings
 {
@@ -39,6 +41,8 @@ namespace nanaGame.Screens.Settings
             {
                 position = new Vector2(0, 0);
             }
+
+            Console.WriteLine(new UserSettingsReader().GetUserSettings());
 
             Init();
         }
