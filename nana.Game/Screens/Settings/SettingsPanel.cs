@@ -48,18 +48,25 @@ namespace nanaGame.Screens.Settings
             var graphicDevice = GlobalVar.Graphic.GraphicsDevice;
             var scale = utils.GetScale();
 
-            var settingsTabelText = new Text("Settings", new Vector2(25, 50), font, Color.White, this);
+            var settingsTabelText = new Text("Settings", new Vector2(25, 25), font, Color.White, this);
 
             var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", false, this)
             {
                 scale = scale,
-                position = new Vector2(25, 120),
+                position = new Vector2(25, 80),
+            };
+
+            var hitPerfectHitAccuracyCheckbox = new Checkbox("Show perfect hit accuracy", false, this)
+            {
+                scale = scale,
+                position = new Vector2(25, 130),
             };
 
             _components = new List<Component>()
             {
                 settingsTabelText,
-                hitHittedNotesAccuracyCheckbox
+                hitHittedNotesAccuracyCheckbox,
+                hitPerfectHitAccuracyCheckbox
             };
         }
 
