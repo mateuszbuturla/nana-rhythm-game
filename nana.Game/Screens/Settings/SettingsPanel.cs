@@ -26,7 +26,7 @@ namespace nanaGame.Screens.Settings
         {
             utils = new NanaUtils();
 
-            font = GlobalVar.Content.Load<SpriteFont>("Font");
+            font = GlobalVar.MainFont;
 
             backgroundTexture = new Texture2D(GlobalVar.Graphic.GraphicsDevice, 700, 1080);
             Color[] data = new Color[700 * 1080];
@@ -50,7 +50,7 @@ namespace nanaGame.Screens.Settings
 
             var settingsTabelText = new Text("Settings", new Vector2(25, 50), font, Color.White, this);
 
-            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", parent: this)
+            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", false, this)
             {
                 scale = scale,
                 position = new Vector2(25, 120),

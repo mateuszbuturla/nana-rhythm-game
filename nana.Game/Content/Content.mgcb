@@ -32,6 +32,13 @@
 /processorParam:TextureFormat=Color
 /build:logo.png
 
+#begin mainFontSmall.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:mainFontSmall.spritefont
+
 #begin Polygon 46.png
 /importer:TextureImporter
 /processor:TextureProcessor
