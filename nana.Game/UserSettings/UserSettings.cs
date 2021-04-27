@@ -22,7 +22,7 @@ namespace nanaGame.UserSettings
                 return settings;
             }
             catch {
-                if !(File.Exists(settingsFilePath))
+                if (!File.Exists(settingsFilePath))
                 {
                     using (FileStream fs = File.Create(settingsFilePath));
                 }
