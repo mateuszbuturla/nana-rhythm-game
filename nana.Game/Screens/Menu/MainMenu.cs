@@ -11,6 +11,7 @@ using nanaGame.Screens.Settings;
 using System.Data;
 using System.Diagnostics;
 using nanaGame.GameObjects.Background;
+using nanaGame.GameObjects.Logo;
 
 namespace nanaGame.Screens.Menu
 {
@@ -80,9 +81,16 @@ namespace nanaGame.Screens.Menu
             };
             exitButton.Click += ExitButtonClick;
 
+            var logo = new MainMenuLogo()
+            {
+                position = new Vector2(gameWidth / 2, gameHeight / 2),
+                scale = scale,
+            };
+
             _components = new List<Component>()
             {
                 uiBackground,
+                logo,
                 playButton,
                 multiplayerButton,
                 editorButton,
