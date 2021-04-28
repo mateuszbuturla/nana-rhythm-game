@@ -22,6 +22,9 @@ namespace nanaGame.Screens.Settings
         public bool isShow = false;
         int openSpeed = 45;
 
+        UserSettingsReader userSettingsReader;
+        List<UserSettingEntity> userSettings;
+
         public Vector2 scale { get; set; }
 
         public SettingsPanel()
@@ -42,11 +45,9 @@ namespace nanaGame.Screens.Settings
                 position = new Vector2(0, 0);
             }
 
-            var test = new UserSettingsReader();
+            userSettingsReader = new UserSettingsReader();
 
-            var test2 = test.GetUserSettings();
-
-            Console.WriteLine(test.FindSetting(test2, UserSettingEnum.SHOW_HIT_NOTES_ACCURACY).Value);
+            userSettings = userSettingsReader.GetUserSettings();
 
             Init();
         }
@@ -58,7 +59,9 @@ namespace nanaGame.Screens.Settings
 
             var settingsTabelText = new Text("Settings", new Vector2(25, 25), font, Color.White, this);
 
-            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", false, this)
+            bool hitHittedNotesAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_HIT_NOTES_ACCURACY).Value[0] == '1' ? true : false;
+
+            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", hitHittedNotesAccuracyCheckboxState, this)
             {
                 scale = scale,
                 position = new Vector2(25, 80),
