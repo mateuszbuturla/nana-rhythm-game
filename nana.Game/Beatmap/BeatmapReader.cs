@@ -9,6 +9,7 @@ namespace nanaGame.Beatmap
 {
     class BeatmapReader
     {
+
         public List<BeatmapEntity> GetBeatmapsData ()
         {
             List<BeatmapEntity> beatmaps = new List<BeatmapEntity>();

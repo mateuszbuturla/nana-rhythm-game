@@ -42,7 +42,11 @@ namespace nanaGame.Screens.Settings
                 position = new Vector2(0, 0);
             }
 
-            Console.WriteLine(new UserSettingsReader().GetUserSettings());
+            var test = new UserSettingsReader();
+
+            var test2 = test.GetUserSettings();
+
+            Console.WriteLine(test.FindSetting(test2, UserSettingEnum.SHOW_HIT_NOTES_ACCURACY).Value);
 
             Init();
         }

@@ -12,6 +12,21 @@ namespace nanaGame.UserSettings
     {
         private string settingsFilePath = Directory.GetCurrentDirectory() + "/settings.cfg";
 
+        public UserSettingEntity FindSetting(List<UserSettingEntity> settings, UserSettingEnum setting)
+        {
+            UserSettingEntity toReturn = null;
+
+            for (int i = 0; i < settings.Count; i++)
+            {
+                if (settings[i].Setting == setting)
+                {
+                    toReturn = settings[i];
+                    break;
+                }
+            }
+            return toReturn;
+        }
+
         public List<UserSettingEntity> GetUserSettings ()
         {
             List<UserSettingEntity> settings = new List<UserSettingEntity>();
