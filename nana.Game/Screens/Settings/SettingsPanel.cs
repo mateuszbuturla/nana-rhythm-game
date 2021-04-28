@@ -60,14 +60,14 @@ namespace nanaGame.Screens.Settings
             var settingsTabelText = new Text("Settings", new Vector2(25, 25), font, Color.White, this);
 
             bool hitHittedNotesAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_HIT_NOTES_ACCURACY).Value[0] == '1' ? true : false;
-
             var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", hitHittedNotesAccuracyCheckboxState, this)
             {
                 scale = scale,
                 position = new Vector2(25, 80),
             };
 
-            var hitPerfectHitAccuracyCheckbox = new Checkbox("Show perfect hit accuracy", false, this)
+            bool hitPerfectHitAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_PERFECT_NOTE_ACCURACY).Value[0] == '1' ? true : false;
+            var hitPerfectHitAccuracyCheckbox = new Checkbox("Show perfect hit accuracy", hitPerfectHitAccuracyCheckboxState, this)
             {
                 scale = scale,
                 position = new Vector2(25, 130),
