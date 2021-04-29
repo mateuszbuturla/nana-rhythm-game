@@ -27,6 +27,29 @@ namespace nanaGame.UserSettings
             return toReturn;
         }
 
+        public void SaveUserSettings(List<UserSettingEntity> settings)
+        {
+            string newSettings = "";
+
+            for (int i = 0; i < settings.Count; i++)
+            {
+                newSettings += settings[i].Setting.ToString() + "=" + settings[i].Value.ToString() + "\n";
+            }
+
+            if (File.Exists(settingsFilePath))
+            {
+                File.WriteAllText(settingsFilePath, newSettings);
+            }
+            else
+            {
+                using (FileStream fs = File.Create(settingsFilePath))
+                {
+                    byte[] newSettingsByte = new UTF8Encoding(true).GetBytes(newSettings);
+                    fs.Write(newSettingsByte, 0, newSettings.Length);
+                };
+            }
+        }
+
         public List<UserSettingEntity> GetUserSettings ()
         {
             List<UserSettingEntity> settings = new List<UserSettingEntity>();
