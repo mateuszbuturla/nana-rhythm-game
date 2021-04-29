@@ -9,6 +9,7 @@ namespace nanaGame.Beatmap
 {
     class BeatmapReader
     {
+
         public List<BeatmapEntity> GetBeatmapsData ()
         {
             List<BeatmapEntity> beatmaps = new List<BeatmapEntity>();
@@ -46,7 +47,7 @@ namespace nanaGame.Beatmap
                     notesList.Add(new Note(delay, noteDirection));
                 }
 
-                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor, beatmapBpm, beatmapOffset, beatmapDifficulty, notesList));
+                beatmaps.Add(new BeatmapEntity(beatmapTitle, beatmapArtist, beatmapAuthor, beatmapBpm, beatmapOffset, beatmapDifficulty, notesList, dir));
             }
             return beatmaps;
         }

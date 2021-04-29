@@ -8,6 +8,8 @@ using nanaGame.GameObjects.Container;
 using nanaGame.GameObjects.Text;
 using nanaGame.GameObjects.Checkbox;
 using nanaGame.Utils;
+using nanaGame.UserSettings;
+using System;
 
 namespace nanaGame.Screens.Settings
 {
@@ -20,13 +22,19 @@ namespace nanaGame.Screens.Settings
         public bool isShow = false;
         int openSpeed = 45;
 
+        UserSettingsReader userSettingsReader;
+        List<UserSettingEntity> userSettings;
+
         public Vector2 scale { get; set; }
+
+        public Checkbox showHitNotesAccuracyCheckbox;
+        public Checkbox showPerfectHitNoteAccuracyCheckbox;
 
         public SettingsPanel()
         {
             utils = new NanaUtils();
 
-            font = GlobalVar.Content.Load<SpriteFont>("Font");
+            font = GlobalVar.MainFont;
 
             backgroundTexture = new Texture2D(GlobalVar.Graphic.GraphicsDevice, 700, 1080);
             Color[] data = new Color[700 * 1080];
@@ -40,6 +48,10 @@ namespace nanaGame.Screens.Settings
                 position = new Vector2(0, 0);
             }
 
+            userSettingsReader = new UserSettingsReader();
+
+            userSettings = userSettingsReader.GetUserSettings();
+
             Init();
         }
 
@@ -48,18 +60,27 @@ namespace nanaGame.Screens.Settings
             var graphicDevice = GlobalVar.Graphic.GraphicsDevice;
             var scale = utils.GetScale();
 
-            var settingsTabelText = new Text("Settings", new Vector2(25, 50), font, Color.White, this);
+            var settingsTabelText = new Text("Settings", new Vector2(25, 25), font, Color.White, this);
 
-            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", parent: this)
+            bool hitHittedNotesAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_HIT_NOTES_ACCURACY).Value[0] == '1' ? true : false;
+            showHitNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", hitHittedNotesAccuracyCheckboxState, this)
             {
                 scale = scale,
-                position = new Vector2(25, 120),
+                position = new Vector2(25, 80),
+            };
+
+            bool hitPerfectHitAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_PERFECT_NOTE_ACCURACY).Value[0] == '1' ? true : false;
+            showPerfectHitNoteAccuracyCheckbox = new Checkbox("Show perfect hit accuracy", hitPerfectHitAccuracyCheckboxState, this)
+            {
+                scale = scale,
+                position = new Vector2(25, 130),
             };
 
             _components = new List<Component>()
             {
                 settingsTabelText,
-                hitHittedNotesAccuracyCheckbox
+                showHitNotesAccuracyCheckbox,
+                showPerfectHitNoteAccuracyCheckbox
             };
         }
 
@@ -97,6 +118,14 @@ namespace nanaGame.Screens.Settings
         public void Toggle ()
         {
             isShow = !isShow;
+
+            if (!isShow)
+            {
+                List <UserSettingEntity> newSettings = new List<UserSettingEntity>();
+                newSettings.Add(new UserSettingEntity(UserSettingEnum.SHOW_HIT_NOTES_ACCURACY, showHitNotesAccuracyCheckbox.isChecked ? "1" : "0"));
+                newSettings.Add(new UserSettingEntity(UserSettingEnum.SHOW_PERFECT_NOTE_ACCURACY, showPerfectHitNoteAccuracyCheckbox.isChecked ? "1" : "0"));
+                userSettingsReader.SaveUserSettings(newSettings);
+            }
         }
     }
 }

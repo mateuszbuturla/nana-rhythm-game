@@ -10,6 +10,8 @@ using nanaGame.GameObjects.Button;
 using nanaGame.Screens.Settings;
 using System.Data;
 using System.Diagnostics;
+using nanaGame.GameObjects.Background;
+using nanaGame.GameObjects.Logo;
 
 namespace nanaGame.Screens.Menu
 {
@@ -30,44 +32,67 @@ namespace nanaGame.Screens.Menu
             this.game = game;
             utils = new NanaUtils();
 
-            var playButtonTexture = utils.LoadTextureFromFile("assets/playButton.png");
-            var editorButtonTexture = utils.LoadTextureFromFile("assets/editorButton.png");
-            var settingsButtonTexture = utils.LoadTextureFromFile("assets/settingsButton.png");
-            var exitButtonTexture = utils.LoadTextureFromFile("assets/exitButton.png");
+            var playButtonTexture = GlobalVar.Content.Load<Texture2D>("mainMenuPlayButton");
+            var multiplayerButtonTexture = GlobalVar.Content.Load<Texture2D>("mainMenuMultiplayerButton");
+            var editorButtonTexture = GlobalVar.Content.Load<Texture2D>("mainMenuEditorButton");
+            var settingsButtonTexture = GlobalVar.Content.Load<Texture2D>("mainMenuSettingsButton");
+            var exitButtonTexture = GlobalVar.Content.Load<Texture2D>("mainMenuExitButton");
+            var buttonTextureWidth = playButtonTexture.Width;
 
             var scale = utils.GetScale();
 
-            var playButton = new Button(playButtonTexture)
+            var uiBackground = new UiBackground()
             {
-                position = new Vector2(100, gameHeight / 2),
+                scale = scale,
+            };
+
+            var playButton = new Button(playButtonTexture, "Play")
+            {
+                position = new Vector2(0, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             playButton.Click += PlayButtonClick;
 
-            var editorButton = new Button(editorButtonTexture)
+            var multiplayerButton = new Button(multiplayerButtonTexture, "Multiplayer")
             {
-                position = new Vector2(100 + playButtonTexture.Width * scale.X, gameHeight / 2),
+                position = new Vector2(buttonTextureWidth * scale.X, gameHeight - (300 * scale.Y)),
+                scale = scale,
+            };
+            playButton.Click += PlayButtonClick;
+
+            var editorButton = new Button(editorButtonTexture, "Editor")
+            {
+                position = new Vector2(buttonTextureWidth * scale.X * 2, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             editorButton.Click += EditorButtonClick;
 
-            var settingsButton = new Button(settingsButtonTexture)
+            var settingsButton = new Button(settingsButtonTexture, "Settings")
             {
-                position = new Vector2(gameWidth - 100 - exitButtonTexture.Width * scale.X, gameHeight / 2),
+                position = new Vector2(buttonTextureWidth * scale.X * 3, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             settingsButton.Click += SettignsButtonClick;
 
-            var exitButton = new Button(exitButtonTexture)
+            var exitButton = new Button(exitButtonTexture, "Exit")
             {
-                position = new Vector2(gameWidth - 100, gameHeight / 2),
+                position = new Vector2(buttonTextureWidth * scale.X * 4, gameHeight - (300 * scale.Y)),
                 scale = scale,
             };
             exitButton.Click += ExitButtonClick;
 
+            var logo = new MainMenuLogo()
+            {
+                position = new Vector2(gameWidth / 2, gameHeight / 2),
+                scale = scale,
+            };
+
             _components = new List<Component>()
             {
+                uiBackground,
+                logo,
                 playButton,
+                multiplayerButton,
                 editorButton,
                 settingsButton,
                 exitButton
@@ -81,19 +106,16 @@ namespace nanaGame.Screens.Menu
 
         private void PlayButtonClick (object sender, EventArgs e)
         {
-           
+            
         }
+
         private void EditorButtonClick(object sender, EventArgs e)
         {
-            Console.WriteLine("test");
-          //  var test = new Beatmap();
-
-          //  Console.WriteLine(test);
+            
         }
 
         private void SettignsButtonClick(object sender, EventArgs e)
         {
-            Console.WriteLine("test");
             _settingsPanel.Toggle();
         }
 
