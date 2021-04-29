@@ -27,6 +27,9 @@ namespace nanaGame.Screens.Settings
 
         public Vector2 scale { get; set; }
 
+        public Checkbox showHitNotesAccuracyCheckbox;
+        public Checkbox showPerfectHitNoteAccuracyCheckbox;
+
         public SettingsPanel()
         {
             utils = new NanaUtils();
@@ -60,14 +63,14 @@ namespace nanaGame.Screens.Settings
             var settingsTabelText = new Text("Settings", new Vector2(25, 25), font, Color.White, this);
 
             bool hitHittedNotesAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_HIT_NOTES_ACCURACY).Value[0] == '1' ? true : false;
-            var hitHittedNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", hitHittedNotesAccuracyCheckboxState, this)
+            showHitNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", hitHittedNotesAccuracyCheckboxState, this)
             {
                 scale = scale,
                 position = new Vector2(25, 80),
             };
 
             bool hitPerfectHitAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_PERFECT_NOTE_ACCURACY).Value[0] == '1' ? true : false;
-            var hitPerfectHitAccuracyCheckbox = new Checkbox("Show perfect hit accuracy", hitPerfectHitAccuracyCheckboxState, this)
+            showPerfectHitNoteAccuracyCheckbox = new Checkbox("Show perfect hit accuracy", hitPerfectHitAccuracyCheckboxState, this)
             {
                 scale = scale,
                 position = new Vector2(25, 130),
@@ -76,8 +79,8 @@ namespace nanaGame.Screens.Settings
             _components = new List<Component>()
             {
                 settingsTabelText,
-                hitHittedNotesAccuracyCheckbox,
-                hitPerfectHitAccuracyCheckbox
+                showHitNotesAccuracyCheckbox,
+                showPerfectHitNoteAccuracyCheckbox
             };
         }
 
@@ -115,6 +118,14 @@ namespace nanaGame.Screens.Settings
         public void Toggle ()
         {
             isShow = !isShow;
+
+            if (!isShow)
+            {
+                List <UserSettingEntity> newSettings = new List<UserSettingEntity>();
+                newSettings.Add(new UserSettingEntity(UserSettingEnum.SHOW_HIT_NOTES_ACCURACY, showHitNotesAccuracyCheckbox.isChecked ? "1" : "0"));
+                newSettings.Add(new UserSettingEntity(UserSettingEnum.SHOW_PERFECT_NOTE_ACCURACY, showPerfectHitNoteAccuracyCheckbox.isChecked ? "1" : "0"));
+                userSettingsReader.SaveUserSettings(newSettings);
+            }
         }
     }
 }
