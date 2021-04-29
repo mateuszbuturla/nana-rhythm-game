@@ -48,7 +48,11 @@ namespace nanaGame.UserSettings
             catch {
                 if (!File.Exists(settingsFilePath))
                 {
-                    using (FileStream fs = File.Create(settingsFilePath));
+                    using (FileStream fs = File.Create(settingsFilePath))
+                    {
+                        byte[] newSettings = new UTF8Encoding(true).GetBytes("SHOW_HIT_NOTES_ACCURACY=1\nSHOW_PERFECT_NOTE_ACCURACY=1");
+                        fs.Write(newSettings, 0, newSettings.Length);
+                    };
                 }
 
                 return settings;
