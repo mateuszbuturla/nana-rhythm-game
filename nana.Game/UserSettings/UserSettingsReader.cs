@@ -59,11 +59,11 @@ namespace nanaGame.UserSettings
 
                 foreach (string setting in userSettingsFile)
                 {
-                    string[] splittedSetting = setting.Split('=');
+                    string[] splitSetting = setting.Split('=');
 
-                    UserSettingEnum settingType = (UserSettingEnum)Enum.Parse(typeof(UserSettingEnum), splittedSetting[0], true);
+                    UserSettingEnum settingType = (UserSettingEnum)Enum.Parse(typeof(UserSettingEnum), splitSetting[0], true);
 
-                    settings.Add(new UserSettingEntity(settingType, splittedSetting[1]));
+                    settings.Add(new UserSettingEntity(settingType, splitSetting[1]));
                 }
 
                 return settings;
