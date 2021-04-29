@@ -5,7 +5,7 @@ using nanaGame.Screens.Menu;
 
 namespace nanaGame.Screens
 {
-    class NanaScreens
+    public class NanaScreens
     {
         private NanaScreensTypes currentScene = NanaScreensTypes.MainMenu;
         private MainMenu menu;
@@ -17,6 +17,11 @@ namespace nanaGame.Screens
             beatmapSelection = new BeatmapSelection(game);
         }
 
+        public void ChangeScene(NanaScreensTypes scene)
+        {
+            currentScene = scene;
+        }
+
         public void Draw (GameTime gameTime)
         {
             switch(currentScene)
@@ -26,6 +31,9 @@ namespace nanaGame.Screens
                     break;
                 case NanaScreensTypes.Game:
                     beatmapSelection.Draw(gameTime);
+                    break;
+                case NanaScreensTypes.BeatmapSelection:
+                    
                     break;
                 case NanaScreensTypes.ResultScreen:
                     break;
@@ -41,6 +49,9 @@ namespace nanaGame.Screens
                     break;
                 case NanaScreensTypes.Game:
                     beatmapSelection.Update(gameTime);
+                    break;
+                case NanaScreensTypes.BeatmapSelection:
+
                     break;
                 case NanaScreensTypes.ResultScreen:
                     break;

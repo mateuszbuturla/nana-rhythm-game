@@ -4,10 +4,11 @@ using System.Text;
 
 namespace nanaGame.Screens
 {
-    enum NanaScreensTypes
+    public enum NanaScreensTypes
     {
         MainMenu,
         Game,
+        BeatmapSelection,
         ResultScreen
     }
 }

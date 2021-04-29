@@ -106,7 +106,7 @@ namespace nanaGame.Screens.Menu
 
         private void PlayButtonClick (object sender, EventArgs e)
         {
-            
+            GlobalVar.NanaScreens.ChangeScene(NanaScreensTypes.BeatmapSelection);
         }
 
         private void EditorButtonClick(object sender, EventArgs e)

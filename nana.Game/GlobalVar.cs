@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using nanaGame.Beatmap;
 using System.Collections.Generic;
+using nanaGame.Screens;
 
 /// <summary>
 /// Contains global variables for project.
@@ -19,4 +20,6 @@ public static class GlobalVar
     public static ContentManager Content;
 
     public static SpriteFont MainFont;
+
+    public static NanaScreens NanaScreens;
 }

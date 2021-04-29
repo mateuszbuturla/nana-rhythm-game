@@ -50,6 +50,8 @@ namespace nanaGame
 
             nanaScreens = new NanaScreens(this);
 
+            GlobalVar.NanaScreens = nanaScreens;
+
             // TODO: use this.Content to load your game content here
         }
 
