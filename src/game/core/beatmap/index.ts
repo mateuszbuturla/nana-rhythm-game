@@ -28,6 +28,20 @@ export class BeatmapReader {
           const splitData = data.split(':');
           metaData[splitData[0]] = splitData[1];
         });
+
+        const beatmapInfoString = beatmapData
+          .slice(
+            beatmapData.indexOf('[BEATMAPINFO]') + 15,
+            beatmapData.indexOf('[/BEATMAPINFO]'),
+          )
+          .split('\n');
+
+        let beatmapInfo: any = {};
+
+        beatmapInfoString.map((data) => {
+          const splitData = data.split(':');
+          beatmapInfo[splitData[0]] = splitData[1];
+        });
       }
     });
   }
