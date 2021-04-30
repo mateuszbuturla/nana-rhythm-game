@@ -1,0 +1,131 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using nanaGame.GameObjects;
+using nanaGame.GameObjects.Container;
+using nanaGame.GameObjects.Text;
+using nanaGame.GameObjects.Checkbox;
+using nanaGame.Utils;
+using nanaGame.UserSettings;
+using System;
+
+namespace nanaGame.Screens.Settings
+{
+
+    public class SettingsPanel : Container
+    {
+        private NanaUtils utils;
+        private SpriteFont font;
+        Texture2D backgroundTexture;
+        public bool isShow = false;
+        int openSpeed = 45;
+
+        UserSettingsReader userSettingsReader;
+        List<UserSettingEntity> userSettings;
+
+        public Vector2 scale { get; set; }
+
+        public Checkbox showHitNotesAccuracyCheckbox;
+        public Checkbox showPerfectHitNoteAccuracyCheckbox;
+
+        public SettingsPanel()
+        {
+            utils = new NanaUtils();
+
+            font = GlobalVar.MainFont;
+
+            backgroundTexture = new Texture2D(GlobalVar.Graphic.GraphicsDevice, 700, 1080);
+            Color[] data = new Color[700 * 1080];
+            for (int i = 0; i < data.Length; i++) data[i] = Color.Black;
+            backgroundTexture.SetData(data);
+
+            position = new Vector2(-700 * scale.X, 0);
+            
+            if (isShow)
+            {
+                position = new Vector2(0, 0);
+            }
+
+            userSettingsReader = new UserSettingsReader();
+
+            userSettings = userSettingsReader.GetUserSettings();
+
+            Init();
+        }
+
+        private void Init ()
+        {
+            var graphicDevice = GlobalVar.Graphic.GraphicsDevice;
+            var scale = utils.GetScale();
+
+            var settingsTabelText = new Text("Settings", new Vector2(25, 25), font, Color.White, this);
+
+            bool hitHittedNotesAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_HIT_NOTES_ACCURACY).Value[0] == '1' ? true : false;
+            showHitNotesAccuracyCheckbox = new Checkbox("Show hit notes accuracy", hitHittedNotesAccuracyCheckboxState, this)
+            {
+                scale = scale,
+                position = new Vector2(25, 80),
+            };
+
+            bool hitPerfectHitAccuracyCheckboxState = userSettingsReader.FindSetting(userSettings, UserSettingEnum.SHOW_PERFECT_NOTE_ACCURACY).Value[0] == '1' ? true : false;
+            showPerfectHitNoteAccuracyCheckbox = new Checkbox("Show perfect hit accuracy", hitPerfectHitAccuracyCheckboxState, this)
+            {
+                scale = scale,
+                position = new Vector2(25, 130),
+            };
+
+            _components = new List<Component>()
+            {
+                settingsTabelText,
+                showHitNotesAccuracyCheckbox,
+                showPerfectHitNoteAccuracyCheckbox
+            };
+        }
+
+        public override void DrawObject(GameTime gameTime)
+        {
+            GlobalVar.SpriteBatch.Draw(backgroundTexture, position, new Rectangle(0,0, backgroundTexture.Width, backgroundTexture.Height), Color.White * 0.8f, 0, new Vector2(0,0), scale, SpriteEffects.None, 1);
+            foreach (var component in _components)
+            {
+                component.Draw(gameTime);
+            }
+        }
+
+        public override void UpdateObject(GameTime gameTime)
+        {
+            if (isShow && Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Toggle();
+            }
+
+            if (isShow && position.X < 0)
+            {
+                position = new Vector2(position.X + openSpeed * scale.X, 0);
+            }
+            else if (!isShow && position.X > -700 * scale.X)
+            {
+                position = new Vector2(position.X - openSpeed * scale.X, 0);
+            }
+
+            foreach (var component in _components)
+            {
+                component.Update(gameTime);
+            }
+        }
+
+        public void Toggle ()
+        {
+            isShow = !isShow;
+
+            if (!isShow)
+            {
+                List <UserSettingEntity> newSettings = new List<UserSettingEntity>();
+                newSettings.Add(new UserSettingEntity(UserSettingEnum.SHOW_HIT_NOTES_ACCURACY, showHitNotesAccuracyCheckbox.isChecked ? "1" : "0"));
+                newSettings.Add(new UserSettingEntity(UserSettingEnum.SHOW_PERFECT_NOTE_ACCURACY, showPerfectHitNoteAccuracyCheckbox.isChecked ? "1" : "0"));
+                userSettingsReader.SaveUserSettings(newSettings);
+            }
+        }
+    }
+}
