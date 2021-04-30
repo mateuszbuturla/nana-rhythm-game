@@ -132,7 +132,7 @@ export class MainMenu extends Phaser.Scene {
 
     this.beatmapsReader = new BeatmapReader();
 
-    this.beatmapsReader.getBeatmaps();
+    console.log(this.beatmapsReader.getBeatmaps());
   }
 
   update() {

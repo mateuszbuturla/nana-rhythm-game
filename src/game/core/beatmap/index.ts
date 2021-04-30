@@ -8,6 +8,8 @@ export class BeatmapReader {
   getBeatmaps(): any {
     const beatmapsDirs = getDirectories('beatmaps');
 
+    let beatmaps: any[] = [];
+
     beatmapsDirs.map((beatmapDir, index) => {
       if (fs.existsSync(`beatmaps/${beatmapDir}/beatmap.nana`)) {
         const beatmapData = fs.readFileSync(
@@ -42,7 +44,33 @@ export class BeatmapReader {
           const splitData = data.split(':');
           beatmapInfo[splitData[0]] = splitData[1];
         });
+
+        let beatmapNotesString = beatmapData
+          .slice(
+            beatmapData.indexOf('[NOTES]') + 9,
+            beatmapData.indexOf('[/NOTES]'),
+          )
+          .split('\n');
+
+        let beatmapNotes: any[] = [];
+
+        beatmapNotesString.map((data) => {
+          const splitData = data.split(':');
+          beatmapNotes.push({
+            delay: splitData[0],
+            direction: splitData[1],
+          });
+        });
+
+        beatmaps.push({
+          title: metaData.title,
+          author: metaData.author,
+          music: 'music1',
+          notes: beatmapNotes,
+        });
       }
     });
+
+    return beatmaps;
   }
 }
