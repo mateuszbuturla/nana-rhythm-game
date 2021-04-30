@@ -7,39 +7,16 @@ import * as fs from 'fs';
 export class UserConfig {
   constructor() {}
 
-  setUserConfig(newConfig: IIserConfig): void {
-    localStorage.setItem('user-config', JSON.stringify(newConfig));
+  setUserConfig(newConfig: any): void {
+    let newConfigString = '';
+
+    Object.keys(newConfig).forEach(function (key, index) {
+      newConfigString += `${key}=${newConfig[key]}\n`;
+    });
+
+    fs.writeFileSync('config.cfg', newConfigString, 'utf8');
+
     store.dispatch(setUserConfig(newConfig));
-  }
-
-  private unserialize(): IIserConfig {
-    const userConfigLocalStorage = localStorage.getItem('user-config');
-    if (
-      typeof userConfigLocalStorage === 'string' &&
-      userConfigLocalStorage !== 'null'
-    ) {
-      return JSON.parse(userConfigLocalStorage);
-    }
-    localStorage.setItem('user-config', JSON.stringify(defaultUserConfig));
-    return defaultUserConfig;
-  }
-
-  // async test() {
-  //   let configtest: any = {};
-  //   await fs.readFileSync('config.cfg', 'utf8', (err, data) => {
-  //     const configData = data.split('\n');
-
-  //     configData.map((configItem, index) => {
-  //       const splitConfigItem = configItem.split('=');
-  //       console.log(splitConfigItem);
-  //       configtest['test'] = splitConfigItem[1];
-  //     });
-  //   });
-  //   return configtest;
-  // }
-
-  instanceOfA(object: any, key: string): object is IIserConfig {
-    return key in object;
   }
 
   getUserConfig(): any {
