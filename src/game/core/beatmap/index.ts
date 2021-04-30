@@ -15,7 +15,19 @@ export class BeatmapReader {
           'utf8',
         );
 
-        console.log(beatmapData);
+        const metaDataString = beatmapData
+          .slice(
+            beatmapData.indexOf('[METADATA]') + 12,
+            beatmapData.indexOf('[/METADATA]'),
+          )
+          .split('\n');
+
+        let metaData: any = {};
+
+        metaDataString.map((data) => {
+          const splitData = data.split(':');
+          metaData[splitData[0]] = splitData[1];
+        });
       }
     });
   }
