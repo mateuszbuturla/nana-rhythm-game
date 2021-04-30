@@ -21,6 +21,8 @@ function createWindow(): void {
     webPreferences: {
       webSecurity: false,
       devTools: process.env.NODE_ENV !== 'production',
+      nodeIntegration: true, // <--- flag
+      nodeIntegrationInWorker: true, // <---  for web workers
     },
   });
 
