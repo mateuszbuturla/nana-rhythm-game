@@ -19,23 +19,33 @@ export class UserConfig {
     store.dispatch(setUserConfig(newConfig));
   }
 
-  getUserConfig(): any {
-    let config: any = {
-      hitPosition: 100,
-      musicVolume: 50,
-      hitsoundVolume: 50,
-    };
-
-    const data = fs.readFileSync('config.cfg', 'utf8');
-
-    const configData = data.split('\n');
-
-    configData.map((configItem, index) => {
-      const splitConfigItem = configItem.split('=');
-      config[splitConfigItem[0]] = splitConfigItem[1];
+  createConfigFile(): void {
+    let defaultConfig: any = defaultUserConfig;
+    let newConfigString = '';
+    Object.keys(defaultConfig).forEach(function (key, index) {
+      newConfigString += `${key}=${defaultConfig[key]}\n`;
     });
 
-    store.dispatch(setUserConfig(configData));
+    fs.writeFileSync('config.cfg', newConfigString, 'utf8');
+  }
+
+  getUserConfig(): any {
+    let config: any = defaultUserConfig;
+
+    if (fs.existsSync('config.cfg')) {
+      const data = fs.readFileSync('config.cfg', 'utf8');
+
+      const configData = data.split('\n');
+
+      configData.map((configItem, index) => {
+        const splitConfigItem = configItem.split('=');
+        config[splitConfigItem[0]] = splitConfigItem[1];
+      });
+    } else {
+      this.createConfigFile();
+    }
+
+    store.dispatch(setUserConfig(config));
     return config;
   }
 }
