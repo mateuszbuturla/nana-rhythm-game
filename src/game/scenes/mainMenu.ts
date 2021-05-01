@@ -17,6 +17,9 @@ import { UiBackground } from '../objects/ui/uiBackground';
 import { BeatmapReader } from '../core/beatmap';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
+import { setCurrentMap, setCurrentMapId } from '../redux/currentMap';
+import store from '../redux/store';
+import { IMap } from '../interfaces/map.interface';
 
 export class MainMenu extends Phaser.Scene {
   optionsPanel: OptionsPanel;
@@ -30,12 +33,14 @@ export class MainMenu extends Phaser.Scene {
   transition: SceneTransition;
   mainMenubackground: UiBackground;
   beatmapsReader: BeatmapReader;
+  currentBeatmap: IMap;
 
   constructor() {
     super({ key: 'MainMenu' });
   }
 
   preload(): void {
+    this.beatmapsReader = new BeatmapReader();
     this.load.image('background', background);
     this.load.image('playButton', playButton);
     this.load.image('editorButton', editorButton);
@@ -46,6 +51,11 @@ export class MainMenu extends Phaser.Scene {
     this.load.image('editorButtonDecoration', editorButtonDecoration);
     this.load.image('settingsButtonDecoration', settingsButtonDecoration);
     this.load.image('exitButtonDecoration', exitButtonDecoration);
+    this.currentBeatmap = store.getState().currentMap.currentMap;
+    this.load.image(
+      `beatmapBackground${this.currentBeatmap.beatmapid}`,
+      `beatmaps/${this.currentBeatmap.beatmapid}/background.png`,
+    );
   }
 
   create(): void {
@@ -55,7 +65,7 @@ export class MainMenu extends Phaser.Scene {
 
     this.mainMenubackground = new UiBackground({
       scene: this,
-      background: 'background',
+      background: `beatmapBackground${this.currentBeatmap.beatmapid}`,
     });
 
     this.playButton = new MainMenuButton({
@@ -129,10 +139,6 @@ export class MainMenu extends Phaser.Scene {
       isShow: true,
     });
     this.transition.show();
-
-    this.beatmapsReader = new BeatmapReader();
-
-    this.beatmapsReader.getBeatmaps();
   }
 
   update() {

@@ -41,6 +41,10 @@ export class GameField extends Phaser.Scene {
       `beatmapAudio${this.currentMap.beatmapid}`,
       `beatmaps/${this.currentMap.beatmapid}/audio.mp3`,
     );
+    this.load.image(
+      `beatmapBackground${this.currentMap.beatmapid}`,
+      `beatmaps/${this.currentMap.beatmapid}/background.png`,
+    );
   }
 
   create(): void {
@@ -48,7 +52,7 @@ export class GameField extends Phaser.Scene {
     store.dispatch(setCombo({ combo: 0, maxCombo: 0 }));
     this.gameBackground = new UiBackground({
       scene: this,
-      background: 'background',
+      background: `beatmapBackground${this.currentMap.beatmapid}`,
     });
     this._game = new Game({
       scene: this,
