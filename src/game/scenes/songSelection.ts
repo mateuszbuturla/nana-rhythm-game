@@ -22,6 +22,7 @@ export class SongSelection extends Phaser.Scene {
   songsContainer: SongsContainer;
   topBar: TopBar;
   beatmaps: any[];
+  currentBeatmap: IMap;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -35,28 +36,25 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('leaderboardButton', leaderboardButton);
     store.dispatch(setCurrentMapId(0));
     store.dispatch(setCurrentMap(this.beatmaps[0]));
+    this.currentBeatmap = store.getState().currentMap.currentMap;
+    this.load.image(
+      `beatmapBackground${this.currentBeatmap.beatmapid}`,
+      `beatmaps/${this.currentBeatmap.beatmapid}/background.png`,
+    );
     this.score = new Score();
-    console.log(this.textures);
   }
 
   updateSelectedBeatmap(newSelectedSong: number): void {
-    // if (
-    //   !this.cache.audio
-    //     .getKeys()
-    //     .includes(`beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`)
-    // ) {
+    const tempTexture = this.load.image(
+      `beatmapBackground${this.beatmaps[newSelectedSong].beatmapid}`,
+      `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/background.png`,
+    );
+    tempTexture.start();
+    this.currentBeatmap = this.beatmaps[newSelectedSong];
 
-    // }
-    // this.load.audio(
-    //   `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
-    //   music1,
-    // );
-
-    // const tempTexture = this.load.image(
-    //   `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
-    //   `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/background.png`,
-    // );
-    // tempTexture.start();
+    this.background.updateBackground(
+      `beatmapBackground${this.currentBeatmap.beatmapid}`,
+    );
 
     store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
@@ -68,7 +66,7 @@ export class SongSelection extends Phaser.Scene {
     const height = this.sys.game.canvas.height;
     this.background = new UiBackground({
       scene: this,
-      background: 'background',
+      background: `beatmapBackground${this.currentBeatmap.beatmapid}`,
     });
 
     this.leaderboardButton = new LeaderboardButton({

@@ -53,7 +53,6 @@ export class Game {
 
   initGameField() {
     const width: number = this.scene.game.canvas.width;
-    console.log(this.scene.cache);
     this.audio = new Audio({
       scene: this.scene,
       beatmapMusic: `beatmapAudio${this.beatmap.beatmapid}`,
