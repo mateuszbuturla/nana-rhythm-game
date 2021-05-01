@@ -14,6 +14,7 @@ import exitButtonDecoration from '../../../assets/ui/exitButtonDecoration.png';
 import { GameConfig } from '../config/config';
 import { SceneTransition } from '../objects/ui/sceneTransition';
 import { UiBackground } from '../objects/ui/uiBackground';
+import { BeatmapReader } from '../core/beatmap';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
 
@@ -28,6 +29,7 @@ export class MainMenu extends Phaser.Scene {
   version: Text;
   transition: SceneTransition;
   mainMenubackground: UiBackground;
+  beatmapsReader: BeatmapReader;
 
   constructor() {
     super({ key: 'MainMenu' });
@@ -127,6 +129,10 @@ export class MainMenu extends Phaser.Scene {
       isShow: true,
     });
     this.transition.show();
+
+    this.beatmapsReader = new BeatmapReader();
+
+    this.beatmapsReader.getBeatmaps();
   }
 
   update() {
