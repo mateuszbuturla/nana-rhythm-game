@@ -4,8 +4,9 @@
   "description": "Web based rhythm game",
   "main": "./dist/main.bundle.js",
   "scripts": {
+    "copyBeatmaps": "npx copyfiles beatmaps/**/* dist",
     "start": "electron ./dist/main.bundle.js",
-    "dev": "rimraf dist && cross-env NODE_ENV=development webpack --watch --progress --color",
+    "dev": "rimraf dist && yarn copyBeatmaps && cross-env NODE_ENV=development webpack --watch --progress --color",
     "prod": "rimraf dist && cross-env NODE_ENV=production webpack --progress --color",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register \"test/**/*.ts\"",
     "build:win": "electron-builder build --win --x64",
