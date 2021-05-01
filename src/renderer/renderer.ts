@@ -5,7 +5,7 @@ import { setCurrentMap, setCurrentMapId } from '../game/redux/currentMap';
 
 window.addEventListener('load', () => {
   const beatmaps = new BeatmapReader().getBeatmaps();
-  store.dispatch(setCurrentMapId(0));
   store.dispatch(setCurrentMap(beatmaps[0]));
+  store.dispatch(setCurrentMapId(0));
   const game = new Game();
 });
