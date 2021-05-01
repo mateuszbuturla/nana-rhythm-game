@@ -1,6 +1,7 @@
 import store from '../../redux/store';
 import * as fs from 'fs';
 import getDirectories from '../../utils/getDirectories';
+import { setBeatmaps } from '../../redux/beatmaps';
 
 export class BeatmapReader {
   constructor() {}
@@ -70,6 +71,8 @@ export class BeatmapReader {
         });
       }
     });
+
+    store.dispatch(setBeatmaps(beatmaps));
 
     return beatmaps;
   }
