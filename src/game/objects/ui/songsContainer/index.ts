@@ -1,6 +1,7 @@
 import { easeInOutExpo } from './../../../utils/eases';
 import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
 import { BeatmapTile } from '../beatmapTile';
+import store from '../../../redux/store';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
   currentBeatmapId: number;
@@ -21,7 +22,11 @@ export class SongsContainer extends Phaser.GameObjects.Container {
     const width = this.scene.sys.game.canvas.width;
     const height = this.scene.sys.game.canvas.height;
 
-    this.currentBeatmapId = 0;
+    this.currentBeatmapId = store.getState().currentMap.currentMapId;
+
+    this.x =
+      this.x -
+      (this.beatmpasWidth + this.beatmapsMargin) * this.currentBeatmapId;
 
     aParams.beatmaps.map((beatmap, index) => {
       const newBeatmap = new BeatmapTile({

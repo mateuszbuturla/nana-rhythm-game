@@ -34,8 +34,8 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('background', background);
     this.load.image('backButton', backButton);
     this.load.image('leaderboardButton', leaderboardButton);
-    store.dispatch(setCurrentMapId(0));
-    store.dispatch(setCurrentMap(this.beatmaps[0]));
+    // store.dispatch(setCurrentMapId(0));
+    // store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.currentBeatmap = store.getState().currentMap.currentMap;
     this.load.image(
       `beatmapBackground${this.currentBeatmap.beatmapid}`,
