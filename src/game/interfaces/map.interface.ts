@@ -1,9 +1,10 @@
 import { INote } from './note.interface';
 
 interface IMap {
+  beatmapid: string;
   title: string;
   author: string;
-  music: string;
+  audio: string;
   notes: INote[];
 }
 

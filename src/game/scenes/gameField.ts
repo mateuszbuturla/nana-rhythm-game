@@ -25,6 +25,7 @@ export class GameField extends Phaser.Scene {
   }
 
   preload(): void {
+    this.currentMap = store.getState().currentMap.currentMap;
     this.load.image('background', background);
     this.load.image('gradient', gradient);
     this.load.image('hitNoteTop', hitNoteTop);
@@ -36,8 +37,10 @@ export class GameField extends Phaser.Scene {
     this.load.audio('music2', music2);
     this.load.image('healthBarBackground', healthBarBackground);
     this.load.image('healthBar', healthBar);
-
-    this.currentMap = store.getState().currentMap.currentMap;
+    this.load.audio(
+      `beatmapAudio${this.currentMap.beatmapid}`,
+      `beatmaps/${this.currentMap.beatmapid}/audio.mp3`,
+    );
   }
 
   create(): void {

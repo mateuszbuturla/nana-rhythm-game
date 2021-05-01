@@ -11,79 +11,7 @@ import { TopBar } from '../objects/ui/topBar';
 import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { SongsContainer } from '../objects/ui/songsContainer';
-
-const songs: IMap[] = [
-  {
-    title: 'Test title1',
-    author: 'Test author1',
-    music: 'music1',
-    notes: [
-      {
-        direction: 'up',
-        delay: 500,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
-      },
-      {
-        direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2500,
-      },
-    ],
-  },
-  {
-    title: 'Test title2',
-    author: 'Test author2',
-    music: 'music2',
-    notes: [
-      {
-        direction: 'up',
-        delay: 1000,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
-      },
-      {
-        direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2200,
-      },
-      {
-        direction: 'up',
-        delay: 2300,
-      },
-      {
-        direction: 'down',
-        delay: 2400,
-      },
-      {
-        direction: 'up',
-        delay: 2500,
-      },
-      {
-        direction: 'up',
-        delay: 3500,
-      },
-      {
-        direction: 'up',
-        delay: 3600,
-      },
-      {
-        direction: 'up',
-        delay: 3700,
-      },
-    ],
-  },
-];
+import music1 from '../../../assets/sounds/music.mp3';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -100,6 +28,7 @@ export class SongSelection extends Phaser.Scene {
   }
 
   preload(): void {
+    this.load.audio('music1', music1);
     this.beatmaps = store.getState().beatmaps.beatmaps;
     this.load.image('background', background);
     this.load.image('backButton', backButton);
@@ -107,9 +36,28 @@ export class SongSelection extends Phaser.Scene {
     store.dispatch(setCurrentMapId(0));
     store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.score = new Score();
+    console.log(this.textures);
   }
 
   updateSelectedBeatmap(newSelectedSong: number): void {
+    // if (
+    //   !this.cache.audio
+    //     .getKeys()
+    //     .includes(`beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`)
+    // ) {
+
+    // }
+    // this.load.audio(
+    //   `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
+    //   music1,
+    // );
+
+    // const tempTexture = this.load.image(
+    //   `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
+    //   `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/background.png`,
+    // );
+    // tempTexture.start();
+
     store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
   }
@@ -159,6 +107,7 @@ export class SongSelection extends Phaser.Scene {
   }
 
   update(): void {
+    // console.log(this.cache.audio.entries.entries);
     if (this.keyboard.next.isDown) {
       this.updateSelectedBeatmap(this.songsContainer.nextBeatmap());
     }
