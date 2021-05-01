@@ -1,13 +1,16 @@
 [METADATA]
-artist: Test
-title: Test1
-author: TestA
+beatmapid:1
+artist:Test
+title:Test1
+author:TestA
 [/METADATA]
 
 [BEATMAPINFO]
 bmp:120
-difficulty: 4.5
+difficulty:4.5
 offset:53
+audio:audio.mp3
+background:background.png
 [/BEATMAPINFO]
 
 [NOTES]

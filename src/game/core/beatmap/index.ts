@@ -64,9 +64,15 @@ export class BeatmapReader {
         });
 
         beatmaps.push({
+          beatmapid: metaData.beatmapid,
           title: metaData.title,
           author: metaData.author,
-          music: 'music1',
+          artist: metaData.artist,
+          audio: beatmapInfo.audio,
+          background: beatmapInfo.background,
+          offset: beatmapInfo.offset,
+          bpm: beatmapInfo.bpm,
+          difficulty: beatmapInfo.difficulty,
           notes: beatmapNotes,
         });
       }
