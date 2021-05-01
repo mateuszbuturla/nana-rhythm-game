@@ -11,7 +11,7 @@ offset:53
 [/BEATMAPINFO]
 
 [NOTES]
-0:TOP
-500:BOTTOM
-1500:TOP
+0:up
+500:down
+1500:up
 [/NOTES]

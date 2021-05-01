@@ -93,22 +93,24 @@ export class SongSelection extends Phaser.Scene {
   background: UiBackground;
   songsContainer: SongsContainer;
   topBar: TopBar;
+  beatmaps: any[];
 
   constructor() {
     super({ key: 'SongSelection' });
   }
 
   preload(): void {
+    this.beatmaps = store.getState().beatmaps.beatmaps;
     this.load.image('background', background);
     this.load.image('backButton', backButton);
     this.load.image('leaderboardButton', leaderboardButton);
     store.dispatch(setCurrentMapId(0));
-    store.dispatch(setCurrentMap(songs[0]));
+    store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.score = new Score();
   }
 
   updateSelectedBeatmap(newSelectedSong: number): void {
-    store.dispatch(setCurrentMap(songs[newSelectedSong]));
+    store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
   }
 
@@ -133,7 +135,7 @@ export class SongSelection extends Phaser.Scene {
       scene: this,
       x: 0,
       y: 0,
-      beatmaps: songs,
+      beatmaps: this.beatmaps,
     });
 
     this.topBar = new TopBar({
