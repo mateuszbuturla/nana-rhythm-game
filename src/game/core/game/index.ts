@@ -42,7 +42,7 @@ export class Game {
   health: Health;
   loseScreen: LoseScreen;
   gameState: EGameState;
-  userConfig: IIserConfig;
+  userConfig: any;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -55,7 +55,7 @@ export class Game {
     const width: number = this.scene.game.canvas.width;
     this.audio = new Audio({
       scene: this.scene,
-      beatmapMusic: this.beatmap.music,
+      beatmapMusic: `beatmapAudio${this.beatmap.beatmapid}`,
     });
     this.score = new Score();
     this.userConfig = new UserConfig().getUserConfig();
