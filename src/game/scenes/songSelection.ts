@@ -12,6 +12,7 @@ import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { SongsContainer } from '../objects/ui/songsContainer';
 import music1 from '../../../assets/sounds/music.mp3';
+import gradientBackground from '../../../assets/ui/gradientBackground.png';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -34,6 +35,7 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('background', background);
     this.load.image('backButton', backButton);
     this.load.image('leaderboardButton', leaderboardButton);
+    this.load.image('gradientBackground', gradientBackground);
     // store.dispatch(setCurrentMapId(0));
     // store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.currentBeatmap = store.getState().currentMap.currentMap;
