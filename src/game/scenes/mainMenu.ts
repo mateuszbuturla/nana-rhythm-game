@@ -35,6 +35,7 @@ export class MainMenu extends Phaser.Scene {
   editorButton: MainMenuButton;
   settingsButton: MainMenuButton;
   exitButton: MainMenuButton;
+  decorationRectangle: any;
   logo: any;
   versionLabel: Text;
   version: Text;
@@ -105,7 +106,7 @@ export class MainMenu extends Phaser.Scene {
     this.playButton = new MainMenuButton({
       scene: this,
       x: 0,
-      y: height - 300,
+      y: height - 330,
       texture: 'playButton',
       textureDecoration: 'playButtonDecoration',
       label: 'Play',
@@ -119,7 +120,7 @@ export class MainMenu extends Phaser.Scene {
     this.multiplayerButton = new MainMenuButton({
       scene: this,
       x: this.playButton.getSize().width + this.playButton.x,
-      y: height - 300,
+      y: height - 330,
       texture: 'multiplayerButton',
       textureDecoration: 'multiplayerButtonDecoration',
       label: 'Multiplayer',
@@ -129,7 +130,7 @@ export class MainMenu extends Phaser.Scene {
     this.editorButton = new MainMenuButton({
       scene: this,
       x: this.multiplayerButton.getSize().width + this.multiplayerButton.x,
-      y: height - 300,
+      y: height - 330,
       texture: 'editorButton',
       textureDecoration: 'editorButtonDecoration',
       label: 'Editor',
@@ -139,7 +140,7 @@ export class MainMenu extends Phaser.Scene {
     this.settingsButton = new MainMenuButton({
       scene: this,
       x: this.editorButton.getSize().width + this.editorButton.x,
-      y: height - 300,
+      y: height - 330,
       texture: 'settingsButton',
       textureDecoration: 'settingsButtonDecoration',
       label: 'Settings',
@@ -151,7 +152,7 @@ export class MainMenu extends Phaser.Scene {
     this.exitButton = new MainMenuButton({
       scene: this,
       x: this.settingsButton.getSize().width + this.settingsButton.x,
-      y: height - 300,
+      y: height - 330,
       texture: 'exitButton',
       textureDecoration: 'exitButtonDecoration',
       label: 'Exit',
@@ -169,6 +170,15 @@ export class MainMenu extends Phaser.Scene {
       isShow: true,
     });
     this.transition.show();
+
+    this.decorationRectangle = this.add.rectangle(
+      0,
+      height - 330,
+      1920,
+      20,
+      0xffffff,
+    );
+    this.decorationRectangle.setOrigin(0, 0.5);
   }
 
   update() {
