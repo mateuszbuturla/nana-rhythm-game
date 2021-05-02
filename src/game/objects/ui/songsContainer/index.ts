@@ -34,8 +34,8 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         x: (this.beatmpasWidth + this.beatmapsMargin) * index,
         y: height / 2,
         title: beatmap.title,
+        author: beatmap.author,
         active: this.currentBeatmapId === index,
-        notes: beatmap.notes,
       });
 
       this.add(newBeatmap);
