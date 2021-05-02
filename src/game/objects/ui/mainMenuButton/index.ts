@@ -9,6 +9,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
   buttonBackgroundObject: Image;
   decorations: Image[] = [];
   decorationsData: any[] = [];
+  mask: any;
 
   constructor(aParams: IMainMenuButton) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -37,20 +38,6 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     });
     this.on('pointerover', this.hover);
     this.on('pointerout', this.unHover);
-
-    let maskShape = this.scene.make.graphics({ fillStroke: 0xffffff });
-    maskShape.beginPath();
-
-    maskShape.fillRect(
-      aParams.x,
-      aParams.y,
-      this.getBounds().width,
-      this.getBounds().height,
-    );
-
-    const mask = maskShape.createGeometryMask();
-
-    this.setMask(mask);
 
     for (let i = 0; i < 50; i++) {
       const x = Math.random() * this.getBounds().width;
@@ -83,15 +70,53 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
   }
 
-  hover(): void {}
+  hover(): void {
+    const hoverAnimation = this.scene.tweens.createTimeline();
 
-  unHover(): void {}
+    hoverAnimation.add({
+      targets: this.buttonBackgroundObject,
+      scaleY: 1.5,
+      ease: easeOutBounce,
+      duration: 1000,
+    });
+
+    hoverAnimation.play();
+  }
+
+  unHover(): void {
+    const unhoverAnimation = this.scene.tweens.createTimeline();
+
+    unhoverAnimation.add({
+      targets: this.buttonBackgroundObject,
+      scaleY: 1,
+      ease: easeOutBounce,
+      duration: 1000,
+    });
+
+    unhoverAnimation.play();
+  }
 
   getSize(): ISize {
     return {
       width: this.buttonBackgroundObject.width,
       height: this.buttonBackgroundObject.height,
     };
+  }
+
+  updateMask() {
+    this.mask = this.scene.make.graphics({ fillStroke: 0xffffff });
+    this.mask.beginPath();
+
+    this.mask.fillRect(
+      this.x,
+      this.y,
+      this.getBounds().width,
+      this.buttonBackgroundObject.height * this.buttonBackgroundObject.scaleY,
+    );
+
+    const mask = this.mask.createGeometryMask();
+
+    this.mask.fillRect = this.mask = mask;
   }
 
   update() {
@@ -101,5 +126,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
         decoration.y = -150;
       }
     });
+
+    this.updateMask();
   }
 }
