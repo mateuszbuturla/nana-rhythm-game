@@ -17,27 +17,28 @@ export class BeatmapTile extends Phaser.GameObjects.Container {
   initSongTile(aParams: IBeatmapTile): void {
     this.beatmapBackground = this.scene.add.sprite(0, 0, 'background');
     this.beatmapBackground.setDisplaySize(190, 115);
+    this.beatmapBackground.setOrigin(0, 0);
     this.titleObject = new Text({
       scene: this.scene,
-      x: 170,
-      y: 0,
+      x: 200,
+      y: 15,
       text: aParams.title,
       align: 'left',
       fontSize: '36px',
       color: 'white',
     });
-    this.titleObject.setOrigin(0.5, 0.5);
+    this.titleObject.setOrigin(0, 0);
 
     this.authorObject = new Text({
       scene: this.scene,
-      x: 165,
-      y: 50,
+      x: 203,
+      y: 65,
       text: aParams.author,
       align: 'left',
       fontSize: '25px',
       color: 'white',
     });
-    this.authorObject.setOrigin(0.5, 0.5);
+    this.authorObject.setOrigin(0, 0);
 
     this.add(this.beatmapBackground);
     this.add(this.titleObject);
