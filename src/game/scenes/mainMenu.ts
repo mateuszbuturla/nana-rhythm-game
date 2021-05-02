@@ -22,6 +22,9 @@ import { GameConfig } from '../config/config';
 import { SceneTransition } from '../objects/ui/sceneTransition';
 import { UiBackground } from '../objects/ui/uiBackground';
 import { BeatmapReader } from '../core/beatmap';
+import { MainMenuLogo } from '../objects/ui/mainMenuLogo';
+import logo from '../../../assets/logo.png';
+import triangle from '../../../assets/ui/mainMenuTriangle.png';
 
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
 import { setCurrentMap, setCurrentMapId } from '../redux/currentMap';
@@ -36,7 +39,7 @@ export class MainMenu extends Phaser.Scene {
   settingsButton: MainMenuButton;
   exitButton: MainMenuButton;
   decorationRectangle: any;
-  logo: any;
+  logo: MainMenuLogo;
   versionLabel: Text;
   version: Text;
   transition: SceneTransition;
@@ -67,6 +70,8 @@ export class MainMenu extends Phaser.Scene {
     this.load.image('editorButtonIcon', editorButtonIcon);
     this.load.image('settingsButtonIcon', settingsButtonIcon);
     this.load.image('exitButtonIcon', exitButtonIcon);
+    this.load.image('logo', logo);
+    this.load.image('triangle', triangle);
     this.currentBeatmap = store.getState().currentMap.currentMap;
     this.load.image(
       `beatmapBackground${this.currentBeatmap.beatmapid}`,
@@ -101,6 +106,13 @@ export class MainMenu extends Phaser.Scene {
       text: `${GameConfig.version}`,
       fontSize: '25px',
       color: 'white',
+    });
+
+    this.logo = new MainMenuLogo({
+      scene: this,
+      x: width / 2,
+      y: height / 2,
+      bpm: this.currentBeatmap.bpm,
     });
 
     this.playButton = new MainMenuButton({
@@ -159,8 +171,6 @@ export class MainMenu extends Phaser.Scene {
       icon: 'exitButtonIcon',
       callback: () => {},
     });
-    this.logo = this.add.rectangle(width / 2, height / 2, 450, 450, 0xffffff);
-    this.logo.angle = -30;
 
     this.optionsPanel = new OptionsPanel(this);
     this.optionsPanel.hidePanel();
@@ -182,6 +192,7 @@ export class MainMenu extends Phaser.Scene {
   }
 
   update() {
+    this.logo.update();
     this.playButton.update();
     this.multiplayerButton.update();
     this.editorButton.update();

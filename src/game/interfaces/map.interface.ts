@@ -6,6 +6,7 @@ interface IMap {
   author: string;
   audio: string;
   notes: INote[];
+  bpm: number;
 }
 
 export { IMap };
