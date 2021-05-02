@@ -24,6 +24,7 @@ import { IMap } from '../interfaces/map.interface';
 export class MainMenu extends Phaser.Scene {
   optionsPanel: OptionsPanel;
   playButton: MainMenuButton;
+  multiplayerButton: MainMenuButton;
   editorButton: MainMenuButton;
   settingsButton: MainMenuButton;
   exitButton: MainMenuButton;
@@ -68,19 +69,6 @@ export class MainMenu extends Phaser.Scene {
       background: `beatmapBackground${this.currentBeatmap.beatmapid}`,
     });
 
-    this.playButton = new MainMenuButton({
-      scene: this,
-      x: 250,
-      y: height / 2,
-      texture: 'playButton',
-      textureDecoration: 'playButtonDecoration',
-      label: 'Play',
-      callback: () => {
-        this.transition.hide(() => {
-          this.scene.start('SongSelection');
-        });
-      },
-    });
     this.versionLabel = new Text({
       scene: this,
       x: 30,
@@ -99,10 +87,33 @@ export class MainMenu extends Phaser.Scene {
       fontSize: '25px',
       color: 'white',
     });
+
+    this.playButton = new MainMenuButton({
+      scene: this,
+      x: 0,
+      y: height - 300,
+      texture: 'playButton',
+      textureDecoration: 'playButtonDecoration',
+      label: 'Play',
+      callback: () => {
+        this.transition.hide(() => {
+          this.scene.start('SongSelection');
+        });
+      },
+    });
+    this.multiplayerButton = new MainMenuButton({
+      scene: this,
+      x: this.playButton.getSize().width + this.playButton.x,
+      y: height - 300,
+      texture: 'settingsButton',
+      textureDecoration: 'settingsButtonDecoration',
+      label: 'Multiplayer',
+      callback: () => {},
+    });
     this.editorButton = new MainMenuButton({
       scene: this,
-      x: 550,
-      y: height / 2,
+      x: this.multiplayerButton.getSize().width + this.multiplayerButton.x,
+      y: height - 300,
       texture: 'editorButton',
       textureDecoration: 'editorButtonDecoration',
       label: 'Editor',
@@ -110,8 +121,8 @@ export class MainMenu extends Phaser.Scene {
     });
     this.settingsButton = new MainMenuButton({
       scene: this,
-      x: 1370,
-      y: height / 2,
+      x: this.editorButton.getSize().width + this.editorButton.x,
+      y: height - 300,
       texture: 'settingsButton',
       textureDecoration: 'settingsButtonDecoration',
       label: 'Settings',
@@ -121,8 +132,8 @@ export class MainMenu extends Phaser.Scene {
     });
     this.exitButton = new MainMenuButton({
       scene: this,
-      x: 1680,
-      y: height / 2,
+      x: this.settingsButton.getSize().width + this.settingsButton.x,
+      y: height - 300,
       texture: 'exitButton',
       textureDecoration: 'exitButtonDecoration',
       label: 'Exit',
@@ -143,6 +154,7 @@ export class MainMenu extends Phaser.Scene {
 
   update() {
     this.playButton.update();
+    this.multiplayerButton.update();
     this.editorButton.update();
     this.settingsButton.update();
     this.exitButton.update();
