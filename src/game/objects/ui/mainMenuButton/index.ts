@@ -110,7 +110,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.mask.fillRect(
       this.x,
       this.y,
-      this.getBounds().width,
+      this.buttonBackgroundObject.width,
       this.buttonBackgroundObject.height * this.buttonBackgroundObject.scaleY,
     );
 
