@@ -1,4 +1,4 @@
-import { easeOutBounce } from './../../../utils/eases';
+import { easeOutBounce, easeInOutExpo } from './../../../utils/eases';
 import { IMainMenuButton } from '../../../interfaces/buttons.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
@@ -7,6 +7,7 @@ import { ISize } from '../../../interfaces/size.interface';
 export class MainMenuButton extends Phaser.GameObjects.Container {
   buttonLabelObject: Text;
   buttonBackgroundObject: Image;
+  buttonIconObject: Image;
   decorations: Image[] = [];
   decorationsData: any[] = [];
   mask: any;
@@ -52,6 +53,16 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       this.add(newDecoration);
       this.decorations = [...this.decorations, newDecoration];
       this.decorationsData = [...this.decorationsData, { x, y, speed }];
+
+      this.buttonIconObject = new Image({
+        scene: aParams.scene,
+        x: this.buttonBackgroundObject.width / 2,
+        y: this.buttonBackgroundObject.height * 1.1,
+        texture: aParams.icon,
+      });
+      this.buttonIconObject.setOrigin(0.5, 0.5);
+      this.buttonIconObject.alpha = 0;
+      this.add(this.buttonIconObject);
     }
 
     this.buttonLabelObject = new Text({
@@ -81,12 +92,25 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     });
 
     hoverAnimation.play();
+
+    const iconAnimation = this.scene.tweens.createTimeline();
+
+    iconAnimation.add({
+      delay: 500,
+      targets: this.buttonIconObject,
+      alpha: 1,
+      ease: easeInOutExpo,
+      duration: 500,
+    });
+
+    iconAnimation.play();
   }
 
   unHover(): void {
     const unhoverAnimation = this.scene.tweens.createTimeline();
 
     unhoverAnimation.add({
+      delay: 300,
       targets: this.buttonBackgroundObject,
       scaleY: 1,
       ease: easeOutBounce,
@@ -94,6 +118,18 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     });
 
     unhoverAnimation.play();
+
+    const iconAnimation = this.scene.tweens.createTimeline();
+
+    iconAnimation.add({
+      delay: 0,
+      targets: this.buttonIconObject,
+      alpha: 0,
+      ease: easeInOutExpo,
+      duration: 500,
+    });
+
+    iconAnimation.play();
   }
 
   getSize(): ISize {

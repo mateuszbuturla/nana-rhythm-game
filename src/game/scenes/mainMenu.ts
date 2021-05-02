@@ -11,6 +11,11 @@ import playButtonDecoration from '../../../assets/ui/playButtonDecoration.png';
 import editorButtonDecoration from '../../../assets/ui/editorButtonDecoration.png';
 import settingsButtonDecoration from '../../../assets/ui/settingsButtonDecoration.png';
 import exitButtonDecoration from '../../../assets/ui/exitButtonDecoration.png';
+import playButtonIcon from '../../../assets/ui/playButtonIcon.png';
+import multiplayerButtonIcon from '../../../assets/ui/multiplayerButtonIcon.png';
+import editorButtonIcon from '../../../assets/ui/editorButtonIcon.png';
+import settingsButtonIcon from '../../../assets/ui/settingsButtonIcon.png';
+import exitButtonIcon from '../../../assets/ui/exitButtonIcon.png';
 import { GameConfig } from '../config/config';
 import { SceneTransition } from '../objects/ui/sceneTransition';
 import { UiBackground } from '../objects/ui/uiBackground';
@@ -52,6 +57,11 @@ export class MainMenu extends Phaser.Scene {
     this.load.image('editorButtonDecoration', editorButtonDecoration);
     this.load.image('settingsButtonDecoration', settingsButtonDecoration);
     this.load.image('exitButtonDecoration', exitButtonDecoration);
+    this.load.image('playButtonIcon', playButtonIcon);
+    this.load.image('multiplayerButtonIcon', multiplayerButtonIcon);
+    this.load.image('editorButtonIcon', editorButtonIcon);
+    this.load.image('settingsButtonIcon', settingsButtonIcon);
+    this.load.image('exitButtonIcon', exitButtonIcon);
     this.currentBeatmap = store.getState().currentMap.currentMap;
     this.load.image(
       `beatmapBackground${this.currentBeatmap.beatmapid}`,
@@ -95,6 +105,7 @@ export class MainMenu extends Phaser.Scene {
       texture: 'playButton',
       textureDecoration: 'playButtonDecoration',
       label: 'Play',
+      icon: 'playButtonIcon',
       callback: () => {
         this.transition.hide(() => {
           this.scene.start('SongSelection');
@@ -108,6 +119,7 @@ export class MainMenu extends Phaser.Scene {
       texture: 'settingsButton',
       textureDecoration: 'settingsButtonDecoration',
       label: 'Multiplayer',
+      icon: 'multiplayerButtonIcon',
       callback: () => {},
     });
     this.editorButton = new MainMenuButton({
@@ -117,6 +129,7 @@ export class MainMenu extends Phaser.Scene {
       texture: 'editorButton',
       textureDecoration: 'editorButtonDecoration',
       label: 'Editor',
+      icon: 'editorButtonIcon',
       callback: () => {},
     });
     this.settingsButton = new MainMenuButton({
@@ -126,6 +139,7 @@ export class MainMenu extends Phaser.Scene {
       texture: 'settingsButton',
       textureDecoration: 'settingsButtonDecoration',
       label: 'Settings',
+      icon: 'settingsButtonIcon',
       callback: () => {
         this.optionsPanel.showPanel();
       },
@@ -137,6 +151,7 @@ export class MainMenu extends Phaser.Scene {
       texture: 'exitButton',
       textureDecoration: 'exitButtonDecoration',
       label: 'Exit',
+      icon: 'exitButtonIcon',
       callback: () => {},
     });
     this.logo = this.add.rectangle(width / 2, height / 2, 450, 450, 0xffffff);
