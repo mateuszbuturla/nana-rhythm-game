@@ -3,11 +3,13 @@ import { Image } from '../objects/basic/image';
 import { OptionsPanel } from '../objects/optionsPanel';
 import background from '../../../assets/backgrounds/bg.png';
 import playButton from '../../../assets/ui/playButton.png';
+import multiplayerButton from '../../../assets/ui/multiplayerButton.png';
 import editorButton from '../../../assets/ui/editorButton.png';
 import settingsButton from '../../../assets/ui/settingsButton.png';
 import exitButton from '../../../assets/ui/exitButton.png';
 import gradient from '../../../assets/ui/gradient.png';
 import playButtonDecoration from '../../../assets/ui/playButtonDecoration.png';
+import multiplayerButtonDecoration from '../../../assets/ui/multiplayerButtonDecoration.png';
 import editorButtonDecoration from '../../../assets/ui/editorButtonDecoration.png';
 import settingsButtonDecoration from '../../../assets/ui/settingsButtonDecoration.png';
 import exitButtonDecoration from '../../../assets/ui/exitButtonDecoration.png';
@@ -49,11 +51,13 @@ export class MainMenu extends Phaser.Scene {
     this.beatmapsReader = new BeatmapReader();
     this.load.image('background', background);
     this.load.image('playButton', playButton);
+    this.load.image('multiplayerButton', multiplayerButton);
     this.load.image('editorButton', editorButton);
     this.load.image('settingsButton', settingsButton);
     this.load.image('exitButton', exitButton);
     this.load.image('gradient', gradient);
     this.load.image('playButtonDecoration', playButtonDecoration);
+    this.load.image('multiplayerButtonDecoration', multiplayerButtonDecoration);
     this.load.image('editorButtonDecoration', editorButtonDecoration);
     this.load.image('settingsButtonDecoration', settingsButtonDecoration);
     this.load.image('exitButtonDecoration', exitButtonDecoration);
@@ -116,8 +120,8 @@ export class MainMenu extends Phaser.Scene {
       scene: this,
       x: this.playButton.getSize().width + this.playButton.x,
       y: height - 300,
-      texture: 'settingsButton',
-      textureDecoration: 'settingsButtonDecoration',
+      texture: 'multiplayerButton',
+      textureDecoration: 'multiplayerButtonDecoration',
       label: 'Multiplayer',
       icon: 'multiplayerButtonIcon',
       callback: () => {},
