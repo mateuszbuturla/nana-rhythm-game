@@ -16,12 +16,10 @@ export class BeatmapTile extends Phaser.GameObjects.Container {
   }
 
   initSongTile(aParams: IBeatmapTile): void {
-    if (aParams.active) {
-      this.backgroundObject = this.scene.add.sprite(0, 0, 'gradientBackground');
-      this.backgroundObject.setDisplaySize(950, 115);
-      this.backgroundObject.setOrigin(0, 0);
-      this.add(this.backgroundObject);
-    }
+    this.backgroundObject = this.scene.add.sprite(0, 0, 'gradientBackground');
+    this.backgroundObject.setDisplaySize(950, 115);
+    this.backgroundObject.setOrigin(0, 0);
+    this.backgroundObject.alpha = aParams.active ? 1 : 0;
 
     this.beatmapBackground = this.scene.add.sprite(0, 0, 'background');
     this.beatmapBackground.setDisplaySize(190, 115);
@@ -48,10 +46,13 @@ export class BeatmapTile extends Phaser.GameObjects.Container {
     });
     this.authorObject.setOrigin(0, 0);
 
+    this.add(this.backgroundObject);
     this.add(this.beatmapBackground);
     this.add(this.titleObject);
     this.add(this.authorObject);
   }
 
-  showHide(type: 'show' | 'hide') {}
+  showHide(type: 'show' | 'hide') {
+    this.backgroundObject.alpha = type === 'show' ? 1 : 0;
+  }
 }

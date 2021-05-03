@@ -5,6 +5,7 @@ import store from '../../../redux/store';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
   currentBeatmapId: number;
+  prevousBeatmapId: number;
   numberOfBeatmaps: number;
   beatmaps: BeatmapTile[] = [];
   canBeScrolled: boolean = true;
@@ -61,7 +62,12 @@ export class SongsContainer extends Phaser.GameObjects.Container {
   }
 
   changeBeatmap(beatmapId: number): void {
-    console.log(beatmapId);
+    if (beatmapId !== this.currentBeatmapId) {
+      this.prevousBeatmapId = this.currentBeatmapId;
+      this.currentBeatmapId = beatmapId;
+      this.beatmaps[this.prevousBeatmapId].showHide('hide');
+      this.beatmaps[beatmapId].showHide('show');
+    }
   }
 
   nextBeatmap(): number {
