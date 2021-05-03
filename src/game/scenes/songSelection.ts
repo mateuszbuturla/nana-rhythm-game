@@ -46,7 +46,7 @@ export class SongSelection extends Phaser.Scene {
     this.score = new Score();
   }
 
-  updateSelectedBeatmap(newSelectedSong: number): void {
+  updateSelectedBeatmap = (newSelectedSong: number): void => {
     const tempTexture = this.load.image(
       `beatmapBackground${this.beatmaps[newSelectedSong].beatmapid}`,
       `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/background.png`,
@@ -60,7 +60,7 @@ export class SongSelection extends Phaser.Scene {
 
     store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
-  }
+  };
 
   create(): void {
     this.preload();
@@ -84,6 +84,7 @@ export class SongSelection extends Phaser.Scene {
       x: 100,
       y: 100,
       beatmaps: this.beatmaps,
+      onBeatmapUpdate: this.updateSelectedBeatmap,
     });
 
     this.topBar = new TopBar({
@@ -108,12 +109,6 @@ export class SongSelection extends Phaser.Scene {
 
   update(): void {
     // console.log(this.cache.audio.entries.entries);
-    if (this.keyboard.next.isDown) {
-      this.updateSelectedBeatmap(this.songsContainer.nextBeatmap());
-    }
-    if (this.keyboard.prevous.isDown) {
-      this.updateSelectedBeatmap(this.songsContainer.prevousBeatmap());
-    }
     if (this.keyboard.select.isDown) {
       this.scene.start('MainScene');
     }
