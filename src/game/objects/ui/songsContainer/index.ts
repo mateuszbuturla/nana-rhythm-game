@@ -32,6 +32,8 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         title: beatmap.title,
         author: beatmap.author,
         active: this.currentBeatmapId === index,
+        id: index,
+        onClick: this.changeBeatmap,
       });
 
       this.add(newBeatmap);
@@ -50,6 +52,10 @@ export class SongsContainer extends Phaser.GameObjects.Container {
     this.numberOfBeatmaps = aParams.beatmaps.length;
 
     this.setMask(mask);
+  }
+
+  changeBeatmap(beatmapId: number): void {
+    console.log(beatmapId);
   }
 
   nextBeatmap(): number {

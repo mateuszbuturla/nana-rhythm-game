@@ -51,6 +51,14 @@ export class BeatmapTile extends Phaser.GameObjects.Container {
     this.add(this.beatmapBackground);
     this.add(this.titleObject);
     this.add(this.authorObject);
+
+    this.setInteractive(
+      new Phaser.Geom.Rectangle(0, 0, 950, 115),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.on('pointerdown', () => {
+      aParams.onClick(aParams.id);
+    });
   }
 
   showHide(type: 'show' | 'hide') {}
