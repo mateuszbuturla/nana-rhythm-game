@@ -3,6 +3,7 @@ import { IBeatmapTile } from '../../../interfaces/beatmapTile.interface';
 import { Text } from '../../basic/text';
 
 export class BeatmapTile extends Phaser.GameObjects.Container {
+  backgroundObject: Phaser.GameObjects.Sprite;
   beatmapBackground: Phaser.GameObjects.Sprite;
   titleObject: Text;
   authorObject: Text;
@@ -15,29 +16,37 @@ export class BeatmapTile extends Phaser.GameObjects.Container {
   }
 
   initSongTile(aParams: IBeatmapTile): void {
+    if (aParams.active) {
+      this.backgroundObject = this.scene.add.sprite(0, 0, 'gradientBackground');
+      this.backgroundObject.setDisplaySize(950, 115);
+      this.backgroundObject.setOrigin(0, 0);
+      this.add(this.backgroundObject);
+    }
+
     this.beatmapBackground = this.scene.add.sprite(0, 0, 'background');
     this.beatmapBackground.setDisplaySize(190, 115);
+    this.beatmapBackground.setOrigin(0, 0);
     this.titleObject = new Text({
       scene: this.scene,
-      x: 170,
-      y: 0,
+      x: 200,
+      y: 15,
       text: aParams.title,
       align: 'left',
       fontSize: '36px',
       color: 'white',
     });
-    this.titleObject.setOrigin(0.5, 0.5);
+    this.titleObject.setOrigin(0, 0);
 
     this.authorObject = new Text({
       scene: this.scene,
-      x: 165,
-      y: 50,
+      x: 203,
+      y: 65,
       text: aParams.author,
       align: 'left',
       fontSize: '25px',
       color: 'white',
     });
-    this.authorObject.setOrigin(0.5, 0.5);
+    this.authorObject.setOrigin(0, 0);
 
     this.add(this.beatmapBackground);
     this.add(this.titleObject);
