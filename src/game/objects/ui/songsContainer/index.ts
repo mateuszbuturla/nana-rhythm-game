@@ -32,8 +32,14 @@ export class SongsContainer extends Phaser.GameObjects.Container {
         title: beatmap.title,
         author: beatmap.author,
         active: this.currentBeatmapId === index,
-        id: index,
-        onClick: this.changeBeatmap,
+      });
+
+      newBeatmap.setInteractive(
+        new Phaser.Geom.Rectangle(0, 0, 950, 115),
+        Phaser.Geom.Rectangle.Contains,
+      );
+      newBeatmap.on('pointerdown', () => {
+        this.changeBeatmap(index);
       });
 
       this.add(newBeatmap);

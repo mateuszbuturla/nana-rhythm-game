@@ -7,6 +7,4 @@ export interface IBeatmapTile {
   title: string;
   author: string;
   active: boolean;
-  id: number;
-  onClick: (beatmapId: number) => void;
 }
