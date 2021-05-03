@@ -3,6 +3,7 @@ import { IBeatmapTile } from '../../../interfaces/beatmapTile.interface';
 import { Text } from '../../basic/text';
 
 export class BeatmapTile extends Phaser.GameObjects.Container {
+  backgroundObject: Phaser.GameObjects.Sprite;
   beatmapBackground: Phaser.GameObjects.Sprite;
   titleObject: Text;
   authorObject: Text;
@@ -15,6 +16,13 @@ export class BeatmapTile extends Phaser.GameObjects.Container {
   }
 
   initSongTile(aParams: IBeatmapTile): void {
+    if (aParams.active) {
+      this.backgroundObject = this.scene.add.sprite(0, 0, 'gradientBackground');
+      this.backgroundObject.setDisplaySize(950, 115);
+      this.backgroundObject.setOrigin(0, 0);
+      this.add(this.backgroundObject);
+    }
+
     this.beatmapBackground = this.scene.add.sprite(0, 0, 'background');
     this.beatmapBackground.setDisplaySize(190, 115);
     this.beatmapBackground.setOrigin(0, 0);
