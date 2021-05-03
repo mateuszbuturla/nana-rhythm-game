@@ -70,6 +70,8 @@ export class SongsContainer extends Phaser.GameObjects.Container {
       this.beatmaps[this.prevousBeatmapId].showHide('hide');
       this.beatmaps[beatmapId].showHide('show');
       this.onBeatmapUpdate(beatmapId);
+    } else {
+      this.scene.scene.start('MainScene');
     }
   }
 }
