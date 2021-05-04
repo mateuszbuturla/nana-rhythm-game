@@ -11,6 +11,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapTitleObject: Text;
   beatmapArtistObject: Text;
   beatmapCreatorObject: Text;
+  beatmapDifficultyObject: Text;
   currentBeatmap: IMap;
 
   constructor(aParams: IBeatmapInfo) {
@@ -50,7 +51,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       0,
       0,
       789,
-      444,
+      775,
       0x000000,
     );
     this.backgroundDimObject.setOrigin(0);
@@ -90,11 +91,21 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       fontSize: '37px',
     });
 
+    this.beatmapDifficultyObject = new Text({
+      scene: this.scene,
+      x: 40,
+      y: 282,
+      text: `${Number(this.currentBeatmap.difficulty)}*`,
+      color: 'white',
+      fontSize: '121px',
+    });
+
     this.add(this.beatmapBackgroundObject);
     this.add(this.backgroundDimObject);
     this.add(this.beatmapDifficultyBarObject);
     this.add(this.beatmapTitleObject);
     this.add(this.beatmapArtistObject);
     this.add(this.beatmapCreatorObject);
+    this.add(this.beatmapDifficultyObject);
   }
 }
