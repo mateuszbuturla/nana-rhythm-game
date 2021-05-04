@@ -5,6 +5,8 @@ import { IMap } from '../../../interfaces/map.interface';
 
 export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapDifficultyBarObject: Phaser.GameObjects.Sprite;
+  beatmapBackgroundObject: Phaser.GameObjects.Sprite;
+  backgroundDimObject: Phaser.GameObjects.Rectangle;
   currentBeatmap: IMap;
 
   constructor(aParams: IBeatmapInfo) {
@@ -32,6 +34,24 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
   }
 
   initBeatmapInfo(): void {
+    this.beatmapBackgroundObject = this.scene.add.sprite(
+      0,
+      0,
+      `beatmapBackground${this.currentBeatmap.beatmapid}`,
+    );
+    this.beatmapBackgroundObject.setOrigin(0, 0);
+    this.beatmapBackgroundObject.setDisplaySize(789, 444);
+
+    this.backgroundDimObject = this.scene.add.rectangle(
+      0,
+      0,
+      789,
+      444,
+      0x000000,
+    );
+    this.backgroundDimObject.setOrigin(0);
+    this.backgroundDimObject.alpha = 0.25;
+
     this.beatmapDifficultyBarObject = this.scene.add.sprite(
       0,
       0,
@@ -39,6 +59,8 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     );
     this.beatmapDifficultyBarObject.setOrigin(0, 0);
 
+    this.add(this.beatmapBackgroundObject);
+    this.add(this.backgroundDimObject);
     this.add(this.beatmapDifficultyBarObject);
   }
 }
