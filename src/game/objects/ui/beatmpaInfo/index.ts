@@ -12,6 +12,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapArtistObject: Text;
   beatmapCreatorObject: Text;
   beatmapDifficultyObject: Text;
+  beatmapNotesCountObject: Text;
   currentBeatmap: IMap;
 
   constructor(aParams: IBeatmapInfo) {
@@ -100,6 +101,15 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       fontSize: '121px',
     });
 
+    this.beatmapNotesCountObject = new Text({
+      scene: this.scene,
+      x: 40,
+      y: 463,
+      text: `${this.currentBeatmap.notes.length} notes`,
+      color: 'white',
+      fontSize: '44px',
+    });
+
     this.add(this.beatmapBackgroundObject);
     this.add(this.backgroundDimObject);
     this.add(this.beatmapDifficultyBarObject);
@@ -107,5 +117,6 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.add(this.beatmapArtistObject);
     this.add(this.beatmapCreatorObject);
     this.add(this.beatmapDifficultyObject);
+    this.add(this.beatmapNotesCountObject);
   }
 }
