@@ -13,6 +13,7 @@ import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { SongsContainer } from '../objects/ui/songsContainer';
 import music1 from '../../../assets/sounds/music.mp3';
 import gradientBackground from '../../../assets/ui/gradientBackground.png';
+import { BeatmapInfo } from '../objects/ui/beatmpaInfo';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -24,6 +25,7 @@ export class SongSelection extends Phaser.Scene {
   topBar: TopBar;
   beatmaps: any[];
   currentBeatmap: IMap;
+  beatmapInfo: BeatmapInfo;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -85,6 +87,13 @@ export class SongSelection extends Phaser.Scene {
       y: 100,
       beatmaps: this.beatmaps,
       onBeatmapUpdate: this.updateSelectedBeatmap,
+    });
+
+    this.beatmapInfo = new BeatmapInfo({
+      scene: this,
+      x: 1100,
+      y: 100,
+      currentBeatmap: this.currentBeatmap,
     });
 
     this.topBar = new TopBar({
