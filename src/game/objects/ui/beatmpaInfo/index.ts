@@ -26,7 +26,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
   }
 
-  private getBeatmapDifficultyBarexture(): string {
+  private getBeatmapDifficultyBarTexture(): string {
     const difficulty = this.currentBeatmap.difficulty;
     switch (true) {
       case difficulty < 2:
@@ -64,7 +64,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.beatmapDifficultyBarObject = this.scene.add.sprite(
       0,
       0,
-      this.getBeatmapDifficultyBarexture(),
+      this.getBeatmapDifficultyBarTexture(),
     );
     this.beatmapDifficultyBarObject.setOrigin(0, 0);
 
@@ -108,7 +108,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       scene: this.scene,
       x: 40,
       y: 463,
-      text: `${this.currentBeatmap.notes.length} notes`,
+      text: `${this.currentBeatmap.notes.length} Notes`,
       color: 'white',
       fontSize: '44px',
     });
@@ -117,7 +117,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       scene: this.scene,
       x: 40,
       y: 533,
-      text: `${this.currentBeatmap.notes.length} sliders`,
+      text: `${this.currentBeatmap.notes.length} Sliders`,
       color: 'white',
       fontSize: '44px',
     });
@@ -151,5 +151,27 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.add(this.beatmapSlidersCountObject);
     this.add(this.beatmapBpmObject);
     this.add(this.beatmapMaxComboObject);
+  }
+
+  changeBeatmap(newBeatmap: IMap) {
+    this.currentBeatmap = newBeatmap;
+    this.beatmapDifficultyBarObject.setTexture(
+      this.getBeatmapDifficultyBarTexture(),
+    );
+    this.beatmapBackgroundObject.setTexture(
+      `beatmapBackground${this.currentBeatmap.beatmapid}`,
+    );
+    this.beatmapTitleObject.text = this.currentBeatmap.title;
+    this.beatmapArtistObject.text = this.currentBeatmap.author;
+    this.beatmapCreatorObject.text = this.currentBeatmap.creator;
+    this.beatmapDifficultyObject.text = `${Number(
+      this.currentBeatmap.difficulty,
+    )}*`;
+    this.beatmapNotesCountObject.text = `${this.currentBeatmap.notes.length} Notes`;
+    this.beatmapSlidersCountObject.text = `${this.currentBeatmap.notes.length} Sliders`;
+    this.beatmapBpmObject.text = `${Number(this.currentBeatmap.bpm)} BPM`;
+    this.beatmapMaxComboObject.text = `${Number(
+      this.currentBeatmap.notes.length,
+    )} Max Combo`;
   }
 }

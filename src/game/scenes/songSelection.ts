@@ -70,6 +70,8 @@ export class SongSelection extends Phaser.Scene {
       `beatmapBackground${this.currentBeatmap.beatmapid}`,
     );
 
+    this.beatmapInfo.changeBeatmap(this.beatmaps[newSelectedSong]);
+
     store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
   };
