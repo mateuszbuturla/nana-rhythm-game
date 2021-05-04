@@ -15,6 +15,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapNotesCountObject: Text;
   beatmapSlidersCountObject: Text;
   beatmapBpmObject: Text;
+  beatmapMaxComboObject: Text;
   currentBeatmap: IMap;
 
   constructor(aParams: IBeatmapInfo) {
@@ -130,6 +131,15 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       fontSize: '44px',
     });
 
+    this.beatmapMaxComboObject = new Text({
+      scene: this.scene,
+      x: 40,
+      y: 679,
+      text: `${Number(this.currentBeatmap.notes.length)} Max Combo`,
+      color: 'white',
+      fontSize: '44px',
+    });
+
     this.add(this.beatmapBackgroundObject);
     this.add(this.backgroundDimObject);
     this.add(this.beatmapDifficultyBarObject);
@@ -140,5 +150,6 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.add(this.beatmapNotesCountObject);
     this.add(this.beatmapSlidersCountObject);
     this.add(this.beatmapBpmObject);
+    this.add(this.beatmapMaxComboObject);
   }
 }
