@@ -40,7 +40,7 @@ export class LeaderboardButton extends Phaser.GameObjects.Container {
       color: 'white',
       fontSize: '38px',
       align: 'center',
-      fontFamily: 'mainFontEL',
+      fontFamily: 'GoodTimes',
       shadow: true,
     });
     this.add(this.buttonLabelObject);

@@ -12,7 +12,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
   optionsHeader: Text;
   isShow: boolean = false;
   userConfig: UserConfig;
-  config: IIserConfig;
+  config: any;
   showNoteAccuracyInput: CheckBox;
   showPerfectHitInput: CheckBox;
   hitPositionInput: SliderInput;
@@ -67,7 +67,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       scene: this.scene,
       x: 50,
       y: getObjectBottomEdgePosition(this.inGameLabel) + 30,
-      state: this.config.showNoteAccuracy,
+      state: this.config.showNoteAccuracy === 'true' ? true : false,
       label: 'Show note accuracy',
     });
 
@@ -75,7 +75,7 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
       scene: this.scene,
       x: 50,
       y: getObjectBottomEdgePosition(this.showNoteAccuracyInput) + 60,
-      state: this.config.showPerfectHit,
+      state: this.config.showPerfectHit === 'true' ? true : false,
       label: 'Show perfect hits',
     });
 

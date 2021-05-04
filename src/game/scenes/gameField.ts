@@ -25,6 +25,7 @@ export class GameField extends Phaser.Scene {
   }
 
   preload(): void {
+    this.currentMap = store.getState().currentMap.currentMap;
     this.load.image('background', background);
     this.load.image('gradient', gradient);
     this.load.image('hitNoteTop', hitNoteTop);
@@ -36,8 +37,14 @@ export class GameField extends Phaser.Scene {
     this.load.audio('music2', music2);
     this.load.image('healthBarBackground', healthBarBackground);
     this.load.image('healthBar', healthBar);
-
-    this.currentMap = store.getState().currentMap.currentMap;
+    this.load.audio(
+      `beatmapAudio${this.currentMap.beatmapid}`,
+      `beatmaps/${this.currentMap.beatmapid}/audio.mp3`,
+    );
+    this.load.image(
+      `beatmapBackground${this.currentMap.beatmapid}`,
+      `beatmaps/${this.currentMap.beatmapid}/background.png`,
+    );
   }
 
   create(): void {
@@ -45,7 +52,7 @@ export class GameField extends Phaser.Scene {
     store.dispatch(setCombo({ combo: 0, maxCombo: 0 }));
     this.gameBackground = new UiBackground({
       scene: this,
-      background: 'background',
+      background: `beatmapBackground${this.currentMap.beatmapid}`,
     });
     this._game = new Game({
       scene: this,

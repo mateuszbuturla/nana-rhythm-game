@@ -1,0 +1,20 @@
+[METADATA]
+beatmapid:3
+title: Test3
+artist: Test3
+author: TestA3
+[/METADATA]
+
+[BEATMAPINFO]
+bpm:120
+difficulty: 4.5
+offset:53
+audio:audio.mp3
+background:background.png
+[/BEATMAPINFO]
+
+[NOTES]
+0:up
+500:down
+1500:up
+[/NOTES]

@@ -1,121 +1,16 @@
-import { easeOutBounce } from './../../../utils/eases';
+import { easeOutBounce, easeInOutExpo } from './../../../utils/eases';
 import { IMainMenuButton } from '../../../interfaces/buttons.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
-
-const decorations = [
-  {
-    x: -90,
-    y: -70,
-    speed: 2,
-  },
-  {
-    x: -60,
-    y: -40,
-    speed: 3,
-  },
-  {
-    x: -20,
-    y: -70,
-    speed: 4,
-  },
-  {
-    x: -10,
-    y: -30,
-    speed: 3,
-  },
-  {
-    x: 50,
-    y: -60,
-    speed: 5,
-  },
-  {
-    x: 20,
-    y: -60,
-    speed: 2,
-  },
-  {
-    x: 70,
-    y: -60,
-    speed: 3,
-  },
-  {
-    x: 90,
-    y: -50,
-    speed: 3.3,
-  },
-  {
-    x: 30,
-    y: -20,
-    speed: 5,
-  },
-  {
-    x: 60,
-    y: -10,
-    speed: 2.5,
-  },
-  {
-    x: 80,
-    y: -40,
-    speed: 3.1,
-  },
-  {
-    x: 70,
-    y: -30,
-    speed: 4.6,
-  },
-  {
-    x: 90,
-    y: 20,
-    speed: 4.8,
-  },
-  {
-    x: 100,
-    y: -20,
-    speed: 5,
-  },
-  {
-    x: 150,
-    y: 30,
-    speed: 4,
-  },
-  {
-    x: 170,
-    y: -40,
-    speed: 4,
-  },
-  {
-    x: -170,
-    y: -50,
-    speed: 4,
-  },
-  {
-    x: -190,
-    y: 30,
-    speed: 4,
-  },
-  {
-    x: -200,
-    y: 50,
-    speed: 4,
-  },
-  {
-    x: -150,
-    y: -30,
-    speed: 4,
-  },
-  {
-    x: -130,
-    y: 80,
-    speed: 4,
-  },
-];
+import { ISize } from '../../../interfaces/size.interface';
 
 export class MainMenuButton extends Phaser.GameObjects.Container {
   buttonLabelObject: Text;
   buttonBackgroundObject: Image;
+  buttonIconObject: Image;
   decorations: Image[] = [];
   decorationsData: any[] = [];
+  mask: any;
 
   constructor(aParams: IMainMenuButton) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -126,12 +21,14 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       texture: aParams.texture,
     });
 
+    this.buttonBackgroundObject.setOrigin(0, 0);
+
     this.add(this.buttonBackgroundObject);
 
     this.setInteractive(
       new Phaser.Geom.Rectangle(
-        -this.getBounds().width / 2,
-        -this.getBounds().height / 2,
+        0,
+        0,
         this.getBounds().width,
         this.getBounds().height,
       ),
@@ -143,25 +40,9 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.on('pointerover', this.hover);
     this.on('pointerout', this.unHover);
 
-    let maskShape = this.scene.make.graphics({ fillStroke: 0xffffff });
-    maskShape.beginPath();
-
-    maskShape.fillRect(
-      aParams.x - this.getBounds().width / 2,
-      aParams.y - this.getBounds().height / 2,
-      this.getBounds().width,
-      this.getBounds().height,
-    );
-
-    const mask = maskShape.createGeometryMask();
-
-    this.setMask(mask);
-
     for (let i = 0; i < 50; i++) {
-      const x =
-        Math.random() * this.getBounds().width - this.getBounds().width / 2;
-      const y =
-        Math.random() * this.getBounds().height - this.getBounds().height / 2;
+      const x = Math.random() * this.getBounds().width;
+      const y = Math.random() * this.getBounds().height;
       const speed = Math.random() * 4 + 1;
       const newDecoration = new Image({
         scene: aParams.scene,
@@ -172,17 +53,27 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       this.add(newDecoration);
       this.decorations = [...this.decorations, newDecoration];
       this.decorationsData = [...this.decorationsData, { x, y, speed }];
+
+      this.buttonIconObject = new Image({
+        scene: aParams.scene,
+        x: this.buttonBackgroundObject.width / 2,
+        y: this.buttonBackgroundObject.height * 1.1,
+        texture: aParams.icon,
+      });
+      this.buttonIconObject.setOrigin(0.5, 0.5);
+      this.buttonIconObject.alpha = 0;
+      this.add(this.buttonIconObject);
     }
 
     this.buttonLabelObject = new Text({
       scene: aParams.scene,
-      x: 0,
-      y: 0,
+      x: this.buttonBackgroundObject.width / 2,
+      y: this.buttonBackgroundObject.height / 2,
       text: aParams.label,
       color: 'white',
-      fontSize: '59px',
+      fontSize: '43px',
       align: 'center',
-      fontFamily: 'mainFontB',
+      fontFamily: 'GoodTimes',
       shadow: true,
     });
     this.add(this.buttonLabelObject);
@@ -191,31 +82,77 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
   }
 
   hover(): void {
-    this.setDepth(1);
-    const showAnimation = this.scene.tweens.createTimeline();
+    const hoverAnimation = this.scene.tweens.createTimeline();
 
-    showAnimation.add({
-      targets: this,
-      scale: 1.2,
+    hoverAnimation.add({
+      targets: this.buttonBackgroundObject,
+      scaleY: 1.5,
       ease: easeOutBounce,
       duration: 1000,
     });
 
-    showAnimation.play();
+    hoverAnimation.play();
+
+    const iconAnimation = this.scene.tweens.createTimeline();
+
+    iconAnimation.add({
+      delay: 500,
+      targets: this.buttonIconObject,
+      alpha: 1,
+      ease: easeInOutExpo,
+      duration: 500,
+    });
+
+    iconAnimation.play();
   }
 
   unHover(): void {
-    this.setDepth(0);
-    const showAnimation = this.scene.tweens.createTimeline();
+    const unhoverAnimation = this.scene.tweens.createTimeline();
 
-    showAnimation.add({
-      targets: this,
-      scale: 1,
+    unhoverAnimation.add({
+      delay: 300,
+      targets: this.buttonBackgroundObject,
+      scaleY: 1,
       ease: easeOutBounce,
       duration: 1000,
     });
 
-    showAnimation.play();
+    unhoverAnimation.play();
+
+    const iconAnimation = this.scene.tweens.createTimeline();
+
+    iconAnimation.add({
+      delay: 0,
+      targets: this.buttonIconObject,
+      alpha: 0,
+      ease: easeInOutExpo,
+      duration: 500,
+    });
+
+    iconAnimation.play();
+  }
+
+  getSize(): ISize {
+    return {
+      width: this.buttonBackgroundObject.width,
+      height: this.buttonBackgroundObject.height,
+    };
+  }
+
+  updateMask() {
+    this.mask = this.scene.make.graphics({ fillStroke: 0xffffff });
+    this.mask.beginPath();
+
+    this.mask.fillRect(
+      this.x,
+      this.y,
+      this.buttonBackgroundObject.width,
+      this.buttonBackgroundObject.height * this.buttonBackgroundObject.scaleY,
+    );
+
+    const mask = this.mask.createGeometryMask();
+
+    this.mask.fillRect = this.mask = mask;
   }
 
   update() {
@@ -225,5 +162,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
         decoration.y = -150;
       }
     });
+
+    this.updateMask();
   }
 }

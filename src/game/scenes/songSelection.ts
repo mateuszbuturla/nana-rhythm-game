@@ -11,79 +11,14 @@ import { TopBar } from '../objects/ui/topBar';
 import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { SongsContainer } from '../objects/ui/songsContainer';
-
-const songs: IMap[] = [
-  {
-    title: 'Test title1',
-    author: 'Test author1',
-    music: 'music1',
-    notes: [
-      {
-        direction: 'up',
-        delay: 500,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
-      },
-      {
-        direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2500,
-      },
-    ],
-  },
-  {
-    title: 'Test title2',
-    author: 'Test author2',
-    music: 'music2',
-    notes: [
-      {
-        direction: 'up',
-        delay: 1000,
-      },
-      {
-        direction: 'down',
-        delay: 1500,
-      },
-      {
-        direction: 'up',
-        delay: 2000,
-      },
-      {
-        direction: 'down',
-        delay: 2200,
-      },
-      {
-        direction: 'up',
-        delay: 2300,
-      },
-      {
-        direction: 'down',
-        delay: 2400,
-      },
-      {
-        direction: 'up',
-        delay: 2500,
-      },
-      {
-        direction: 'up',
-        delay: 3500,
-      },
-      {
-        direction: 'up',
-        delay: 3600,
-      },
-      {
-        direction: 'up',
-        delay: 3700,
-      },
-    ],
-  },
-];
+import music1 from '../../../assets/sounds/music.mp3';
+import gradientBackground from '../../../assets/ui/gradientBackground.png';
+import { BeatmapInfo } from '../objects/ui/beatmpaInfo';
+import difficultyEasy from '../../../assets/ui/difficultyEasy.png';
+import difficultyMedium from '../../../assets/ui/difficultyMedium.png';
+import difficultyHard from '../../../assets/ui/difficultyHard.png';
+import difficultyInsane from '../../../assets/ui/difficultyInsane.png';
+import difficultyImposible from '../../../assets/ui/difficultyImposible.png';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -93,24 +28,53 @@ export class SongSelection extends Phaser.Scene {
   background: UiBackground;
   songsContainer: SongsContainer;
   topBar: TopBar;
+  beatmaps: any[];
+  currentBeatmap: IMap;
+  beatmapInfo: BeatmapInfo;
 
   constructor() {
     super({ key: 'SongSelection' });
   }
 
   preload(): void {
+    this.load.audio('music1', music1);
+    this.beatmaps = store.getState().beatmaps.beatmaps;
     this.load.image('background', background);
     this.load.image('backButton', backButton);
     this.load.image('leaderboardButton', leaderboardButton);
-    store.dispatch(setCurrentMapId(0));
-    store.dispatch(setCurrentMap(songs[0]));
+    this.load.image('gradientBackground', gradientBackground);
+    this.load.image('difficultyEasy', difficultyEasy);
+    this.load.image('difficultyMedium', difficultyMedium);
+    this.load.image('difficultyHard', difficultyHard);
+    this.load.image('difficultyInsane', difficultyInsane);
+    this.load.image('difficultyImposible', difficultyImposible);
+    // store.dispatch(setCurrentMapId(0));
+    // store.dispatch(setCurrentMap(this.beatmaps[0]));
+    this.currentBeatmap = store.getState().currentMap.currentMap;
+    this.load.image(
+      `beatmapBackground${this.currentBeatmap.beatmapid}`,
+      `beatmaps/${this.currentBeatmap.beatmapid}/background.png`,
+    );
     this.score = new Score();
   }
 
-  updateSelectedBeatmap(newSelectedSong: number): void {
-    store.dispatch(setCurrentMap(songs[newSelectedSong]));
+  updateSelectedBeatmap = (newSelectedSong: number): void => {
+    const tempTexture = this.load.image(
+      `beatmapBackground${this.beatmaps[newSelectedSong].beatmapid}`,
+      `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/background.png`,
+    );
+    tempTexture.start();
+    this.currentBeatmap = this.beatmaps[newSelectedSong];
+
+    this.background.updateBackground(
+      `beatmapBackground${this.currentBeatmap.beatmapid}`,
+    );
+
+    this.beatmapInfo.changeBeatmap(this.beatmaps[newSelectedSong]);
+
+    store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
-  }
+  };
 
   create(): void {
     this.preload();
@@ -118,7 +82,7 @@ export class SongSelection extends Phaser.Scene {
     const height = this.sys.game.canvas.height;
     this.background = new UiBackground({
       scene: this,
-      background: 'background',
+      background: `beatmapBackground${this.currentBeatmap.beatmapid}`,
     });
 
     this.leaderboardButton = new LeaderboardButton({
@@ -131,9 +95,10 @@ export class SongSelection extends Phaser.Scene {
 
     this.songsContainer = new SongsContainer({
       scene: this,
-      x: 0,
-      y: 0,
-      beatmaps: songs,
+      x: 50,
+      y: 100,
+      beatmaps: this.beatmaps,
+      onBeatmapUpdate: this.updateSelectedBeatmap,
     });
 
     this.topBar = new TopBar({
@@ -141,6 +106,12 @@ export class SongSelection extends Phaser.Scene {
       onBackClick: () => {
         this.scene.start('MainMenu');
       },
+    });
+    this.beatmapInfo = new BeatmapInfo({
+      scene: this,
+      x: 1100,
+      y: 150,
+      currentBeatmap: this.currentBeatmap,
     });
 
     this.transition = new SceneTransition({
@@ -157,12 +128,7 @@ export class SongSelection extends Phaser.Scene {
   }
 
   update(): void {
-    if (this.keyboard.next.isDown) {
-      this.updateSelectedBeatmap(this.songsContainer.nextBeatmap());
-    }
-    if (this.keyboard.prevous.isDown) {
-      this.updateSelectedBeatmap(this.songsContainer.prevousBeatmap());
-    }
+    // console.log(this.cache.audio.entries.entries);
     if (this.keyboard.select.isDown) {
       this.scene.start('MainScene');
     }
