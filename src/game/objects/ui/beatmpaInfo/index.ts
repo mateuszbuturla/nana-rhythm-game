@@ -9,6 +9,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapBackgroundObject: Phaser.GameObjects.Sprite;
   backgroundDimObject: Phaser.GameObjects.Rectangle;
   beatmapTitleObject: Text;
+  beatmapArtistObject: Text;
   currentBeatmap: IMap;
 
   constructor(aParams: IBeatmapInfo) {
@@ -69,10 +70,19 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       color: 'white',
       fontSize: '58px',
     });
+    this.beatmapArtistObject = new Text({
+      scene: this.scene,
+      x: 40,
+      y: 100,
+      text: this.currentBeatmap.author,
+      color: 'white',
+      fontSize: '37px',
+    });
 
     this.add(this.beatmapBackgroundObject);
     this.add(this.backgroundDimObject);
     this.add(this.beatmapDifficultyBarObject);
     this.add(this.beatmapTitleObject);
+    this.add(this.beatmapArtistObject);
   }
 }
