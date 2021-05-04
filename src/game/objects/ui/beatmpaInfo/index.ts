@@ -2,11 +2,13 @@ import { easeInOutExpo } from './../../../utils/eases';
 import { IBeatmapInfo } from '../../../interfaces/beatmapInfo.interface';
 import store from '../../../redux/store';
 import { IMap } from '../../../interfaces/map.interface';
+import { Text } from '../../basic/text';
 
 export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapDifficultyBarObject: Phaser.GameObjects.Sprite;
   beatmapBackgroundObject: Phaser.GameObjects.Sprite;
   backgroundDimObject: Phaser.GameObjects.Rectangle;
+  beatmapTitleObject: Text;
   currentBeatmap: IMap;
 
   constructor(aParams: IBeatmapInfo) {
@@ -59,8 +61,18 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     );
     this.beatmapDifficultyBarObject.setOrigin(0, 0);
 
+    this.beatmapTitleObject = new Text({
+      scene: this.scene,
+      x: 40,
+      y: 40,
+      text: this.currentBeatmap.title,
+      color: 'white',
+      fontSize: '58px',
+    });
+
     this.add(this.beatmapBackgroundObject);
     this.add(this.backgroundDimObject);
     this.add(this.beatmapDifficultyBarObject);
+    this.add(this.beatmapTitleObject);
   }
 }
