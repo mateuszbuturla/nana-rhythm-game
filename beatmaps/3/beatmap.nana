@@ -6,7 +6,7 @@ author: TestA3
 [/METADATA]
 
 [BEATMAPINFO]
-bmp:120
+bpm:120
 difficulty: 4.5
 offset:53
 audio:audio.mp3
