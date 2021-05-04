@@ -66,7 +66,7 @@ export class BeatmapReader {
         beatmaps.push({
           beatmapid: metaData.beatmapid,
           title: metaData.title,
-          author: metaData.author,
+          creator: metaData.author,
           artist: metaData.artist,
           audio: beatmapInfo.audio,
           background: beatmapInfo.background,

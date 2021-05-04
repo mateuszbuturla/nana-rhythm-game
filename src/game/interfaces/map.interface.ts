@@ -7,6 +7,8 @@ interface IMap {
   audio: string;
   notes: INote[];
   bpm: number;
+  difficulty: number;
+  creator: string;
 }
 
 export { IMap };
