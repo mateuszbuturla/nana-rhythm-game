@@ -14,6 +14,11 @@ import { SongsContainer } from '../objects/ui/songsContainer';
 import music1 from '../../../assets/sounds/music.mp3';
 import gradientBackground from '../../../assets/ui/gradientBackground.png';
 import { BeatmapInfo } from '../objects/ui/beatmpaInfo';
+import difficultyEasy from '../../../assets/ui/difficultyEasy.png';
+import difficultyMedium from '../../../assets/ui/difficultyMedium.png';
+import difficultyHard from '../../../assets/ui/difficultyHard.png';
+import difficultyInsane from '../../../assets/ui/difficultyInsane.png';
+import difficultyImposible from '../../../assets/ui/difficultyImposible.png';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -38,6 +43,11 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('backButton', backButton);
     this.load.image('leaderboardButton', leaderboardButton);
     this.load.image('gradientBackground', gradientBackground);
+    this.load.image('difficultyEasy', difficultyEasy);
+    this.load.image('difficultyMedium', difficultyMedium);
+    this.load.image('difficultyHard', difficultyHard);
+    this.load.image('difficultyInsane', difficultyInsane);
+    this.load.image('difficultyImposible', difficultyImposible);
     // store.dispatch(setCurrentMapId(0));
     // store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.currentBeatmap = store.getState().currentMap.currentMap;
@@ -89,18 +99,17 @@ export class SongSelection extends Phaser.Scene {
       onBeatmapUpdate: this.updateSelectedBeatmap,
     });
 
-    this.beatmapInfo = new BeatmapInfo({
-      scene: this,
-      x: 1100,
-      y: 100,
-      currentBeatmap: this.currentBeatmap,
-    });
-
     this.topBar = new TopBar({
       scene: this,
       onBackClick: () => {
         this.scene.start('MainMenu');
       },
+    });
+    this.beatmapInfo = new BeatmapInfo({
+      scene: this,
+      x: 1100,
+      y: 150,
+      currentBeatmap: this.currentBeatmap,
     });
 
     this.transition = new SceneTransition({
