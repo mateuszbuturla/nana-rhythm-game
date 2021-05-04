@@ -81,7 +81,7 @@ export class SongSelection extends Phaser.Scene {
 
     this.songsContainer = new SongsContainer({
       scene: this,
-      x: 100,
+      x: 50,
       y: 100,
       beatmaps: this.beatmaps,
       onBeatmapUpdate: this.updateSelectedBeatmap,
