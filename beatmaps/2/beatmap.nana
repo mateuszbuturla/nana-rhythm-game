@@ -1,0 +1,21 @@
+[METADATA]
+beatmapid:2
+title: Test12
+artist: Test2
+author: TestA2
+[/METADATA]
+
+[BEATMAPINFO]
+bpm:120
+difficulty: 4.5
+offset:53
+audio:audio.mp3
+background:background.png
+[/BEATMAPINFO]
+
+[NOTES]
+0:up
+500:down
+1500:up
+1600:up
+[/NOTES]

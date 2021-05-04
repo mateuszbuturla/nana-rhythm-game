@@ -5,6 +5,7 @@ interface IMainMenuButton {
   label: string;
   texture: string;
   textureDecoration: string;
+  icon: string;
   callback: () => void;
 }
 

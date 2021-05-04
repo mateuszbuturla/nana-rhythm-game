@@ -40,7 +40,7 @@ export class BackButton extends Phaser.GameObjects.Container {
       color: 'white',
       fontSize: '43px',
       align: 'center',
-      fontFamily: 'mainFontEL',
+      fontFamily: 'GoodTimes',
       shadow: true,
     });
     this.add(this.buttonLabelObject);

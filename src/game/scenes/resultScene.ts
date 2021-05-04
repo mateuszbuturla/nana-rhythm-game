@@ -65,7 +65,7 @@ export class ResultScene extends Phaser.Scene {
       color: 'green',
       fontSize: '350px',
       align: 'center',
-      fontFamily: 'mainFontB',
+      fontFamily: 'GoodTimes',
     });
 
     this.score = new LabelValue({
