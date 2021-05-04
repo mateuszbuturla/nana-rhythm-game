@@ -73,7 +73,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
       color: 'white',
       fontSize: '59px',
       align: 'center',
-      fontFamily: 'mainFontB',
+      fontFamily: 'GoodTimes',
       shadow: true,
     });
     this.add(this.buttonLabelObject);

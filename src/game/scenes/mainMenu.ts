@@ -96,7 +96,7 @@ export class MainMenu extends Phaser.Scene {
       text: `version`,
       fontSize: '25px',
       color: 'white',
-      fontFamily: 'mainFontB',
+      fontFamily: 'GoodTimes',
     });
     this.versionLabel.setOrigin(0, 0);
     this.version = new Text({
