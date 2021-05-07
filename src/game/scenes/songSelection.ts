@@ -19,6 +19,7 @@ import difficultyMedium from '../../../assets/ui/difficultyMedium.png';
 import difficultyHard from '../../../assets/ui/difficultyHard.png';
 import difficultyInsane from '../../../assets/ui/difficultyInsane.png';
 import difficultyImposible from '../../../assets/ui/difficultyImposible.png';
+import { Audio } from '../core/audio';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -31,6 +32,7 @@ export class SongSelection extends Phaser.Scene {
   beatmaps: any[];
   currentBeatmap: IMap;
   beatmapInfo: BeatmapInfo;
+  audio: Audio;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -54,6 +56,10 @@ export class SongSelection extends Phaser.Scene {
     this.load.image(
       `beatmapBackground${this.currentBeatmap.beatmapid}`,
       `beatmaps/${this.currentBeatmap.beatmapid}/background.png`,
+    );
+    this.load.audio(
+      `beatmapAudio${this.currentBeatmap.beatmapid}`,
+      `beatmaps/${this.currentBeatmap.beatmapid}/audio.mp3`,
     );
     this.score = new Score();
   }
@@ -130,6 +136,12 @@ export class SongSelection extends Phaser.Scene {
       prevous: Phaser.Input.Keyboard.KeyCodes.Z,
       select: Phaser.Input.Keyboard.KeyCodes.ENTER,
     });
+
+    this.audio = new Audio({
+      scene: this,
+      beatmapMusic: `beatmapAudio${this.currentBeatmap.beatmapid}`,
+    });
+    this.audio.playMusic();
   }
 
   update(): void {

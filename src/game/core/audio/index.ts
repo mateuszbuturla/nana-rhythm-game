@@ -15,8 +15,10 @@ export class Audio {
 
   initAudio(aParams: IAudio): void {
     this.userConfig = new UserConfig().getUserConfig();
-    this.hitsoundAudio = this.scene.sound.add('hitSound');
-    this.hitsoundAudio.volume = this.userConfig.hitsoundVolume / 100;
+    if (aParams.hitsounds) {
+      this.hitsoundAudio = this.scene.sound.add('hitSound');
+      this.hitsoundAudio.volume = this.userConfig.hitsoundVolume / 100;
+    }
     this.musicAudio = this.scene.sound.add(aParams.beatmapMusic);
     this.musicAudio.volume = this.userConfig.musicVolume / 100;
   }
