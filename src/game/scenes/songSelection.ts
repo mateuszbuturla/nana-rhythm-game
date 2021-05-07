@@ -75,6 +75,13 @@ export class SongSelection extends Phaser.Scene {
       `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/audio.mp3`,
     );
     tempMp3.start();
+    this.load.once('complete', () => {
+      this.audio.stopMusic();
+      this.audio.changeMusic(
+        `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
+      );
+      this.audio.playMusic();
+    });
     this.currentBeatmap = this.beatmaps[newSelectedSong];
 
     this.background.updateBackground(

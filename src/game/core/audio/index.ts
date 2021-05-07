@@ -34,4 +34,10 @@ export class Audio {
   stopMusic(): void {
     this.musicAudio.stop();
   }
+
+  changeMusic(musicKey: string): void {
+    this.musicAudio.destroy();
+    this.musicAudio = this.scene.sound.add(musicKey);
+    this.musicAudio.volume = this.userConfig.musicVolume / 100;
+  }
 }
