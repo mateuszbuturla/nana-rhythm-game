@@ -56,6 +56,7 @@ export class Game {
     this.audio = new Audio({
       scene: this.scene,
       beatmapMusic: `beatmapAudio${this.beatmap.beatmapid}`,
+      hitsounds: true,
     });
     this.score = new Score();
     this.userConfig = new UserConfig().getUserConfig();
