@@ -6,7 +6,7 @@ export class Audio {
   scene: Phaser.Scene;
   hitsoundAudio: any;
   musicAudio: any;
-  userConfig: IIserConfig;
+  userConfig: any;
 
   constructor(aParams: IAudio) {
     this.scene = aParams.scene;

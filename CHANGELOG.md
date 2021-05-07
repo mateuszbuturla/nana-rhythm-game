@@ -1,3 +1,11 @@
+## 2.7.0 (2021-05-04)
+
+- change main menu design
+- change beatmap selection design
+- change font
+- create beatmap reader (.nana file)
+- read/save user settings to file
+
 ## 2.6.0 (2021-04-16)
 
 - music volume
