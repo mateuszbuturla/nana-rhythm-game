@@ -2,6 +2,7 @@ import { easeInOutExpo } from './../../../utils/eases';
 import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
 import { BeatmapTile } from '../beatmapTile';
 import store from '../../../redux/store';
+import { IMap } from '_/game/interfaces/map.interface';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
   currentBeatmapId: number;
@@ -27,13 +28,13 @@ export class SongsContainer extends Phaser.GameObjects.Container {
 
     this.currentBeatmapId = store.getState().currentMap.currentMapId;
 
-    aParams.beatmaps.map((beatmap, index) => {
+    aParams.beatmaps.map((beatmap: IMap, index) => {
       const newBeatmap = new BeatmapTile({
         scene: this.scene,
         x: 0,
         y: 50 + index * (this.beatmapsMargin + this.beatmpasHeight),
         title: beatmap.title,
-        author: beatmap.author,
+        creator: beatmap.creator,
         active: this.currentBeatmapId === index,
       });
 
