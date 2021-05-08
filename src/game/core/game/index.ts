@@ -106,14 +106,20 @@ export class Game {
     const width: number = this.scene.game.canvas.width;
     this.beatmap.notes.map((note, index) => {
       setTimeout(() => {
+        if (!note.delay) {
+          return;
+        }
+
+        console.log(note);
+
         const newNote = new HitNote({
           scene: this.scene,
-          x: width + this.hitPosition,
+          x: width + Number(this.hitPosition),
           y: note.direction === 'up' ? 350 : 650,
           texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
         });
         this.notesObject = [...this.notesObject, newNote];
-      }, note.delay - width / this.scrollSpeed);
+      }, Number(note.delay) - width / this.scrollSpeed);
     });
   }
 
@@ -137,11 +143,16 @@ export class Game {
 
     if (this.startTime !== 0) {
       const hittedNotes = store.getState().mapResult.hittedNotes;
+      console.log(hittedNotes);
       this.beatmap.notes.map((note, index) => {
+        if (!note.delay) {
+          return;
+        }
+        console.log(index);
         if (
           time - noteAccuracyConfig.hitTime / 2 < note.delay &&
           time + noteAccuracyConfig.hitTime / 2 > note.delay &&
-          hittedNotes[index] === undefined
+          !hittedNotes[index]
         ) {
           switch (note.direction) {
             case 'up':
@@ -185,14 +196,14 @@ export class Game {
       !this.health.checkIfIsAliver() &&
       this.gameState === EGameState.playing
     ) {
-      this.gameState = EGameState.lose;
-      this.audio.stopMusic();
-      this.loseScreen.show();
-      this.notesObject.map((note) => {
-        fallAnimation(this.scene, note);
-      });
-      fallAnimation(this.scene, this.hitPositionObj);
-      fallAnimation(this.scene, this.health.getHealthBar());
+      // this.gameState = EGameState.lose;
+      // this.audio.stopMusic();
+      // this.loseScreen.show();
+      // this.notesObject.map((note) => {
+      //   fallAnimation(this.scene, note);
+      // });
+      // fallAnimation(this.scene, this.hitPositionObj);
+      // fallAnimation(this.scene, this.health.getHealthBar());
     } else if (this.gameState === EGameState.playing) {
       this.handleNoteClick();
       this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
