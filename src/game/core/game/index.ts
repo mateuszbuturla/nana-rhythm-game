@@ -106,14 +106,16 @@ export class Game {
     const width: number = this.scene.game.canvas.width;
     this.beatmap.notes.map((note, index) => {
       setTimeout(() => {
+        console.log(note);
+
         const newNote = new HitNote({
           scene: this.scene,
-          x: width + this.hitPosition,
+          x: width + Number(this.hitPosition),
           y: note.direction === 'up' ? 350 : 650,
           texture: note.direction === 'up' ? 'hitNoteTop' : 'hitNoteBottom',
         });
         this.notesObject = [...this.notesObject, newNote];
-      }, note.delay - width / this.scrollSpeed);
+      }, Number(note.delay) - width / this.scrollSpeed);
     });
   }
 
@@ -134,7 +136,6 @@ export class Game {
   handleNoteClick(): void {
     const width: number = this.scene.game.canvas.width;
     const time = Date.now() - (this.startTime + this.breakBeforeTakeOff);
-
     if (this.startTime !== 0) {
       const hittedNotes = store.getState().mapResult.hittedNotes;
       this.beatmap.notes.map((note, index) => {
@@ -168,7 +169,7 @@ export class Game {
               break;
           }
         } else if (
-          time > note.delay + noteAccuracyConfig.hitTime / 2 &&
+          time > note.delay + Number(noteAccuracyConfig.hitTime) / 2 &&
           hittedNotes[index] === undefined
         ) {
           this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
