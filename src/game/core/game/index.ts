@@ -106,10 +106,6 @@ export class Game {
     const width: number = this.scene.game.canvas.width;
     this.beatmap.notes.map((note, index) => {
       setTimeout(() => {
-        if (!note.delay) {
-          return;
-        }
-
         console.log(note);
 
         const newNote = new HitNote({
@@ -144,10 +140,6 @@ export class Game {
     if (this.startTime !== 0) {
       const hittedNotes = store.getState().mapResult.hittedNotes;
       this.beatmap.notes.map((note, index) => {
-        if (!note.delay) {
-          return;
-        }
-
         if (
           time - noteAccuracyConfig.hitTime / 2 < note.delay &&
           time + noteAccuracyConfig.hitTime / 2 > note.delay &&
