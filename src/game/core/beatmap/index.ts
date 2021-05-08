@@ -57,10 +57,12 @@ export class BeatmapReader {
 
         beatmapNotesString.map((data) => {
           const splitData = data.split(':');
-          beatmapNotes.push({
-            delay: splitData[0],
-            direction: String(splitData[1]).replace(/\s/g, ''),
-          });
+          if (splitData.length >= 2) {
+            beatmapNotes.push({
+              delay: splitData[0],
+              direction: String(splitData[1]).replace(/\s/g, ''),
+            });
+          }
         });
 
         beatmaps.push({
