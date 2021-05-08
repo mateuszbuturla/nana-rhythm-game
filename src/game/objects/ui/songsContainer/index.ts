@@ -13,11 +13,13 @@ export class SongsContainer extends Phaser.GameObjects.Container {
   beatmapsMargin: number = 30;
   beatmpasHeight: number = 100;
   onBeatmapUpdate: (beatmapId: number) => void;
+  onBeatmapSelect: () => void;
 
   constructor(aParams: ISongsContainer) {
     super(aParams.scene, aParams.x, aParams.y);
 
     this.onBeatmapUpdate = aParams.onBeatmapUpdate;
+    this.onBeatmapSelect = aParams.onBeatmapSelect;
     this.initSongContainer(aParams);
     this.scene.add.existing(this);
   }
@@ -72,7 +74,7 @@ export class SongsContainer extends Phaser.GameObjects.Container {
       this.beatmaps[beatmapId].showHide('show');
       this.onBeatmapUpdate(beatmapId);
     } else {
-      this.scene.scene.start('MainScene');
+      this.onBeatmapSelect();
     }
   }
 }
