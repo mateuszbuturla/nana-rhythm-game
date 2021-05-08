@@ -6,6 +6,7 @@ interface ISongsContainer {
   y: number;
   beatmaps: IMap[];
   onBeatmapUpdate: (beatmapId: number) => void;
+  onBeatmapSelect: () => void;
 }
 
 export { ISongsContainer };
