@@ -1,3 +1,15 @@
+## 2.8.0 (2021-05-08)
+
+- features:
+- show beatmap info in beatmap selection
+- beatmap mp3 preview in beatmap selection
+
+- bug fixes:
+- fix system of missing notes
+- fix creator field in beatmap reader
+- fix notes
+- fix music continues to play after selecting the beatmap to play
+
 ## 2.7.0 (2021-05-04)
 
 - change main menu design
