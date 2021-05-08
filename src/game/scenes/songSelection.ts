@@ -53,36 +53,27 @@ export class SongSelection extends Phaser.Scene {
     // store.dispatch(setCurrentMapId(0));
     // store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.currentBeatmap = store.getState().currentMap.currentMap;
-    this.load.image(
-      `beatmapBackground${this.currentBeatmap.beatmapid}`,
-      `beatmaps/${this.currentBeatmap.beatmapid}/background.png`,
-    );
-    this.load.audio(
-      `beatmapAudio${this.currentBeatmap.beatmapid}`,
-      `beatmaps/${this.currentBeatmap.beatmapid}/audio.mp3`,
-    );
+    this.beatmaps.map((beatmap) => {
+      this.load.image(
+        `beatmapBackground${beatmap.beatmapid}`,
+        `beatmaps/${beatmap.beatmapid}/background.png`,
+      );
+      this.load.audio(
+        `beatmapAudio${beatmap.beatmapid}`,
+        `beatmaps/${beatmap.beatmapid}/audio.mp3`,
+      );
+    });
     this.score = new Score();
   }
 
   updateSelectedBeatmap = (newSelectedSong: number): void => {
-    const tempTexture = this.load.image(
-      `beatmapBackground${this.beatmaps[newSelectedSong].beatmapid}`,
-      `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/background.png`,
-    );
-    tempTexture.start();
-    const tempMp3 = this.load.audio(
-      `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
-      `beatmaps/${this.beatmaps[newSelectedSong].beatmapid}/audio.mp3`,
-    );
-    tempMp3.start();
-    this.load.once('complete', () => {
-      this.audio.stopMusic();
-      this.audio.changeMusic(
-        `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
-      );
-      this.audio.playMusic();
-    });
     this.currentBeatmap = this.beatmaps[newSelectedSong];
+
+    this.audio.stopMusic();
+    this.audio.changeMusic(
+      `beatmapAudio${this.beatmaps[newSelectedSong].beatmapid}`,
+    );
+    this.audio.playMusic();
 
     this.background.updateBackground(
       `beatmapBackground${this.currentBeatmap.beatmapid}`,
