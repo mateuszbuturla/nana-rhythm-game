@@ -81,7 +81,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       scene: this.scene,
       x: 40,
       y: 100,
-      text: this.currentBeatmap.author,
+      text: this.currentBeatmap.creator,
       color: 'white',
       fontSize: '37px',
     });
@@ -162,7 +162,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       `beatmapBackground${this.currentBeatmap.beatmapid}`,
     );
     this.beatmapTitleObject.text = this.currentBeatmap.title;
-    this.beatmapArtistObject.text = this.currentBeatmap.author;
+    this.beatmapArtistObject.text = this.currentBeatmap.creator;
     this.beatmapCreatorObject.text = this.currentBeatmap.creator;
     this.beatmapDifficultyObject.text = `${Number(
       this.currentBeatmap.difficulty,

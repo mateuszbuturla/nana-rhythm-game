@@ -5,6 +5,6 @@ export interface IBeatmapTile {
   x: number;
   y: number;
   title: string;
-  author: string;
+  creator: string;
   active: boolean;
 }
