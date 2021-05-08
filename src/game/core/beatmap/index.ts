@@ -59,7 +59,7 @@ export class BeatmapReader {
           const splitData = data.split(':');
           if (splitData.length >= 2) {
             beatmapNotes.push({
-              delay: splitData[0],
+              delay: Number(splitData[0]),
               direction: String(splitData[1]).replace(/\s/g, ''),
             });
           }

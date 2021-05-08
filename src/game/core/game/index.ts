@@ -136,7 +136,6 @@ export class Game {
   handleNoteClick(): void {
     const width: number = this.scene.game.canvas.width;
     const time = Date.now() - (this.startTime + this.breakBeforeTakeOff);
-
     if (this.startTime !== 0) {
       const hittedNotes = store.getState().mapResult.hittedNotes;
       this.beatmap.notes.map((note, index) => {
@@ -170,8 +169,8 @@ export class Game {
               break;
           }
         } else if (
-          time > note.delay + noteAccuracyConfig.hitTime / 2 &&
-          !hittedNotes[index]
+          time > note.delay + Number(noteAccuracyConfig.hitTime) / 2 &&
+          hittedNotes[index] === undefined
         ) {
           this.createNoteAccuracy(note.direction, ENoteAccuracy.Miss);
           this.score.addHittedNotes(ENoteAccuracy.Miss);
@@ -187,14 +186,14 @@ export class Game {
       !this.health.checkIfIsAliver() &&
       this.gameState === EGameState.playing
     ) {
-      // this.gameState = EGameState.lose;
-      // this.audio.stopMusic();
-      // this.loseScreen.show();
-      // this.notesObject.map((note) => {
-      //   fallAnimation(this.scene, note);
-      // });
-      // fallAnimation(this.scene, this.hitPositionObj);
-      // fallAnimation(this.scene, this.health.getHealthBar());
+      this.gameState = EGameState.lose;
+      this.audio.stopMusic();
+      this.loseScreen.show();
+      this.notesObject.map((note) => {
+        fallAnimation(this.scene, note);
+      });
+      fallAnimation(this.scene, this.hitPositionObj);
+      fallAnimation(this.scene, this.health.getHealthBar());
     } else if (this.gameState === EGameState.playing) {
       this.handleNoteClick();
       this.beatmapTimer.updateTimer(this.startTime, this.totalBeatmapTime);
