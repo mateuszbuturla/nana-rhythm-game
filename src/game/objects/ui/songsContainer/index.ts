@@ -2,6 +2,7 @@ import { easeInOutExpo } from './../../../utils/eases';
 import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
 import { BeatmapTile } from '../beatmapTile';
 import store from '../../../redux/store';
+import { IMap } from '_/game/interfaces/map.interface';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
   currentBeatmapId: number;
@@ -12,11 +13,13 @@ export class SongsContainer extends Phaser.GameObjects.Container {
   beatmapsMargin: number = 30;
   beatmpasHeight: number = 100;
   onBeatmapUpdate: (beatmapId: number) => void;
+  onBeatmapSelect: () => void;
 
   constructor(aParams: ISongsContainer) {
     super(aParams.scene, aParams.x, aParams.y);
 
     this.onBeatmapUpdate = aParams.onBeatmapUpdate;
+    this.onBeatmapSelect = aParams.onBeatmapSelect;
     this.initSongContainer(aParams);
     this.scene.add.existing(this);
   }
@@ -27,13 +30,13 @@ export class SongsContainer extends Phaser.GameObjects.Container {
 
     this.currentBeatmapId = store.getState().currentMap.currentMapId;
 
-    aParams.beatmaps.map((beatmap, index) => {
+    aParams.beatmaps.map((beatmap: IMap, index) => {
       const newBeatmap = new BeatmapTile({
         scene: this.scene,
         x: 0,
         y: 50 + index * (this.beatmapsMargin + this.beatmpasHeight),
         title: beatmap.title,
-        author: beatmap.author,
+        creator: beatmap.creator,
         active: this.currentBeatmapId === index,
       });
 
@@ -71,7 +74,7 @@ export class SongsContainer extends Phaser.GameObjects.Container {
       this.beatmaps[beatmapId].showHide('show');
       this.onBeatmapUpdate(beatmapId);
     } else {
-      this.scene.scene.start('MainScene');
+      this.onBeatmapSelect();
     }
   }
 }
