@@ -7,6 +7,7 @@ export class RankingTile extends Phaser.GameObjects.Container {
   nickObject: Text;
   scoreObject: Text;
   maxComboObject: Text;
+  accuracyObject: Text;
 
   constructor(aParams: IRankingTile) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -63,10 +64,21 @@ export class RankingTile extends Phaser.GameObjects.Container {
     });
     this.maxComboObject.setOrigin(0, 0.5);
 
+    this.accuracyObject = new Text({
+      scene: this.scene,
+      x: 600,
+      y: (this.backgroundObject.height / 4) * 3,
+      text: `${aParams.accuracy}%`,
+      fontSize: '28px',
+      color: 'white',
+    });
+    this.accuracyObject.setOrigin(0, 0.5);
+
     this.add(this.backgroundObject);
     this.add(this.placeObject);
     this.add(this.nickObject);
     this.add(this.scoreObject);
     this.add(this.maxComboObject);
+    this.add(this.accuracyObject);
   }
 }
