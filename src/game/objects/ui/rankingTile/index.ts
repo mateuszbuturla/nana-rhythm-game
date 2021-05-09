@@ -6,6 +6,7 @@ export class RankingTile extends Phaser.GameObjects.Container {
   placeObject: Text;
   nickObject: Text;
   scoreObject: Text;
+  maxComboObject: Text;
 
   constructor(aParams: IRankingTile) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -52,9 +53,20 @@ export class RankingTile extends Phaser.GameObjects.Container {
     });
     this.scoreObject.setOrigin(0, 0.5);
 
+    this.maxComboObject = new Text({
+      scene: this.scene,
+      x: 600,
+      y: this.backgroundObject.height / 4,
+      text: `${aParams.maxCombo}x`,
+      fontSize: '28px',
+      color: 'white',
+    });
+    this.maxComboObject.setOrigin(0, 0.5);
+
     this.add(this.backgroundObject);
     this.add(this.placeObject);
     this.add(this.nickObject);
     this.add(this.scoreObject);
+    this.add(this.maxComboObject);
   }
 }
