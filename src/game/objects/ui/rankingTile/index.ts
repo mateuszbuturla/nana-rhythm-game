@@ -5,6 +5,7 @@ export class RankingTile extends Phaser.GameObjects.Container {
   backgroundObject: Phaser.GameObjects.Sprite;
   placeObject: Text;
   nickObject: Text;
+  scoreObject: Text;
 
   constructor(aParams: IRankingTile) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -41,8 +42,19 @@ export class RankingTile extends Phaser.GameObjects.Container {
     });
     this.nickObject.setOrigin(0, 0.5);
 
+    this.scoreObject = new Text({
+      scene: this.scene,
+      x: 400,
+      y: this.backgroundObject.height / 2,
+      text: String(aParams.score),
+      fontSize: '28px',
+      color: 'white',
+    });
+    this.scoreObject.setOrigin(0, 0.5);
+
     this.add(this.backgroundObject);
     this.add(this.placeObject);
     this.add(this.nickObject);
+    this.add(this.scoreObject);
   }
 }
