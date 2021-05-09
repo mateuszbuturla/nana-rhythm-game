@@ -20,6 +20,7 @@ import difficultyHard from '../../../assets/ui/difficultyHard.png';
 import difficultyInsane from '../../../assets/ui/difficultyInsane.png';
 import difficultyImposible from '../../../assets/ui/difficultyImposible.png';
 import rankingTileBackground from '../../../assets/ui/rankingTileBackground.png';
+import rankingTileBackgroundDecoration from '../../../assets/ui/rankingTileBackgroundDecoration.png';
 import { Audio } from '../core/audio';
 import { RankingTile } from '../objects/ui/rankingTile';
 
@@ -54,6 +55,10 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('difficultyInsane', difficultyInsane);
     this.load.image('difficultyImposible', difficultyImposible);
     this.load.image('rankingTileBackground', rankingTileBackground);
+    this.load.image(
+      'rankingTileBackgroundDecoration',
+      rankingTileBackgroundDecoration,
+    );
     // store.dispatch(setCurrentMapId(0));
     // store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.currentBeatmap = store.getState().currentMap.currentMap;
@@ -165,6 +170,7 @@ export class SongSelection extends Phaser.Scene {
   }
 
   update(): void {
+    this.testRankingTile.update();
     // console.log(this.cache.audio.entries.entries);
     if (this.keyboard.select.isDown) {
       this.playBeatmap();
