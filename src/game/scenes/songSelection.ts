@@ -66,6 +66,11 @@ export class SongSelection extends Phaser.Scene {
     this.score = new Score();
   }
 
+  playBeatmap = (): void => {
+    this.audio.stopMusic();
+    this.scene.start('MainScene');
+  };
+
   updateSelectedBeatmap = (newSelectedSong: number): void => {
     this.currentBeatmap = this.beatmaps[newSelectedSong];
 
@@ -108,6 +113,7 @@ export class SongSelection extends Phaser.Scene {
       y: 100,
       beatmaps: this.beatmaps,
       onBeatmapUpdate: this.updateSelectedBeatmap,
+      onBeatmapSelect: this.playBeatmap,
     });
 
     this.topBar = new TopBar({
@@ -145,7 +151,7 @@ export class SongSelection extends Phaser.Scene {
   update(): void {
     // console.log(this.cache.audio.entries.entries);
     if (this.keyboard.select.isDown) {
-      this.scene.start('MainScene');
+      this.playBeatmap();
     }
   }
 }
