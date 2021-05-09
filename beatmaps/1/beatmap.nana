@@ -16,7 +16,5 @@ background:background.png
 [NOTES]
 0:up
 500:down
-1500:up
-1600:up
-1700:up
+1600:double
 [/NOTES]

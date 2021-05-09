@@ -106,7 +106,22 @@ export class Game {
     const width: number = this.scene.game.canvas.width;
     this.beatmap.notes.map((note, index) => {
       setTimeout(() => {
-        console.log(note);
+        if (note.direction === 'double') {
+          const newNoteTop = new HitNote({
+            scene: this.scene,
+            x: width + Number(this.hitPosition),
+            y: 350,
+            texture: 'hitNoteTop',
+          });
+          const newNoteBottom = new HitNote({
+            scene: this.scene,
+            x: width + Number(this.hitPosition),
+            y: 650,
+            texture: 'hitNoteBottom',
+          });
+          this.notesObject = [...this.notesObject, newNoteTop, newNoteBottom];
+          return;
+        }
 
         const newNote = new HitNote({
           scene: this.scene,
@@ -119,7 +134,29 @@ export class Game {
     });
   }
 
-  createNoteAccuracy(direction: 'up' | 'down', type: ENoteAccuracy) {
+  createNoteAccuracy(direction: 'up' | 'down' | 'double', type: ENoteAccuracy) {
+    if (direction === 'double') {
+      const noteAccuracyTop = new NoteAccuracy({
+        scene: this.scene,
+        x: this.hitPosition,
+        y: 350,
+        text: noteAccuracyConfig.accuracy[type].text,
+        color: noteAccuracyConfig.accuracy[type].color,
+      });
+      const noteAccuracyBottom = new NoteAccuracy({
+        scene: this.scene,
+        x: this.hitPosition,
+        y: 650,
+        text: noteAccuracyConfig.accuracy[type].text,
+        color: noteAccuracyConfig.accuracy[type].color,
+      });
+      this.notesAccuracy = [
+        ...this.notesAccuracy,
+        { object: noteAccuracyTop, createdTime: Date.now() },
+        { object: noteAccuracyBottom, createdTime: Date.now() },
+      ];
+    }
+
     const noteAccuracy = new NoteAccuracy({
       scene: this.scene,
       x: this.hitPosition,
@@ -160,6 +197,16 @@ export class Game {
                 const accuracy = calculateNoteAccuracy(note.delay, time);
                 this.audio.playHitsound();
                 this.createNoteAccuracy('down', accuracy);
+                this.score.addHittedNotes(accuracy);
+                this.score.increaseCombo();
+                this.health.increaseHealth(accuracy);
+              }
+              break;
+            case 'double':
+              if (this.keyboard.down.isDown) {
+                const accuracy = calculateNoteAccuracy(note.delay, time);
+                this.audio.playHitsound();
+                this.createNoteAccuracy('double', accuracy);
                 this.score.addHittedNotes(accuracy);
                 this.score.increaseCombo();
                 this.health.increaseHealth(accuracy);
