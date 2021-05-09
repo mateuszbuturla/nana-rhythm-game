@@ -43,6 +43,8 @@ export class Game {
   loseScreen: LoseScreen;
   gameState: EGameState;
   userConfig: any;
+  canHitTopSide: boolean = true;
+  canHitBottomSide: boolean = true;
 
   constructor(aParams: IGame) {
     this.scene = aParams.scene;
@@ -173,6 +175,15 @@ export class Game {
   handleNoteClick(): void {
     const width: number = this.scene.game.canvas.width;
     const time = Date.now() - (this.startTime + this.breakBeforeTakeOff);
+
+    if (!this.keyboard.up.isDown) {
+      this.canHitTopSide = true;
+    }
+
+    if (!this.keyboard.down.isDown) {
+      this.canHitBottomSide = true;
+    }
+
     if (this.startTime !== 0) {
       const hittedNotes = store.getState().mapResult.hittedNotes;
       this.beatmap.notes.map((note, index) => {
@@ -183,7 +194,8 @@ export class Game {
         ) {
           switch (note.direction) {
             case 'up':
-              if (this.keyboard.up.isDown) {
+              if (this.keyboard.up.isDown && this.canHitTopSide) {
+                this.canHitTopSide = false;
                 const accuracy = calculateNoteAccuracy(note.delay, time);
                 this.audio.playHitsound();
                 this.createNoteAccuracy('up', accuracy);
@@ -193,7 +205,8 @@ export class Game {
               }
               break;
             case 'down':
-              if (this.keyboard.down.isDown) {
+              if (this.keyboard.down.isDown && this.canHitBottomSide) {
+                this.canHitBottomSide = false;
                 const accuracy = calculateNoteAccuracy(note.delay, time);
                 this.audio.playHitsound();
                 this.createNoteAccuracy('down', accuracy);
@@ -203,7 +216,13 @@ export class Game {
               }
               break;
             case 'double':
-              if (this.keyboard.down.isDown) {
+              if (
+                this.keyboard.down.isDown &&
+                this.canHitTopSide &&
+                this.canHitTopSide
+              ) {
+                this.canHitTopSide = false;
+                this.canHitBottomSide = false;
                 const accuracy = calculateNoteAccuracy(note.delay, time);
                 this.audio.playHitsound();
                 this.createNoteAccuracy('double', accuracy);
