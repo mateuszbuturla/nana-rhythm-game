@@ -19,7 +19,9 @@ import difficultyMedium from '../../../assets/ui/difficultyMedium.png';
 import difficultyHard from '../../../assets/ui/difficultyHard.png';
 import difficultyInsane from '../../../assets/ui/difficultyInsane.png';
 import difficultyImposible from '../../../assets/ui/difficultyImposible.png';
+import rankingTileBackground from '../../../assets/ui/rankingTileBackground.png';
 import { Audio } from '../core/audio';
+import { RankingTile } from '../objects/ui/rankingTile';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -33,6 +35,7 @@ export class SongSelection extends Phaser.Scene {
   currentBeatmap: IMap;
   beatmapInfo: BeatmapInfo;
   audio: Audio;
+  testRankingTile: RankingTile;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -50,6 +53,7 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('difficultyHard', difficultyHard);
     this.load.image('difficultyInsane', difficultyInsane);
     this.load.image('difficultyImposible', difficultyImposible);
+    this.load.image('rankingTileBackground', rankingTileBackground);
     // store.dispatch(setCurrentMapId(0));
     // store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.currentBeatmap = store.getState().currentMap.currentMap;
@@ -146,6 +150,17 @@ export class SongSelection extends Phaser.Scene {
       beatmapMusic: `beatmapAudio${this.currentBeatmap.beatmapid}`,
     });
     this.audio.playMusic();
+
+    this.testRankingTile = new RankingTile({
+      scene: this,
+      x: 300,
+      y: 300,
+      avatar: 'test',
+      nick: 'Bucik689',
+      score: 133351,
+      accuracy: 97.55,
+      maxCombo: 312,
+    });
   }
 
   update(): void {
