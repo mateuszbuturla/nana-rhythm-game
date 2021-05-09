@@ -155,6 +155,7 @@ export class SongSelection extends Phaser.Scene {
       scene: this,
       x: 300,
       y: 300,
+      place: 1,
       avatar: 'test',
       nick: 'Bucik689',
       score: 133351,
