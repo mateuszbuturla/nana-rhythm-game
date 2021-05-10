@@ -1,5 +1,5 @@
 interface IReplay {
-  beatmapId: string;
+  beatmapId: number;
   score: number;
   accuracy: number;
   perfectCount: number;

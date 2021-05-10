@@ -38,7 +38,6 @@ export class ResultScene extends Phaser.Scene {
   topBar: TopBar;
   transition: SceneTransition;
   replay: Replay;
-  currentBeatmap: IMap;
 
   constructor() {
     super({ key: 'ResultScene' });
@@ -56,11 +55,10 @@ export class ResultScene extends Phaser.Scene {
     this.preload();
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
-
+    console.log(getCombo());
     this.replay = new Replay();
-
     this.replay.saveLocalReplay({
-      beatmapId: getCurrentMap().beatmapid,
+      beatmapId: Number(store.getState().currentMap.currentMap.beatmapid),
       score: calculateCurrentScore(getHittedNotes()),
       accuracy: calculateOveralAccuracy(getHittedNotes()),
       perfectCount: getCountOfHittedNotesFromType(
