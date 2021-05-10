@@ -21,6 +21,8 @@ import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
 import { TopBar } from '../objects/ui/topBar';
 import store from '../redux/store';
 import { SceneTransition } from '../objects/ui/sceneTransition';
+import { Replay } from '../core/replay';
+import { IMap } from '../interfaces/map.interface';
 
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;
@@ -34,12 +36,15 @@ export class ResultScene extends Phaser.Scene {
   maxCombo: LabelValue;
   topBar: TopBar;
   transition: SceneTransition;
+  replay: Replay;
+  currentBeatmap: IMap;
 
   constructor() {
     super({ key: 'ResultScene' });
   }
 
   preload(): void {
+    this.currentBeatmap = store.getState().currentMap.currentMap;
     this.scene.stop('MainScene');
     this.load.image('background', background);
     this.load.image('gradient', gradient);
@@ -51,6 +56,33 @@ export class ResultScene extends Phaser.Scene {
     this.preload();
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
+
+    this.replay = new Replay();
+
+    setTimeout(() => {
+      this.replay.saveLocalReplay({
+        beatmapId: this.currentBeatmap.beatmapid,
+        score: calculateCurrentScore(getHittedNotes()),
+        accuracy: calculateOveralAccuracy(getHittedNotes()),
+        perfectCount: getCountOfHittedNotesFromType(
+          ENoteAccuracy.Perfect,
+          getHittedNotes(),
+        ),
+        goodCount: getCountOfHittedNotesFromType(
+          ENoteAccuracy.Good,
+          getHittedNotes(),
+        ),
+        badCount: getCountOfHittedNotesFromType(
+          ENoteAccuracy.Bad,
+          getHittedNotes(),
+        ),
+        missCount: getCountOfHittedNotesFromType(
+          ENoteAccuracy.Miss,
+          getHittedNotes(),
+        ),
+        maxCombo: getCombo().maxCombo,
+      });
+    }, 3000);
 
     this.background = new UiBackground({
       scene: this,
