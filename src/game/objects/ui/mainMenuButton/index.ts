@@ -40,7 +40,7 @@ export class MainMenuButton extends Phaser.GameObjects.Container {
     this.on('pointerover', this.hover);
     this.on('pointerout', this.unHover);
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       const x = Math.random() * this.getBounds().width;
       const y = Math.random() * this.getBounds().height;
       const speed = Math.random() * 4 + 1;

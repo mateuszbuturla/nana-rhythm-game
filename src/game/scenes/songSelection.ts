@@ -19,7 +19,11 @@ import difficultyMedium from '../../../assets/ui/difficultyMedium.png';
 import difficultyHard from '../../../assets/ui/difficultyHard.png';
 import difficultyInsane from '../../../assets/ui/difficultyInsane.png';
 import difficultyImposible from '../../../assets/ui/difficultyImposible.png';
+import rankingTileBackground from '../../../assets/ui/rankingTileBackground.png';
+import rankingTileBackgroundDecoration from '../../../assets/ui/rankingTileBackgroundDecoration.png';
 import { Audio } from '../core/audio';
+import { RankingTile } from '../objects/ui/rankingTile';
+import { RankingContainer } from '../objects/ui/rankingContainer';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -33,6 +37,7 @@ export class SongSelection extends Phaser.Scene {
   currentBeatmap: IMap;
   beatmapInfo: BeatmapInfo;
   audio: Audio;
+  rankingContainerObject: RankingContainer;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -50,6 +55,11 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('difficultyHard', difficultyHard);
     this.load.image('difficultyInsane', difficultyInsane);
     this.load.image('difficultyImposible', difficultyImposible);
+    this.load.image('rankingTileBackground', rankingTileBackground);
+    this.load.image(
+      'rankingTileBackgroundDecoration',
+      rankingTileBackgroundDecoration,
+    );
     // store.dispatch(setCurrentMapId(0));
     // store.dispatch(setCurrentMap(this.beatmaps[0]));
     this.currentBeatmap = store.getState().currentMap.currentMap;
@@ -146,10 +156,50 @@ export class SongSelection extends Phaser.Scene {
       beatmapMusic: `beatmapAudio${this.currentBeatmap.beatmapid}`,
     });
     this.audio.playMusic();
+
+    this.rankingContainerObject = new RankingContainer({
+      scene: this,
+      x: 1100,
+      y: 603,
+      places: [
+        {
+          place: 1,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 133351,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+        {
+          place: 2,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 133341,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+        {
+          place: 3,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 133331,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+        {
+          place: 4,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 132331,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+      ],
+    });
   }
 
   update(): void {
-    // console.log(this.cache.audio.entries.entries);
+    this.rankingContainerObject.update();
     if (this.keyboard.select.isDown) {
       this.playBeatmap();
     }

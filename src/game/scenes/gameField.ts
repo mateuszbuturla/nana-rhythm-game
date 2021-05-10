@@ -49,7 +49,13 @@ export class GameField extends Phaser.Scene {
 
   create(): void {
     store.dispatch(setHittedNotes([]));
-    store.dispatch(setCombo({ combo: 0, maxCombo: 0 }));
+    store.dispatch(
+      setCombo({
+        combo: 0,
+        maxCombo: 0,
+        id: Number(this.currentMap.beatmapid),
+      }),
+    );
     this.gameBackground = new UiBackground({
       scene: this,
       background: `beatmapBackground${this.currentMap.beatmapid}`,
