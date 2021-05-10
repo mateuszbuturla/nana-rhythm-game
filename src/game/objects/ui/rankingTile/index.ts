@@ -101,6 +101,13 @@ export class RankingTile extends Phaser.GameObjects.Container {
     this.add(this.accuracyObject);
   }
 
+  getSize() {
+    return {
+      width: this.backgroundObject.width,
+      height: this.backgroundObject.height,
+    };
+  }
+
   updateMask() {
     this.mask = this.scene.make.graphics({ fillStroke: 0xffffff });
     this.mask.beginPath();

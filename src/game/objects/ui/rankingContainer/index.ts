@@ -4,7 +4,7 @@ import { RankingTile } from '../rankingTile';
 export class RankingContainer extends Phaser.GameObjects.Container {
   rankingTiles: RankingTile[] = [];
   canBeScrolled: boolean = true;
-  rankingTileMargin: number = 30;
+  rankingTileMargin: number = 10;
 
   constructor(aParams: IRankingContainer) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -28,7 +28,7 @@ export class RankingContainer extends Phaser.GameObjects.Container {
         accuracy: place.accuracy,
         maxCombo: place.maxCombo,
       });
-      tileHeight = newRankingTile.height;
+      tileHeight = newRankingTile.getSize().height;
 
       this.add(newRankingTile);
       this.rankingTiles = [...this.rankingTiles, newRankingTile];
