@@ -199,7 +199,7 @@ export class SongSelection extends Phaser.Scene {
   }
 
   update(): void {
-    // console.log(this.cache.audio.entries.entries);
+    this.rankingContainerObject.update();
     if (this.keyboard.select.isDown) {
       this.playBeatmap();
     }

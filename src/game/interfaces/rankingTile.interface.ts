@@ -1,3 +1,5 @@
+import { IPosition } from './position.interface';
+
 interface IRankingTile {
   scene: Phaser.Scene;
   x: number;
@@ -8,6 +10,7 @@ interface IRankingTile {
   score: number;
   accuracy: number;
   maxCombo: number;
+  parentPosition?: IPosition;
 }
 
 interface IRankingData {

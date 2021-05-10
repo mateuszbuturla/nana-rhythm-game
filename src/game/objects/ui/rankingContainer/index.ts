@@ -27,11 +27,21 @@ export class RankingContainer extends Phaser.GameObjects.Container {
         score: place.score,
         accuracy: place.accuracy,
         maxCombo: place.maxCombo,
+        parentPosition: {
+          x: this.x,
+          y: this.y,
+        },
       });
       tileHeight = newRankingTile.getSize().height;
 
       this.add(newRankingTile);
       this.rankingTiles = [...this.rankingTiles, newRankingTile];
+    });
+  }
+
+  update(): void {
+    this.rankingTiles.map((tile) => {
+      tile.update();
     });
   }
 }
