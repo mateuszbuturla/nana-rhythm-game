@@ -23,6 +23,7 @@ import rankingTileBackground from '../../../assets/ui/rankingTileBackground.png'
 import rankingTileBackgroundDecoration from '../../../assets/ui/rankingTileBackgroundDecoration.png';
 import { Audio } from '../core/audio';
 import { RankingTile } from '../objects/ui/rankingTile';
+import { RankingContainer } from '../objects/ui/rankingContainer';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -36,7 +37,7 @@ export class SongSelection extends Phaser.Scene {
   currentBeatmap: IMap;
   beatmapInfo: BeatmapInfo;
   audio: Audio;
-  testRankingTile: RankingTile;
+  rankingContainerObject: RankingContainer;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -156,22 +157,49 @@ export class SongSelection extends Phaser.Scene {
     });
     this.audio.playMusic();
 
-    this.testRankingTile = new RankingTile({
+    this.rankingContainerObject = new RankingContainer({
       scene: this,
-      x: 300,
-      y: 300,
-      place: 1,
-      avatar: 'test',
-      nick: 'Bucik689',
-      score: 133351,
-      accuracy: 97.55,
-      maxCombo: 312,
+      x: 1100,
+      y: 603,
+      places: [
+        {
+          place: 1,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 133351,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+        {
+          place: 2,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 133341,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+        {
+          place: 3,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 133331,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+        {
+          place: 4,
+          avatar: 'test',
+          nick: 'Bucik689',
+          score: 132331,
+          accuracy: 97.55,
+          maxCombo: 312,
+        },
+      ],
     });
   }
 
   update(): void {
-    this.testRankingTile.update();
-    // console.log(this.cache.audio.entries.entries);
+    this.rankingContainerObject.update();
     if (this.keyboard.select.isDown) {
       this.playBeatmap();
     }

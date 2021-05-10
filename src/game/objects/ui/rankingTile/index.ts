@@ -1,6 +1,7 @@
 import { IRankingTile } from '../../../interfaces/rankingTile.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
+import { IPosition } from '../../../interfaces/position.interface';
 
 export class RankingTile extends Phaser.GameObjects.Container {
   backgroundObject: Phaser.GameObjects.Sprite;
@@ -12,9 +13,14 @@ export class RankingTile extends Phaser.GameObjects.Container {
   scoreObject: Text;
   maxComboObject: Text;
   accuracyObject: Text;
+  parentPosition?: IPosition;
 
   constructor(aParams: IRankingTile) {
     super(aParams.scene, aParams.x, aParams.y);
+
+    if (aParams.parentPosition) {
+      this.parentPosition = aParams.parentPosition;
+    }
 
     this.initRankingTile(aParams);
     this.scene.add.existing(this);
@@ -101,13 +107,28 @@ export class RankingTile extends Phaser.GameObjects.Container {
     this.add(this.accuracyObject);
   }
 
+  getSize() {
+    return {
+      width: this.backgroundObject.width,
+      height: this.backgroundObject.height,
+    };
+  }
+
   updateMask() {
     this.mask = this.scene.make.graphics({ fillStroke: 0xffffff });
     this.mask.beginPath();
 
+    let x = this.x;
+    let y = this.y;
+
+    if (this.parentPosition) {
+      x += this.parentPosition.x;
+      y += this.parentPosition.y;
+    }
+
     this.mask.fillRect(
-      this.x,
-      this.y,
+      x,
+      y,
       this.backgroundObject.width,
       this.backgroundObject.height,
     );
