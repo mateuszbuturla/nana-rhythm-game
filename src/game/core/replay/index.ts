@@ -12,12 +12,14 @@ export class Replay {
       fs.mkdirSync(`./replays`);
     }
 
-    if (!fs.existsSync(`./replays/${replayData.score}`)) {
-      fs.mkdirSync(`./replays/${replayData.score}`);
+    if (!fs.existsSync(`./replays/${replayData.beatmapId}`)) {
+      fs.mkdirSync(`./replays/${replayData.beatmapId}`);
     }
 
-    fs.writeFile(`./replays/${replayData.score}/${uuidv4()}.rnana`, '', (e) => {
-      console.log(e);
-    });
+    fs.writeFile(
+      `./replays/${replayData.beatmapId}/${uuidv4()}.rnana`,
+      replayFileContent,
+      () => {},
+    );
   }
 }

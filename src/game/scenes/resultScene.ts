@@ -6,6 +6,7 @@ import {
   setCombo,
   setHittedNotes,
 } from '../redux/mapResult';
+import { getCurrentMap } from '../redux/currentMap';
 import {
   calculateCurrentScore,
   getCountOfHittedNotesFromType,
@@ -44,7 +45,6 @@ export class ResultScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.currentBeatmap = store.getState().currentMap.currentMap;
     this.scene.stop('MainScene');
     this.load.image('background', background);
     this.load.image('gradient', gradient);
@@ -59,30 +59,28 @@ export class ResultScene extends Phaser.Scene {
 
     this.replay = new Replay();
 
-    setTimeout(() => {
-      this.replay.saveLocalReplay({
-        beatmapId: this.currentBeatmap.beatmapid,
-        score: calculateCurrentScore(getHittedNotes()),
-        accuracy: calculateOveralAccuracy(getHittedNotes()),
-        perfectCount: getCountOfHittedNotesFromType(
-          ENoteAccuracy.Perfect,
-          getHittedNotes(),
-        ),
-        goodCount: getCountOfHittedNotesFromType(
-          ENoteAccuracy.Good,
-          getHittedNotes(),
-        ),
-        badCount: getCountOfHittedNotesFromType(
-          ENoteAccuracy.Bad,
-          getHittedNotes(),
-        ),
-        missCount: getCountOfHittedNotesFromType(
-          ENoteAccuracy.Miss,
-          getHittedNotes(),
-        ),
-        maxCombo: getCombo().maxCombo,
-      });
-    }, 3000);
+    this.replay.saveLocalReplay({
+      beatmapId: getCurrentMap().beatmapid,
+      score: calculateCurrentScore(getHittedNotes()),
+      accuracy: calculateOveralAccuracy(getHittedNotes()),
+      perfectCount: getCountOfHittedNotesFromType(
+        ENoteAccuracy.Perfect,
+        getHittedNotes(),
+      ),
+      goodCount: getCountOfHittedNotesFromType(
+        ENoteAccuracy.Good,
+        getHittedNotes(),
+      ),
+      badCount: getCountOfHittedNotesFromType(
+        ENoteAccuracy.Bad,
+        getHittedNotes(),
+      ),
+      missCount: getCountOfHittedNotesFromType(
+        ENoteAccuracy.Miss,
+        getHittedNotes(),
+      ),
+      maxCombo: getCombo().maxCombo,
+    });
 
     this.background = new UiBackground({
       scene: this,
