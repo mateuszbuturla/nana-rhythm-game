@@ -159,8 +159,8 @@ export class SongSelection extends Phaser.Scene {
 
     this.rankingContainerObject = new RankingContainer({
       scene: this,
-      x: 400,
-      y: 400,
+      x: 1100,
+      y: 603,
       places: [
         {
           place: 1,
