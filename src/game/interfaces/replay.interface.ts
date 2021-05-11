@@ -1,4 +1,6 @@
 interface IReplay {
+  avatar: string;
+  nick: string;
   beatmapId: number;
   score: number;
   accuracy: number;
