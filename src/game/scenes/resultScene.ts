@@ -58,6 +58,8 @@ export class ResultScene extends Phaser.Scene {
     console.log(getCombo());
     this.replay = new Replay();
     this.replay.saveLocalReplay({
+      avatar: '',
+      nick: 'Bucik689',
       beatmapId: Number(store.getState().currentMap.currentMap.beatmapid),
       score: calculateCurrentScore(getHittedNotes()),
       accuracy: calculateOveralAccuracy(getHittedNotes()),
