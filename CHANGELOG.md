@@ -1,3 +1,13 @@
+## 2.9.0 (2021-05-11)
+
+- features:
+- create double note
+- change beatmap info design
+- create local ranking
+
+- bug fixes:
+- fixed that one click can hit many notes
+
 ## 2.8.0 (2021-05-08)
 
 - features:
