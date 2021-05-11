@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { IReplay } from '../../interfaces/replay.interface';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
+import { IRankingData } from '../../interfaces/rankingTile.interface';
 
 export class Replay {
   private tempBeatmapReplaysDir: string[] = [];
@@ -33,7 +34,7 @@ export class Replay {
 
     this.fromDir('./replays/1', '.rnana');
 
-    let replays: IReplay[] = [];
+    let replays: IRankingData[] = [];
 
     this.tempBeatmapReplaysDir.map((replayDir, index) => {
       const fullReplayDir = `./${replayDir}`;

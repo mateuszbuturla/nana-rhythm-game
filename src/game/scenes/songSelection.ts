@@ -76,6 +76,7 @@ export class SongSelection extends Phaser.Scene {
       );
     });
     this.score = new Score();
+    this.replay = new Replay();
   }
 
   playBeatmap = (): void => {
@@ -159,49 +160,11 @@ export class SongSelection extends Phaser.Scene {
     });
     this.audio.playMusic();
 
-    this.replay = new Replay();
-
-    this.replay.getLocalScoresForBeatmap(1);
-
     this.rankingContainerObject = new RankingContainer({
       scene: this,
       x: 1100,
       y: 603,
-      places: [
-        //Do to: Load local replays here
-        {
-          place: 1,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 133351,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-        {
-          place: 2,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 133341,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-        {
-          place: 3,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 133331,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-        {
-          place: 4,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 132331,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-      ],
+      places: this.replay.getLocalScoresForBeatmap(1),
     });
   }
 
