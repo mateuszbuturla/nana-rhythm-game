@@ -24,6 +24,7 @@ import rankingTileBackgroundDecoration from '../../../assets/ui/rankingTileBackg
 import { Audio } from '../core/audio';
 import { RankingTile } from '../objects/ui/rankingTile';
 import { RankingContainer } from '../objects/ui/rankingContainer';
+import { Replay } from '../core/replay';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -38,6 +39,7 @@ export class SongSelection extends Phaser.Scene {
   beatmapInfo: BeatmapInfo;
   audio: Audio;
   rankingContainerObject: RankingContainer;
+  replay: Replay;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -74,6 +76,7 @@ export class SongSelection extends Phaser.Scene {
       );
     });
     this.score = new Score();
+    this.replay = new Replay();
   }
 
   playBeatmap = (): void => {
@@ -81,7 +84,19 @@ export class SongSelection extends Phaser.Scene {
     this.scene.start('MainScene');
   };
 
+  generateBeatmapRanking(newBeatmapId: number) {
+    this.rankingContainerObject = new RankingContainer({
+      scene: this,
+      x: 1100,
+      y: 603,
+      places: this.replay
+        .getLocalScoresForBeatmap(Number(newBeatmapId))
+        .sort((a, b) => (a.score > b.score ? -1 : 1)),
+    });
+  }
+
   updateSelectedBeatmap = (newSelectedSong: number): void => {
+    this.rankingContainerObject.destroy();
     this.currentBeatmap = this.beatmaps[newSelectedSong];
 
     this.audio.stopMusic();
@@ -98,6 +113,7 @@ export class SongSelection extends Phaser.Scene {
 
     store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
+    this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
   };
 
   create(): void {
@@ -157,45 +173,7 @@ export class SongSelection extends Phaser.Scene {
     });
     this.audio.playMusic();
 
-    this.rankingContainerObject = new RankingContainer({
-      scene: this,
-      x: 1100,
-      y: 603,
-      places: [
-        {
-          place: 1,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 133351,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-        {
-          place: 2,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 133341,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-        {
-          place: 3,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 133331,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-        {
-          place: 4,
-          avatar: 'test',
-          nick: 'Bucik689',
-          score: 132331,
-          accuracy: 97.55,
-          maxCombo: 312,
-        },
-      ],
-    });
+    this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
   }
 
   update(): void {
