@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { IReplay } from '../../interfaces/replay.interface';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
+import { IRankingData } from '../../interfaces/rankingTile.interface';
 
 export class Replay {
   private tempBeatmapReplaysDir: string[] = [];
@@ -26,14 +27,13 @@ export class Replay {
 
   getLocalScoresForBeatmap(beatmapId: number) {
     const beatmapReplaysPath = `./replays/${beatmapId}`;
-
     if (!fs.existsSync(beatmapReplaysPath)) {
       return [];
     }
 
-    this.fromDir('./replays/1', '.rnana');
+    this.fromDir(beatmapReplaysPath, '.rnana');
 
-    let replays: IReplay[] = [];
+    let replays: IRankingData[] = [];
 
     this.tempBeatmapReplaysDir.map((replayDir, index) => {
       const fullReplayDir = `./${replayDir}`;
@@ -55,6 +55,8 @@ export class Replay {
 
       replays = [...replays, replay];
     });
+
+    this.tempBeatmapReplaysDir = [];
 
     return replays;
   }
