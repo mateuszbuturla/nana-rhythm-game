@@ -91,7 +91,8 @@ export class SongSelection extends Phaser.Scene {
       y: 603,
       places: this.replay
         .getLocalScoresForBeatmap(Number(newBeatmapId))
-        .sort((a, b) => (a.score > b.score ? -1 : 1)),
+        .sort((a, b) => (a.score > b.score ? -1 : 1))
+        .map((replay, index) => ({ ...replay, place: index + 1 })),
     });
   }
 
