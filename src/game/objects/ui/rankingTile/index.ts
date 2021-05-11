@@ -1,3 +1,4 @@
+import { easeInOutExpo } from './../../../utils/eases';
 import { IRankingTile } from '../../../interfaces/rankingTile.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
@@ -24,6 +25,21 @@ export class RankingTile extends Phaser.GameObjects.Container {
 
     this.initRankingTile(aParams);
     this.scene.add.existing(this);
+  }
+
+  showTileAnimation(delay: number) {
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      delay: delay,
+      targets: this,
+      alpha: 1,
+      x: this.x + 30,
+      ease: easeInOutExpo,
+      duration: 400,
+    });
+
+    showAnimation.play();
   }
 
   initRankingTile(aParams: IRankingTile): void {
@@ -105,6 +121,9 @@ export class RankingTile extends Phaser.GameObjects.Container {
     this.add(this.scoreObject);
     this.add(this.maxComboObject);
     this.add(this.accuracyObject);
+    this.setAlpha(0);
+    this.setX(this.x - 30);
+    this.showTileAnimation(200 + aParams.index * 300);
   }
 
   getSize() {

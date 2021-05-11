@@ -31,6 +31,7 @@ export class RankingContainer extends Phaser.GameObjects.Container {
           x: this.x,
           y: this.y,
         },
+        index: index,
       });
       tileHeight = newRankingTile.getSize().height;
 
