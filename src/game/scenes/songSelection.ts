@@ -84,7 +84,19 @@ export class SongSelection extends Phaser.Scene {
     this.scene.start('MainScene');
   };
 
+  generateBeatmapRanking(newBeatmapId: number) {
+    this.rankingContainerObject = new RankingContainer({
+      scene: this,
+      x: 1100,
+      y: 603,
+      places: this.replay
+        .getLocalScoresForBeatmap(Number(newBeatmapId))
+        .sort((a, b) => (a.score > b.score ? -1 : 1)),
+    });
+  }
+
   updateSelectedBeatmap = (newSelectedSong: number): void => {
+    this.rankingContainerObject.destroy();
     this.currentBeatmap = this.beatmaps[newSelectedSong];
 
     this.audio.stopMusic();
@@ -101,6 +113,7 @@ export class SongSelection extends Phaser.Scene {
 
     store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
+    this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
   };
 
   create(): void {
@@ -160,18 +173,11 @@ export class SongSelection extends Phaser.Scene {
     });
     this.audio.playMusic();
 
-    this.rankingContainerObject = new RankingContainer({
-      scene: this,
-      x: 1100,
-      y: 603,
-      places: this.replay
-        .getLocalScoresForBeatmap(1)
-        .sort((a, b) => (a.score > b.score ? -1 : 1)),
-    });
+    this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
   }
 
   update(): void {
-    this.rankingContainerObject.update();
+    //this.rankingContainerObject && this.rankingContainerObject.update();
     if (this.keyboard.select.isDown) {
       this.playBeatmap();
     }

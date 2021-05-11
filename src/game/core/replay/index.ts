@@ -27,12 +27,11 @@ export class Replay {
 
   getLocalScoresForBeatmap(beatmapId: number) {
     const beatmapReplaysPath = `./replays/${beatmapId}`;
-
     if (!fs.existsSync(beatmapReplaysPath)) {
       return [];
     }
 
-    this.fromDir('./replays/1', '.rnana');
+    this.fromDir(beatmapReplaysPath, '.rnana');
 
     let replays: IRankingData[] = [];
 
@@ -56,6 +55,8 @@ export class Replay {
 
       replays = [...replays, replay];
     });
+
+    this.tempBeatmapReplaysDir = [];
 
     return replays;
   }
