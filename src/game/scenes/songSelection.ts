@@ -164,7 +164,9 @@ export class SongSelection extends Phaser.Scene {
       scene: this,
       x: 1100,
       y: 603,
-      places: this.replay.getLocalScoresForBeatmap(1),
+      places: this.replay
+        .getLocalScoresForBeatmap(1)
+        .sort((a, b) => (a.score > b.score ? -1 : 1)),
     });
   }
 
