@@ -11,6 +11,7 @@ interface IRankingTile {
   accuracy: number;
   maxCombo: number;
   parentPosition?: IPosition;
+  index: number;
 }
 
 interface IRankingData {
