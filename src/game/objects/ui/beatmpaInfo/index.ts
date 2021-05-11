@@ -55,7 +55,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       0,
       0,
       789,
-      775,
+      444,
       0x000000,
     );
     this.backgroundDimObject.setOrigin(0);
@@ -98,7 +98,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.beatmapDifficultyObject = new Text({
       scene: this.scene,
       x: 40,
-      y: 282,
+      y: 214,
       text: `${Number(this.currentBeatmap.difficulty)}*`,
       color: 'white',
       fontSize: '121px',
@@ -106,38 +106,38 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
 
     this.beatmapNotesCountObject = new Text({
       scene: this.scene,
-      x: 40,
-      y: 463,
+      x: 434,
+      y: 341,
       text: `${this.currentBeatmap.notes.length} Notes`,
       color: 'white',
-      fontSize: '44px',
+      fontSize: '32px',
     });
 
     this.beatmapSlidersCountObject = new Text({
       scene: this.scene,
-      x: 40,
-      y: 533,
+      x: 434,
+      y: 386,
       text: `${this.currentBeatmap.notes.length} Sliders`,
       color: 'white',
-      fontSize: '44px',
+      fontSize: '32px',
     });
 
     this.beatmapBpmObject = new Text({
       scene: this.scene,
       x: 40,
-      y: 606,
+      y: 341,
       text: `${Number(this.currentBeatmap.bpm)} BPM`,
       color: 'white',
-      fontSize: '44px',
+      fontSize: '32px',
     });
 
     this.beatmapMaxComboObject = new Text({
       scene: this.scene,
       x: 40,
-      y: 679,
+      y: 386,
       text: `${Number(this.currentBeatmap.notes.length)} Max Combo`,
       color: 'white',
-      fontSize: '44px',
+      fontSize: '32px',
     });
 
     this.add(this.beatmapBackgroundObject);
