@@ -24,6 +24,7 @@ import rankingTileBackgroundDecoration from '../../../assets/ui/rankingTileBackg
 import { Audio } from '../core/audio';
 import { RankingTile } from '../objects/ui/rankingTile';
 import { RankingContainer } from '../objects/ui/rankingContainer';
+import { Replay } from '../core/replay';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -38,6 +39,7 @@ export class SongSelection extends Phaser.Scene {
   beatmapInfo: BeatmapInfo;
   audio: Audio;
   rankingContainerObject: RankingContainer;
+  replay: Replay;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -157,11 +159,16 @@ export class SongSelection extends Phaser.Scene {
     });
     this.audio.playMusic();
 
+    this.replay = new Replay();
+
+    this.replay.getLocalScoresForBeatmap(1);
+
     this.rankingContainerObject = new RankingContainer({
       scene: this,
       x: 1100,
       y: 603,
       places: [
+        //Do to: Load local replays here
         {
           place: 1,
           avatar: 'test',
