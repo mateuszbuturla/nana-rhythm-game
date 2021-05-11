@@ -56,7 +56,7 @@ export class Replay {
       replays = [...replays, replay];
     });
 
-    console.log(replays);
+    return replays;
   }
 
   saveLocalReplay(replayData: IReplay): void {
