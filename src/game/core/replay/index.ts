@@ -62,7 +62,7 @@ export class Replay {
   }
 
   saveLocalReplay(replayData: IReplay): void {
-    let replayFileContent: string = `beatmapId:${replayData.beatmapId}\nscore:${replayData.score}\naccuracy:${replayData.accuracy}\nperfectCount:${replayData.perfectCount}\ngoodCount:${replayData.goodCount}\nbadCount:${replayData.badCount}\nmissCount:${replayData.missCount}\nmaxCombo:${replayData.maxCombo}\n`;
+    let replayFileContent: string = `beatmapId:${replayData.beatmapId}\nscore:${replayData.score}\naccuracy:${replayData.accuracy}\nperfectCount:${replayData.perfectCount}\ngoodCount:${replayData.goodCount}\nbadCount:${replayData.badCount}\nmissCount:${replayData.missCount}\nmaxCombo:${replayData.maxCombo}\nnick:${replayData.nick}\navatar:${replayData.avatar}`;
 
     if (!fs.existsSync(`./replays`)) {
       fs.mkdirSync(`./replays`);
