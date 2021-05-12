@@ -26,6 +26,7 @@ import { RankingTile } from '../objects/ui/rankingTile';
 import { RankingContainer } from '../objects/ui/rankingContainer';
 import { Replay } from '../core/replay';
 import { ReplayStats } from '../objects/ui/replayStats';
+import replayStatsBackground from '../../../assets/ui/replayStatsBackground.png';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -60,6 +61,7 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('difficultyInsane', difficultyInsane);
     this.load.image('difficultyImposible', difficultyImposible);
     this.load.image('rankingTileBackground', rankingTileBackground);
+    this.load.image('replayStatsBackground', replayStatsBackground);
     this.load.image(
       'rankingTileBackgroundDecoration',
       rankingTileBackgroundDecoration,
