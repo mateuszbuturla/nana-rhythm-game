@@ -25,6 +25,7 @@ import { Audio } from '../core/audio';
 import { RankingTile } from '../objects/ui/rankingTile';
 import { RankingContainer } from '../objects/ui/rankingContainer';
 import { Replay } from '../core/replay';
+import { ReplayStats } from '../objects/ui/replayStats';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -40,6 +41,7 @@ export class SongSelection extends Phaser.Scene {
   audio: Audio;
   rankingContainerObject: RankingContainer;
   replay: Replay;
+  replayStats: ReplayStats;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -175,6 +177,12 @@ export class SongSelection extends Phaser.Scene {
     this.audio.playMusic();
 
     this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
+
+    this.replayStats = new ReplayStats({
+      scene: this,
+      x: 0,
+      y: 0,
+    });
   }
 
   update(): void {
