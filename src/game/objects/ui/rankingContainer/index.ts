@@ -35,6 +35,19 @@ export class RankingContainer extends Phaser.GameObjects.Container {
       });
       tileHeight = newRankingTile.getSize().height;
 
+      newRankingTile.setInteractive(
+        new Phaser.Geom.Rectangle(
+          0,
+          0,
+          newRankingTile.getSize().width,
+          newRankingTile.getSize().height,
+        ),
+        Phaser.Geom.Rectangle.Contains,
+      );
+      newRankingTile.on('pointerdown', () => {
+        aParams.handleRankingTileClick(index);
+      });
+
       this.add(newRankingTile);
       this.rankingTiles = [...this.rankingTiles, newRankingTile];
     });
