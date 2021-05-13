@@ -11,6 +11,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   scoreObject: Text;
   accuracyObject: Text;
   perfectCountObject: LabelValue;
+  goodCoungObject: LabelValue;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -79,11 +80,24 @@ export class ReplayStats extends Phaser.GameObjects.Container {
       margin: 50,
     });
 
+    this.goodCoungObject = new LabelValue({
+      scene: this.scene,
+      x: this.backgroundObject.x - 70,
+      y: this.backgroundObject.y + 150,
+      label: 'GOOD',
+      value: String(aParams.goodCount),
+      color: noteAccuracyConfig.accuracy.Good.color,
+      labelFontSize: '22px',
+      valueFontSize: '81px',
+      margin: 50,
+    });
+
     this.add(this.backgroundDimObject);
     this.add(this.backgroundObject);
     this.add(this.markObject);
     this.add(this.scoreObject);
     this.add(this.accuracyObject);
     this.add(this.perfectCountObject);
+    this.add(this.goodCoungObject);
   }
 }
