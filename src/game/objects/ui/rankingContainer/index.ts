@@ -13,10 +13,6 @@ export class RankingContainer extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
   }
 
-  handleRankingTileClick(rankingTileIndex: number): void {
-    console.log(rankingTileIndex);
-  }
-
   initSongContainer(aParams: IRankingContainer): void {
     let tileHeight: number = 0;
 
@@ -49,7 +45,7 @@ export class RankingContainer extends Phaser.GameObjects.Container {
         Phaser.Geom.Rectangle.Contains,
       );
       newRankingTile.on('pointerdown', () => {
-        this.handleRankingTileClick(index);
+        aParams.handleRankingTileClick(index);
       });
 
       this.add(newRankingTile);
