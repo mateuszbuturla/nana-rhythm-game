@@ -25,6 +25,9 @@ import { Audio } from '../core/audio';
 import { RankingTile } from '../objects/ui/rankingTile';
 import { RankingContainer } from '../objects/ui/rankingContainer';
 import { Replay } from '../core/replay';
+import { ReplayStats } from '../objects/ui/replayStats';
+import replayStatsBackground from '../../../assets/ui/replayStatsBackground.png';
+import { IRankingData } from '../interfaces/rankingTile.interface';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -40,6 +43,8 @@ export class SongSelection extends Phaser.Scene {
   audio: Audio;
   rankingContainerObject: RankingContainer;
   replay: Replay;
+  replayStats: ReplayStats;
+  beatmapReplays: any;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -58,6 +63,7 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('difficultyInsane', difficultyInsane);
     this.load.image('difficultyImposible', difficultyImposible);
     this.load.image('rankingTileBackground', rankingTileBackground);
+    this.load.image('replayStatsBackground', replayStatsBackground);
     this.load.image(
       'rankingTileBackgroundDecoration',
       rankingTileBackgroundDecoration,
@@ -84,15 +90,20 @@ export class SongSelection extends Phaser.Scene {
     this.scene.start('MainScene');
   };
 
-  generateBeatmapRanking(newBeatmapId: number) {
+  getBeatmapLocalReplays(beatmapId: number): void {
+    this.beatmapReplays = this.replay
+      .getLocalScoresForBeatmap(Number(beatmapId))
+      .sort((a, b) => (a.score > b.score ? -1 : 1))
+      .map((replay, index) => ({ ...replay, place: index + 1 }));
+  }
+
+  generateBeatmapRanking() {
     this.rankingContainerObject = new RankingContainer({
       scene: this,
       x: 1100,
       y: 603,
-      places: this.replay
-        .getLocalScoresForBeatmap(Number(newBeatmapId))
-        .sort((a, b) => (a.score > b.score ? -1 : 1))
-        .map((replay, index) => ({ ...replay, place: index + 1 })),
+      handleRankingTileClick: this.handleRankingTileClick,
+      places: this.beatmapReplays,
     });
   }
 
@@ -114,7 +125,16 @@ export class SongSelection extends Phaser.Scene {
 
     store.dispatch(setCurrentMap(this.beatmaps[newSelectedSong]));
     store.dispatch(setCurrentMapId(newSelectedSong));
-    this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
+    this.getBeatmapLocalReplays(Number(this.currentBeatmap.beatmapid));
+    this.generateBeatmapRanking();
+  };
+
+  handleRankingTileClick = (rankingTileIndex: number): void => {
+    this.replayStats.setReplayData({
+      ...this.beatmapReplays[rankingTileIndex],
+      mark: 'A',
+    });
+    this.replayStats.show();
   };
 
   create(): void {
@@ -174,7 +194,23 @@ export class SongSelection extends Phaser.Scene {
     });
     this.audio.playMusic();
 
-    this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
+    this.getBeatmapLocalReplays(Number(this.currentBeatmap.beatmapid));
+    this.generateBeatmapRanking();
+
+    this.replayStats = new ReplayStats({
+      scene: this,
+      x: 0,
+      y: 0,
+      mark: 'A',
+      score: 0,
+      accuracy: 0,
+      perfectCount: 0,
+      goodCount: 0,
+      badCount: 0,
+      missCount: 0,
+      maxCombo: 0,
+      active: false,
+    });
   }
 
   update(): void {

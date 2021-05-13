@@ -5,4 +5,5 @@ export interface IRankingContainer {
   x: number;
   y: number;
   places: IRankingData[];
+  handleRankingTileClick: (rankingTileIndex: number) => void;
 }
