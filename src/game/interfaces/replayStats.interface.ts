@@ -4,6 +4,7 @@ interface IReplayStats {
   y: number;
   mark: 'A' | 'B';
   score: number;
+  accuracy: number;
 }
 
 export { IReplayStats };

@@ -7,6 +7,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   backgroundObject: Image;
   markObject: Text;
   scoreObject: Text;
+  accuracyObject: Text;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -45,17 +46,28 @@ export class ReplayStats extends Phaser.GameObjects.Container {
 
     this.scoreObject = new Text({
       scene: this.scene,
-      x: this.backgroundObject.x - 366,
+      x: this.backgroundObject.x - 390,
       y: this.backgroundObject.y + 50,
       text: String(aParams.score),
-      fontSize: '81px',
+      fontSize: '75px',
       color: 'white',
     });
     this.scoreObject.setOrigin(0, 0);
+
+    this.accuracyObject = new Text({
+      scene: this.scene,
+      x: this.backgroundObject.x + 390,
+      y: this.backgroundObject.y + 50,
+      text: `${aParams.accuracy}%`,
+      fontSize: '75px',
+      color: 'white',
+    });
+    this.accuracyObject.setOrigin(1, 0);
 
     this.add(this.backgroundDimObject);
     this.add(this.backgroundObject);
     this.add(this.markObject);
     this.add(this.scoreObject);
+    this.add(this.accuracyObject);
   }
 }
