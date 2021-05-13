@@ -130,6 +130,10 @@ export class SongSelection extends Phaser.Scene {
   };
 
   handleRankingTileClick = (rankingTileIndex: number): void => {
+    this.replayStats.setReplayData({
+      ...this.beatmapReplays[rankingTileIndex],
+      mark: 'A',
+    });
     this.replayStats.show();
   };
 
