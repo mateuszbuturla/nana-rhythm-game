@@ -1,6 +1,6 @@
+import { Text } from './../../basic/text/index';
 import { IReplayStats } from '../../../interfaces/replayStats.interface';
 import { Image } from '../../basic/image';
-import { Text } from '../../basic/text';
 import { LabelValue } from '../labelValue';
 import { noteAccuracyConfig } from '../../../config/noteAccuracyConfig';
 import { easeInOutExpo } from '../../../utils/eases';
@@ -157,5 +157,39 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     });
 
     hideAnimation.play();
+  }
+
+  show(): void {
+    this.isActive = true;
+    const showAnimation = this.scene.tweens.createTimeline();
+
+    showAnimation.add({
+      targets: this,
+      alpha: 1,
+      ease: easeInOutExpo,
+      duration: 1000,
+    });
+
+    showAnimation.play();
+  }
+
+  setReplayData(
+    mark: string,
+    score: number,
+    accuracy: number,
+    perfectCount: number,
+    goodCount: number,
+    badCount: number,
+    missCount: number,
+    maxCombo: number,
+  ): void {
+    this.markObject.text = mark;
+    this.scoreObject.text = String(score);
+    this.accuracyObject.text = `${accuracy}%`;
+    this.perfectCountObject.value.text = String(perfectCount);
+    this.goodCountObject.value.text = String(goodCount);
+    this.badCountObject.value.text = String(badCount);
+    this.missCountObject.value.text = String(missCount);
+    this.maxComboObject.value.text = String(maxCombo);
   }
 }
