@@ -187,6 +187,7 @@ export class SongSelection extends Phaser.Scene {
       mark: 'A',
       score: 134432,
       accuracy: 96.44,
+      perfectCount: 135,
     });
   }
 

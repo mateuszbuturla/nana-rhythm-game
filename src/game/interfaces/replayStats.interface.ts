@@ -5,6 +5,7 @@ interface IReplayStats {
   mark: 'A' | 'B';
   score: number;
   accuracy: number;
+  perfectCount: number;
 }
 
 export { IReplayStats };

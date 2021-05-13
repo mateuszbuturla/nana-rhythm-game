@@ -1,6 +1,8 @@
 import { IReplayStats } from '../../../interfaces/replayStats.interface';
 import { Image } from '../../basic/image';
 import { Text } from '../../basic/text';
+import { LabelValue } from '../labelValue';
+import { noteAccuracyConfig } from '../../../config/noteAccuracyConfig';
 
 export class ReplayStats extends Phaser.GameObjects.Container {
   backgroundDimObject: Phaser.GameObjects.Rectangle;
@@ -8,6 +10,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   markObject: Text;
   scoreObject: Text;
   accuracyObject: Text;
+  perfectCountObject: LabelValue;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -64,10 +67,23 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     });
     this.accuracyObject.setOrigin(1, 0);
 
+    this.perfectCountObject = new LabelValue({
+      scene: this.scene,
+      x: this.backgroundObject.x - 260,
+      y: this.backgroundObject.y + 150,
+      label: 'PERFECT',
+      value: String(aParams.perfectCount),
+      color: noteAccuracyConfig.accuracy.Perfect.color,
+      labelFontSize: '22px',
+      valueFontSize: '81px',
+      margin: 50,
+    });
+
     this.add(this.backgroundDimObject);
     this.add(this.backgroundObject);
     this.add(this.markObject);
     this.add(this.scoreObject);
     this.add(this.accuracyObject);
+    this.add(this.perfectCountObject);
   }
 }
