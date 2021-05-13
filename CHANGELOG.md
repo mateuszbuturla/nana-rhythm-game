@@ -1,3 +1,8 @@
+## 2.10.0 (2021-05-13)
+
+- features:
+- create replay stats screen
+
 ## 2.9.0 (2021-05-11)
 
 - features:
