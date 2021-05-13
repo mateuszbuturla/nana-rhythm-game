@@ -13,6 +13,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   perfectCountObject: LabelValue;
   goodCountObject: LabelValue;
   badCountObject: LabelValue;
+  missCountObject: LabelValue;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -105,6 +106,18 @@ export class ReplayStats extends Phaser.GameObjects.Container {
       margin: 50,
     });
 
+    this.missCountObject = new LabelValue({
+      scene: this.scene,
+      x: this.backgroundObject.x + 260,
+      y: this.backgroundObject.y + 150,
+      label: 'MISS',
+      value: String(aParams.missCount),
+      color: noteAccuracyConfig.accuracy.Miss.color,
+      labelFontSize: '22px',
+      valueFontSize: '81px',
+      margin: 50,
+    });
+
     this.add(this.backgroundDimObject);
     this.add(this.backgroundObject);
     this.add(this.markObject);
@@ -113,5 +126,6 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     this.add(this.perfectCountObject);
     this.add(this.goodCountObject);
     this.add(this.badCountObject);
+    this.add(this.missCountObject);
   }
 }

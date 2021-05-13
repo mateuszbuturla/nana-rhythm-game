@@ -190,6 +190,7 @@ export class SongSelection extends Phaser.Scene {
       perfectCount: 135,
       goodCount: 13,
       badCount: 3,
+      missCount: 5,
     });
   }
 

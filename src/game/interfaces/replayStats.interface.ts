@@ -8,6 +8,7 @@ interface IReplayStats {
   perfectCount: number;
   goodCount: number;
   badCount: number;
+  missCount: number;
 }
 
 export { IReplayStats };
