@@ -25,6 +25,8 @@ import { Audio } from '../core/audio';
 import { RankingTile } from '../objects/ui/rankingTile';
 import { RankingContainer } from '../objects/ui/rankingContainer';
 import { Replay } from '../core/replay';
+import { ReplayStats } from '../objects/ui/replayStats';
+import replayStatsBackground from '../../../assets/ui/replayStatsBackground.png';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;
@@ -40,6 +42,7 @@ export class SongSelection extends Phaser.Scene {
   audio: Audio;
   rankingContainerObject: RankingContainer;
   replay: Replay;
+  replayStats: ReplayStats;
 
   constructor() {
     super({ key: 'SongSelection' });
@@ -58,6 +61,7 @@ export class SongSelection extends Phaser.Scene {
     this.load.image('difficultyInsane', difficultyInsane);
     this.load.image('difficultyImposible', difficultyImposible);
     this.load.image('rankingTileBackground', rankingTileBackground);
+    this.load.image('replayStatsBackground', replayStatsBackground);
     this.load.image(
       'rankingTileBackgroundDecoration',
       rankingTileBackgroundDecoration,
@@ -175,6 +179,21 @@ export class SongSelection extends Phaser.Scene {
     this.audio.playMusic();
 
     this.generateBeatmapRanking(Number(this.currentBeatmap.beatmapid));
+
+    this.replayStats = new ReplayStats({
+      scene: this,
+      x: 0,
+      y: 0,
+      mark: 'A',
+      score: 0,
+      accuracy: 0,
+      perfectCount: 0,
+      goodCount: 0,
+      badCount: 0,
+      missCount: 0,
+      maxCombo: 0,
+    });
+    this.replayStats.hide();
   }
 
   update(): void {
