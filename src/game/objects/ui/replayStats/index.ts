@@ -146,6 +146,14 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     this.add(this.missCountObject);
     this.add(this.maxComboObject);
 
+    this.setInteractive(
+      new Phaser.Geom.Rectangle(0, 0, 1920, 1080),
+      Phaser.Geom.Rectangle.Contains,
+    );
+    this.on('pointerdown', () => {
+      this.hide();
+    });
+
     if (!aParams.active) {
       this.setAlpha(0);
     }
