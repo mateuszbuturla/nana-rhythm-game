@@ -192,8 +192,8 @@ export class SongSelection extends Phaser.Scene {
       badCount: 0,
       missCount: 0,
       maxCombo: 0,
+      active: false,
     });
-    this.replayStats.hide();
   }
 
   update(): void {
