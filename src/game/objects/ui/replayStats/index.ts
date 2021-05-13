@@ -6,6 +6,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   backgroundDimObject: Phaser.GameObjects.Rectangle;
   backgroundObject: Image;
   markObject: Text;
+  scoreObject: Text;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -42,8 +43,19 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     });
     this.markObject.setOrigin(0.5, 0);
 
+    this.scoreObject = new Text({
+      scene: this.scene,
+      x: this.backgroundObject.x - 366,
+      y: this.backgroundObject.y + 50,
+      text: String(aParams.score),
+      fontSize: '81px',
+      color: 'white',
+    });
+    this.scoreObject.setOrigin(0, 0);
+
     this.add(this.backgroundDimObject);
     this.add(this.backgroundObject);
     this.add(this.markObject);
+    this.add(this.scoreObject);
   }
 }

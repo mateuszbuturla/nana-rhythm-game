@@ -3,6 +3,7 @@ interface IReplayStats {
   x: number;
   y: number;
   mark: 'A' | 'B';
+  score: number;
 }
 
 export { IReplayStats };
