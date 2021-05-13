@@ -14,6 +14,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   goodCountObject: LabelValue;
   badCountObject: LabelValue;
   missCountObject: LabelValue;
+  maxComboObject: LabelValue;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -118,6 +119,18 @@ export class ReplayStats extends Phaser.GameObjects.Container {
       margin: 50,
     });
 
+    this.maxComboObject = new LabelValue({
+      scene: this.scene,
+      x: this.backgroundObject.x,
+      y: this.backgroundObject.y + 300,
+      label: 'MAX COMBO',
+      value: `${aParams.maxCombo}x`,
+      color: 'white',
+      labelFontSize: '22px',
+      valueFontSize: '81px',
+      margin: 50,
+    });
+
     this.add(this.backgroundDimObject);
     this.add(this.backgroundObject);
     this.add(this.markObject);
@@ -127,5 +140,6 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     this.add(this.goodCountObject);
     this.add(this.badCountObject);
     this.add(this.missCountObject);
+    this.add(this.maxComboObject);
   }
 }

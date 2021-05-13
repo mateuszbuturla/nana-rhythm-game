@@ -9,6 +9,7 @@ interface IReplayStats {
   goodCount: number;
   badCount: number;
   missCount: number;
+  maxCombo: number;
 }
 
 export { IReplayStats };

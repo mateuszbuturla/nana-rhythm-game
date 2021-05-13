@@ -191,6 +191,7 @@ export class SongSelection extends Phaser.Scene {
       goodCount: 13,
       badCount: 3,
       missCount: 5,
+      maxCombo: 321,
     });
   }
 
