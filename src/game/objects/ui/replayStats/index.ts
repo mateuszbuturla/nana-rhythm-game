@@ -20,6 +20,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
+    this.isActive = aParams.active ? true : false;
     this.createReplayStats(aParams);
     this.scene.add.existing(this);
   }
@@ -143,6 +144,10 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     this.add(this.badCountObject);
     this.add(this.missCountObject);
     this.add(this.maxComboObject);
+
+    if (!aParams.active) {
+      this.setAlpha(0);
+    }
   }
 
   hide(): void {
