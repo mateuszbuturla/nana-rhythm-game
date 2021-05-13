@@ -184,6 +184,7 @@ export class SongSelection extends Phaser.Scene {
       scene: this,
       x: 0,
       y: 0,
+      mark: 'A',
     });
   }
 

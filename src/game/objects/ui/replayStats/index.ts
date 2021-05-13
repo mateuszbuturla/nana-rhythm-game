@@ -1,9 +1,11 @@
 import { IReplayStats } from '../../../interfaces/replayStats.interface';
 import { Image } from '../../basic/image';
+import { Text } from '../../basic/text';
 
 export class ReplayStats extends Phaser.GameObjects.Container {
   backgroundDimObject: Phaser.GameObjects.Rectangle;
   backgroundObject: Image;
+  markObject: Text;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -30,7 +32,18 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     });
     this.backgroundObject.setOrigin(0.5, 0.5);
 
+    this.markObject = new Text({
+      scene: this.scene,
+      x: this.backgroundObject.x,
+      y: 288,
+      text: aParams.mark,
+      fontSize: '300px',
+      color: '#89FF01',
+    });
+    this.markObject.setOrigin(0.5, 0);
+
     this.add(this.backgroundDimObject);
     this.add(this.backgroundObject);
+    this.add(this.markObject);
   }
 }
