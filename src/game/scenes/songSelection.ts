@@ -185,14 +185,15 @@ export class SongSelection extends Phaser.Scene {
       x: 0,
       y: 0,
       mark: 'A',
-      score: 134432,
-      accuracy: 96.44,
-      perfectCount: 135,
-      goodCount: 13,
-      badCount: 3,
-      missCount: 5,
-      maxCombo: 321,
+      score: 0,
+      accuracy: 0,
+      perfectCount: 0,
+      goodCount: 0,
+      badCount: 0,
+      missCount: 0,
+      maxCombo: 0,
     });
+    this.replayStats.hide();
   }
 
   update(): void {

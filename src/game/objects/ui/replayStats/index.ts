@@ -3,6 +3,7 @@ import { Image } from '../../basic/image';
 import { Text } from '../../basic/text';
 import { LabelValue } from '../labelValue';
 import { noteAccuracyConfig } from '../../../config/noteAccuracyConfig';
+import { easeInOutExpo } from '../../../utils/eases';
 
 export class ReplayStats extends Phaser.GameObjects.Container {
   backgroundDimObject: Phaser.GameObjects.Rectangle;
@@ -15,6 +16,7 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   badCountObject: LabelValue;
   missCountObject: LabelValue;
   maxComboObject: LabelValue;
+  isActive: Boolean;
 
   constructor(aParams: IReplayStats) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -141,5 +143,19 @@ export class ReplayStats extends Phaser.GameObjects.Container {
     this.add(this.badCountObject);
     this.add(this.missCountObject);
     this.add(this.maxComboObject);
+  }
+
+  hide(): void {
+    this.isActive = false;
+    const hideAnimation = this.scene.tweens.createTimeline();
+
+    hideAnimation.add({
+      targets: this,
+      alpha: 0,
+      ease: easeInOutExpo,
+      duration: 1000,
+    });
+
+    hideAnimation.play();
   }
 }
