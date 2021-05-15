@@ -1,4 +1,4 @@
-import { ILedearboardButton } from '../../../interfaces/buttons.interface';
+import { ILedearboardButton } from '../../../interfaces/simpleUIComponents.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
 

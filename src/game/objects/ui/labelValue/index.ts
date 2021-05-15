@@ -1,4 +1,4 @@
-import { ILabelValue } from '../../../interfaces/labelValue.interface';
+import { ILabelValue } from '../../../interfaces/simpleUIComponents.interface';
 import { Text } from '../../basic/text';
 
 export class LabelValue extends Phaser.GameObjects.Container {

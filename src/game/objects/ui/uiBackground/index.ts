@@ -1,4 +1,4 @@
-import { IUiBackground } from '../../../interfaces/uiBackground.interface';
+import { IUiBackground } from '../../../interfaces/simpleUIComponents.interface';
 import { Image } from '../../basic/image';
 
 export class UiBackground extends Phaser.GameObjects.Container {

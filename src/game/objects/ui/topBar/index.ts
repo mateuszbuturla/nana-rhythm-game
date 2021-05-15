@@ -1,4 +1,4 @@
-import { ITopBar } from '../../../interfaces/topBar.interface';
+import { ITopBar } from '../../../interfaces/simpleUIComponents.interface';
 import { Image } from '../../basic/image';
 import { BackButton } from '../backButton';
 

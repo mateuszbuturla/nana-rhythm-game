@@ -1,5 +1,5 @@
 import { easeInOutExpo } from './../../../utils/eases';
-import { IMainMenuButton } from '../../../interfaces/mainMenuLogo.interface';
+import { IMainMenuLogo } from '../../../interfaces/simpleUIComponents.interface';
 import { Image } from '../../basic/image';
 
 export class MainMenuLogo extends Phaser.GameObjects.Container {
@@ -9,7 +9,7 @@ export class MainMenuLogo extends Phaser.GameObjects.Container {
   enlarged: boolean = false;
   canStartNewAnimation: boolean = true;
 
-  constructor(aParams: IMainMenuButton) {
+  constructor(aParams: IMainMenuLogo) {
     super(aParams.scene, aParams.x, aParams.y);
 
     this.bpm = aParams.bpm;

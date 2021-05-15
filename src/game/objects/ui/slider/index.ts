@@ -1,4 +1,4 @@
-import { ISliderInput } from '../../../interfaces/sliderInput.interface';
+import { ISliderInput } from '../../../interfaces/simpleUIComponents.interface';
 import { Text } from '../../basic/text';
 import 'Phaser';
 

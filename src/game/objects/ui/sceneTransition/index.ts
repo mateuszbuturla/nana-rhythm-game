@@ -1,4 +1,4 @@
-import { ISceneTransition } from '../../../interfaces/sceneTransition.interface';
+import { ISceneTransition } from '../../../interfaces/simpleUIComponents.interface';
 
 export class SceneTransition extends Phaser.GameObjects.Rectangle {
   isShow: boolean;

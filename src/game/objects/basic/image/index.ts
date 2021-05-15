@@ -1,4 +1,4 @@
-import { IImageConstructor } from '../../../interfaces/image.interface';
+import { IImageConstructor } from '../../../interfaces/simpleUIComponents.interface';
 
 export class Image extends Phaser.GameObjects.Image {
   constructor(aParams: IImageConstructor) {
