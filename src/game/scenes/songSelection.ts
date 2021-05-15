@@ -1,7 +1,7 @@
 import store from '../redux/store';
 import { setCurrentMap, setCurrentMapId } from '../redux/currentMap';
 import { Score } from '../core/score';
-import { IMap } from '../interfaces/map.interface';
+import { IBeatmap } from '../interfaces/beatmap.interface';
 import { SceneTransition } from '../objects/ui/sceneTransition';
 import { LeaderboardButton } from '../objects/ui/leaderboardButton';
 import leaderboardButton from '../../../assets/ui/leaderboardButton.png';
@@ -38,7 +38,7 @@ export class SongSelection extends Phaser.Scene {
   songsContainer: SongsContainer;
   topBar: TopBar;
   beatmaps: any[];
-  currentBeatmap: IMap;
+  currentBeatmap: IBeatmap;
   beatmapInfo: BeatmapInfo;
   audio: Audio;
   rankingContainerObject: RankingContainer;

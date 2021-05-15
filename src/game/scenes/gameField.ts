@@ -1,4 +1,4 @@
-import { IMap } from '../interfaces/map.interface';
+import { IBeatmap } from '../interfaces/beatmap.interface';
 import { UiBackground } from '../objects/ui/uiBackground';
 import { Game } from '../core/game';
 import store from '../redux/store';
@@ -16,7 +16,7 @@ import healthBar from '../../../assets/ui/healthBar.png';
 import { setCombo, setHittedNotes } from '../redux/mapResult';
 
 export class GameField extends Phaser.Scene {
-  currentMap: IMap;
+  currentMap: IBeatmap;
   gameBackground: UiBackground;
   _game: Game;
 

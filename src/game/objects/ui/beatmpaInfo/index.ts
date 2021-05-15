@@ -1,7 +1,7 @@
 import { easeInOutExpo } from './../../../utils/eases';
 import { IBeatmapInfo } from '../../../interfaces/beatmap.interface';
 import store from '../../../redux/store';
-import { IMap } from '../../../interfaces/map.interface';
+import { IBeatmap } from '../../../interfaces/beatmap.interface';
 import { Text } from '../../basic/text';
 
 export class BeatmapInfo extends Phaser.GameObjects.Container {
@@ -16,7 +16,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapSlidersCountObject: Text;
   beatmapBpmObject: Text;
   beatmapMaxComboObject: Text;
-  currentBeatmap: IMap;
+  currentBeatmap: IBeatmap;
 
   constructor(aParams: IBeatmapInfo) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -153,7 +153,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.add(this.beatmapMaxComboObject);
   }
 
-  changeBeatmap(newBeatmap: IMap) {
+  changeBeatmap(newBeatmap: IBeatmap) {
     this.currentBeatmap = newBeatmap;
     this.beatmapDifficultyBarObject.setTexture(
       this.getBeatmapDifficultyBarTexture(),

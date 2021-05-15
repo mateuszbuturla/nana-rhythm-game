@@ -3,7 +3,7 @@ import { SceneTransition } from './../../objects/ui/sceneTransition';
 import { HitPosition } from './../../objects/game/hitPosition';
 import { HitNote } from './../../objects/game/hitNote/index';
 import { IGame } from '../../interfaces/game.interface';
-import { IMap } from '../../interfaces/map.interface';
+import { IBeatmap } from '../../interfaces/beatmap.interface';
 import { Audio } from '../audio';
 import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 import { calculateNoteAccuracy } from '../accuracy';
@@ -27,7 +27,7 @@ export class Game {
   breakBeforeTakeOff: number = 3000;
   breakAfterLastNote: number = 1500;
   scrollSpeed: number = 10;
-  beatmap: IMap;
+  beatmap: IBeatmap;
   audio: Audio;
   notesObject: HitNote[] = [];
   hitPosition: number = 0;

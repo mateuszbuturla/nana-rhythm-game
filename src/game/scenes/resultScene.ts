@@ -23,7 +23,7 @@ import { TopBar } from '../objects/ui/topBar';
 import store from '../redux/store';
 import { SceneTransition } from '../objects/ui/sceneTransition';
 import { Replay } from '../core/replay';
-import { IMap } from '../interfaces/map.interface';
+import { IBeatmap } from '../interfaces/beatmap.interface';
 
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;

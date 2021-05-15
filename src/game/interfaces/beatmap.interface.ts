@@ -1,10 +1,20 @@
-import { IMap } from './map.interface';
+import { INote } from './note.interface';
+
+interface IBeatmap {
+  beatmapid: string;
+  title: string;
+  audio: string;
+  notes: INote[];
+  bpm: number;
+  difficulty: number;
+  creator: string;
+}
 
 interface IBeatmapInfo {
   scene: Phaser.Scene;
   x: number;
   y: number;
-  currentBeatmap: IMap;
+  currentBeatmap: IBeatmap;
 }
 
 interface IBeatmapTile {
@@ -20,9 +30,9 @@ interface IBeatmapContainer {
   scene: Phaser.Scene;
   x: number;
   y: number;
-  beatmaps: IMap[];
+  beatmaps: IBeatmap[];
   onBeatmapUpdate: (beatmapId: number) => void;
   onBeatmapSelect: () => void;
 }
 
-export { IBeatmapInfo, IBeatmapTile, IBeatmapContainer };
+export { IBeatmap, IBeatmapInfo, IBeatmapTile, IBeatmapContainer };

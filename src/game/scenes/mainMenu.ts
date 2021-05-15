@@ -29,7 +29,7 @@ import triangle from '../../../assets/ui/mainMenuTriangle.png';
 import { MainMenuButton } from '../objects/ui/mainMenuButton';
 import { setCurrentMap, setCurrentMapId } from '../redux/currentMap';
 import store from '../redux/store';
-import { IMap } from '../interfaces/map.interface';
+import { IBeatmap } from '../interfaces/beatmap.interface';
 
 export class MainMenu extends Phaser.Scene {
   optionsPanel: OptionsPanel;
@@ -45,7 +45,7 @@ export class MainMenu extends Phaser.Scene {
   transition: SceneTransition;
   mainMenubackground: UiBackground;
   beatmapsReader: BeatmapReader;
-  currentBeatmap: IMap;
+  currentBeatmap: IBeatmap;
 
   constructor() {
     super({ key: 'MainMenu' });
