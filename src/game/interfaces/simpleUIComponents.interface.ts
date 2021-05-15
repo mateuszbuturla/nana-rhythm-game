@@ -118,6 +118,14 @@ interface IMainMenuLogo {
   bpm: number;
 }
 
+interface ICheckBoxConstructor {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  state: boolean;
+  label: string;
+}
+
 export {
   IMainMenuButton,
   IBackButton,
@@ -133,4 +141,5 @@ export {
   ITopBar,
   IUiBackground,
   IMainMenuLogo,
+  ICheckBoxConstructor,
 };
