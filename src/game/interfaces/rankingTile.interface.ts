@@ -1,4 +1,4 @@
-import { IPosition } from './position.interface';
+import { IPosition } from './properties.interface';
 
 interface IRankingTile {
   scene: Phaser.Scene;

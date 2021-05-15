@@ -2,7 +2,7 @@ import { easeOutBounce, easeInOutExpo } from './../../../utils/eases';
 import { IMainMenuButton } from '../../../interfaces/simpleUIComponents.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
-import { ISize } from '../../../interfaces/size.interface';
+import { ISize } from '../../../interfaces/properties.interface';
 
 export class MainMenuButton extends Phaser.GameObjects.Container {
   buttonLabelObject: Text;
