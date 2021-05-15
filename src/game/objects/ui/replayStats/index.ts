@@ -1,5 +1,5 @@
 import { Text } from './../../basic/text/index';
-import { IReplayStats } from '../../../interfaces/replayStats.interface';
+import { IReplayStats } from '../../../interfaces/replay.interface';
 import { Image } from '../../basic/image';
 import { LabelValue } from '../labelValue';
 import { noteAccuracyConfig } from '../../../config/noteAccuracyConfig';
