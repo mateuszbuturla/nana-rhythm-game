@@ -1,4 +1,4 @@
-import { IRankingContainer } from '../../../interfaces/rankingContainer.interface';
+import { IRankingContainer } from '../../../interfaces/ranking.interface';
 import { RankingTile } from '../rankingTile';
 
 export class RankingContainer extends Phaser.GameObjects.Container {

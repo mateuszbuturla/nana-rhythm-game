@@ -27,7 +27,7 @@ import { RankingContainer } from '../objects/ui/rankingContainer';
 import { Replay } from '../core/replay';
 import { ReplayStats } from '../objects/ui/replayStats';
 import replayStatsBackground from '../../../assets/ui/replayStatsBackground.png';
-import { IRankingData } from '../interfaces/rankingTile.interface';
+import { IRankingData } from '../interfaces/ranking.interface';
 
 export class SongSelection extends Phaser.Scene {
   keyboard: any;

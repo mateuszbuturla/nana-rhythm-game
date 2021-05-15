@@ -23,4 +23,12 @@ interface IRankingData {
   maxCombo: number;
 }
 
-export { IRankingTile, IRankingData };
+interface IRankingContainer {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  places: IRankingData[];
+  handleRankingTileClick: (rankingTileIndex: number) => void;
+}
+
+export { IRankingTile, IRankingData, IRankingContainer };
