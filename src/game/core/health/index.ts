@@ -1,5 +1,5 @@
 import { IHealth } from '../../interfaces/health.interface';
-import { ENoteAccuracy } from '../../interfaces/inGame.interface';
+import { ENoteAccuracy } from '../../interfaces/note.interface';
 import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 import { HealthBar } from '../../objects/game/healthBar';
 

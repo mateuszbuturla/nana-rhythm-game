@@ -2,7 +2,7 @@ import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 import {
   ENoteAccuracy,
   INoteTypeAndCount,
-} from '../../interfaces/inGame.interface';
+} from '../../interfaces/note.interface';
 import { IBeatmap } from '../../interfaces/beatmap.interface';
 import store from '../../redux/store';
 import { addHittedNote, setCombo } from '../../redux/mapResult';

@@ -9,10 +9,7 @@ import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 import { calculateNoteAccuracy } from '../accuracy';
 import store from '../../redux/store';
 import { Score } from '../score';
-import {
-  ENoteAccuracy,
-  INotesAccuracyArray,
-} from '../../interfaces/inGame.interface';
+import { INotesAccuracyArray } from '../../interfaces/inGame.interface';
 import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 import { Health } from '../health';
@@ -20,6 +17,7 @@ import { LoseScreen } from '../../objects/loseScreen';
 import { EGameState } from '../../enums/game.enum';
 import { fallAnimation } from '../../animations/fall.animation';
 import { IIserConfig } from '../../interfaces/userConfig.interface';
+import { ENoteAccuracy } from '../../interfaces/note.interface';
 
 export class Game {
   keyboard: any;
