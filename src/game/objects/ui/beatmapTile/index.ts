@@ -1,4 +1,3 @@
-import { easeInOutExpo } from './../../../utils/eases';
 import { IBeatmapTile } from '../../../interfaces/beatmap.interface';
 import { Text } from '../../basic/text';
 

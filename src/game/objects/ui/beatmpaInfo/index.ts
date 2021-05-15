@@ -1,6 +1,4 @@
-import { easeInOutExpo } from './../../../utils/eases';
 import { IBeatmapInfo } from '../../../interfaces/beatmap.interface';
-import store from '../../../redux/store';
 import { IBeatmap } from '../../../interfaces/beatmap.interface';
 import { Text } from '../../basic/text';
 

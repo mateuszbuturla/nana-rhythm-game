@@ -1,6 +1,13 @@
+import { IBeatmap } from '../interfaces/beatmap.interface';
 import { Text } from '../objects/basic/text';
-import { Image } from '../objects/basic/image';
 import { OptionsPanel } from '../objects/optionsPanel';
+import { GameConfig } from '../config/config';
+import { SceneTransition } from '../objects/ui/sceneTransition';
+import { UiBackground } from '../objects/ui/uiBackground';
+import { BeatmapReader } from '../core/beatmap';
+import { MainMenuLogo } from '../objects/ui/mainMenuLogo';
+import { MainMenuButton } from '../objects/ui/mainMenuButton';
+import store from '../redux/store';
 import background from '../../../assets/backgrounds/bg.png';
 import playButton from '../../../assets/ui/playButton.png';
 import multiplayerButton from '../../../assets/ui/multiplayerButton.png';
@@ -18,18 +25,8 @@ import multiplayerButtonIcon from '../../../assets/ui/multiplayerButtonIcon.png'
 import editorButtonIcon from '../../../assets/ui/editorButtonIcon.png';
 import settingsButtonIcon from '../../../assets/ui/settingsButtonIcon.png';
 import exitButtonIcon from '../../../assets/ui/exitButtonIcon.png';
-import { GameConfig } from '../config/config';
-import { SceneTransition } from '../objects/ui/sceneTransition';
-import { UiBackground } from '../objects/ui/uiBackground';
-import { BeatmapReader } from '../core/beatmap';
-import { MainMenuLogo } from '../objects/ui/mainMenuLogo';
 import logo from '../../../assets/logo.png';
 import triangle from '../../../assets/ui/mainMenuTriangle.png';
-
-import { MainMenuButton } from '../objects/ui/mainMenuButton';
-import { setCurrentMap, setCurrentMapId } from '../redux/currentMap';
-import store from '../redux/store';
-import { IBeatmap } from '../interfaces/beatmap.interface';
 
 export class MainMenu extends Phaser.Scene {
   optionsPanel: OptionsPanel;

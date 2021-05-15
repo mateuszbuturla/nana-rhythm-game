@@ -1,8 +1,6 @@
 import { Text } from './basic/text';
 import { UserConfig } from '../core/userConfig';
-import { IIserConfig } from '../interfaces/userConfig.interface';
 import { CheckBox } from './ui/checkBox';
-import { SelectInput } from './ui/select';
 import { SliderInput } from './ui/slider';
 import { getObjectBottomEdgePosition } from '../helpers/getObjectBottomEdgePosition';
 import { easeInOutExpo } from '../utils/eases';

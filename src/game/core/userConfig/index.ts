@@ -1,5 +1,4 @@
 import { defaultUserConfig } from '../../config/defaultUserConfig';
-import { IIserConfig } from '../../interfaces/userConfig.interface';
 import { setUserConfig } from '../../redux/userConfig';
 import store from '../../redux/store';
 import * as fs from 'fs';

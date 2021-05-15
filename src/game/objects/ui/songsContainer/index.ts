@@ -1,8 +1,7 @@
-import { easeInOutExpo } from './../../../utils/eases';
 import { IBeatmapContainer } from '../../../interfaces/beatmap.interface';
 import { BeatmapTile } from '../beatmapTile';
 import store from '../../../redux/store';
-import { IBeatmap } from '_/game/interfaces/beatmap.interface';
+import { IBeatmap } from '../../../interfaces/beatmap.interface';
 
 export class SongsContainer extends Phaser.GameObjects.Container {
   currentBeatmapId: number;
