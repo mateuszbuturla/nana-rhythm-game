@@ -1,4 +1,4 @@
-import { IHitPosition } from '../../../interfaces/hitPosition.interface';
+import { IHitPosition } from '../../../interfaces/inGame.interface';
 import { Image } from '../../basic/image';
 
 export class HitPosition extends Phaser.GameObjects.Container {

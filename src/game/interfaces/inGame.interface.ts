@@ -1,4 +1,5 @@
 import { NoteAccuracy } from '../objects/game/noteAccuracy';
+import { Score } from '../core/score';
 
 enum ENoteAccuracy {
   Perfect = 'Perfect',
@@ -30,4 +31,21 @@ interface INoteTypeAndCount {
   count: number;
 }
 
-export { ENoteAccuracy, INoteAccuracy, INotesAccuracyArray, INoteTypeAndCount };
+interface IHitPosition {
+  scene: Phaser.Scene;
+  hitPositionDistance: number;
+}
+
+interface IScoreBar {
+  scene: Phaser.Scene;
+  scoreManager: Score;
+}
+
+export {
+  ENoteAccuracy,
+  INoteAccuracy,
+  INotesAccuracyArray,
+  INoteTypeAndCount,
+  IHitPosition,
+  IScoreBar,
+};

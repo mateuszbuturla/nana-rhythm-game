@@ -12,7 +12,7 @@ import { Score } from '../score';
 import {
   ENoteAccuracy,
   INotesAccuracyArray,
-} from '../../interfaces/noteAccuracy.interface';
+} from '../../interfaces/inGame.interface';
 import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 import { Health } from '../health';

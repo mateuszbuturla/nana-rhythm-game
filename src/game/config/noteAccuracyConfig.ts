@@ -1,7 +1,4 @@
-import {
-  ENoteAccuracy,
-  INoteAccuracy,
-} from '../interfaces/noteAccuracy.interface';
+import { ENoteAccuracy, INoteAccuracy } from '../interfaces/inGame.interface';
 
 interface INoteAccuracyConfig {
   accuracy: Record<ENoteAccuracy, INoteAccuracy>;

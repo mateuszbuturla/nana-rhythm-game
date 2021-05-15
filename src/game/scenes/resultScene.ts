@@ -12,7 +12,7 @@ import {
   getCountOfHittedNotesFromType,
 } from '../core/score';
 import { LabelValue } from '../objects/ui/labelValue';
-import { ENoteAccuracy } from '../interfaces/noteAccuracy.interface';
+import { ENoteAccuracy } from '../interfaces/inGame.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
 import { UiBackground } from '../objects/ui/uiBackground';
 import background from '../../../assets/backgrounds/bg.png';
