@@ -1,5 +1,5 @@
 import { easeInOutExpo } from './../../../utils/eases';
-import { ISongsContainer } from '../../../interfaces/songsContainer.interface';
+import { IBeatmapContainer } from '../../../interfaces/beatmap.interface';
 import { BeatmapTile } from '../beatmapTile';
 import store from '../../../redux/store';
 import { IMap } from '_/game/interfaces/map.interface';
@@ -15,7 +15,7 @@ export class SongsContainer extends Phaser.GameObjects.Container {
   onBeatmapUpdate: (beatmapId: number) => void;
   onBeatmapSelect: () => void;
 
-  constructor(aParams: ISongsContainer) {
+  constructor(aParams: IBeatmapContainer) {
     super(aParams.scene, aParams.x, aParams.y);
 
     this.onBeatmapUpdate = aParams.onBeatmapUpdate;
@@ -24,7 +24,7 @@ export class SongsContainer extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
   }
 
-  initSongContainer(aParams: ISongsContainer): void {
+  initSongContainer(aParams: IBeatmapContainer): void {
     const width = this.scene.sys.game.canvas.width;
     const height = this.scene.sys.game.canvas.height;
 

@@ -1,5 +1,5 @@
 import { easeInOutExpo } from './../../../utils/eases';
-import { IBeatmapTile } from '../../../interfaces/beatmapTile.interface';
+import { IBeatmapTile } from '../../../interfaces/beatmap.interface';
 import { Text } from '../../basic/text';
 
 export class BeatmapTile extends Phaser.GameObjects.Container {
