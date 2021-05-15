@@ -55,7 +55,6 @@ export class ResultScene extends Phaser.Scene {
     this.preload();
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
-    console.log(getCombo());
     this.replay = new Replay();
     this.replay.saveLocalReplay({
       avatar: '',
