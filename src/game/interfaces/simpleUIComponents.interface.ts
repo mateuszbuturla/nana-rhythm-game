@@ -1,4 +1,4 @@
-import { TypeXAlign } from './properties.interface';
+import { TypeXOrigin, TypeYOrigin } from './properties.interface';
 
 interface IMainMenuButton {
   scene: Phaser.Scene;
@@ -136,8 +136,8 @@ interface IRectange {
   height: number;
   fillColor?: number;
   alpha?: number;
-  xAlign?: TypeXAlign;
-  yAlign?: 'top' | 'center' | 'bottom' | number;
+  xAlign?: TypeXOrigin;
+  yAlign?: TypeYOrigin;
 }
 
 export {
