@@ -126,6 +126,14 @@ interface ICheckBoxConstructor {
   label: string;
 }
 
+interface IRectange {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export {
   IMainMenuButton,
   IBackButton,
@@ -142,4 +150,5 @@ export {
   IUiBackground,
   IMainMenuLogo,
   ICheckBoxConstructor,
+  IRectange,
 };
