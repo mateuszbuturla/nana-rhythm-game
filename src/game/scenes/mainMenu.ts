@@ -187,15 +187,6 @@ export class MainMenu extends Phaser.Scene {
       0xffffff,
     );
     this.decorationRectangle.setOrigin(0, 0.5);
-
-    new Rectangle({
-      scene: this,
-      x: 0,
-      y: 0,
-      width: 1000,
-      height: 1000,
-      fillColor: 0xffffff,
-    });
   }
 
   update() {
