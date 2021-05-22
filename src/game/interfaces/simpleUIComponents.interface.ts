@@ -137,6 +137,7 @@ interface IRectange {
   fillColor?: number;
   alpha?: number;
   xAlign?: TypeXAlign;
+  yAlign?: 'top' | 'center' | 'bottom' | number;
 }
 
 export {

@@ -59,6 +59,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       fillColor: 0x000000,
       alpha: 1,
       xAlign: 'left',
+      yAlign: 'top',
     });
 
     this.beatmapDifficultyBarObject = this.scene.add.sprite(

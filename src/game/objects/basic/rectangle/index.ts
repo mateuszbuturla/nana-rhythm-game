@@ -14,13 +14,12 @@ export class Rectangle extends Phaser.GameObjects.Rectangle {
 
     this.alpha = aParams.alpha ? aParams.alpha : 1;
 
-    if (aParams.xAlign) {
-      this.setSelfOrigin(aParams.xAlign);
-    }
+    this.setSelfOrigin(aParams.xAlign ? aParams.xAlign : 0, aParams.yAlign);
   }
 
-  private setSelfOrigin(xAlign: TypeXAlign) {
+  private setSelfOrigin(xAlign: TypeXAlign, yAlign: any) {
     let x = 0;
+    let y = 0;
     if (typeof xAlign === 'number') {
       x = xAlign;
     } else {
@@ -37,6 +36,22 @@ export class Rectangle extends Phaser.GameObjects.Rectangle {
       }
     }
 
-    this.setOrigin(x, 0);
+    if (typeof yAlign === 'number') {
+      y = yAlign;
+    } else {
+      switch (yAlign) {
+        case 'top':
+          y = 0;
+          break;
+        case 'center':
+          y = 0.5;
+          break;
+        case 'bottom':
+          y = 1;
+          break;
+      }
+    }
+
+    this.setOrigin(x, y);
   }
 }
