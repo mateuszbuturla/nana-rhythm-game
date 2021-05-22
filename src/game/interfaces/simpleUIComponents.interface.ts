@@ -1,3 +1,5 @@
+import { TypeXAlign } from './properties.interface';
+
 interface IMainMenuButton {
   scene: Phaser.Scene;
   x: number;
@@ -134,7 +136,7 @@ interface IRectange {
   height: number;
   fillColor?: number;
   alpha?: number;
-  xAlign?: 'left' | 'center' | 'right' | number;
+  xAlign?: TypeXAlign;
 }
 
 export {

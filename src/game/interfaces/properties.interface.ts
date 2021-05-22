@@ -8,4 +8,6 @@ interface ISize {
   height: number;
 }
 
-export { IPosition, ISize };
+type TypeXAlign = 'left' | 'center' | 'right' | number;
+
+export { IPosition, ISize, TypeXAlign };

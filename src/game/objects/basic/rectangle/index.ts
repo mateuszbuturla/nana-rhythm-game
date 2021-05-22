@@ -1,4 +1,5 @@
 import { IRectange } from '../../../interfaces/simpleUIComponents.interface';
+import { TypeXAlign } from '../../../interfaces/properties.interface';
 
 export class Rectangle extends Phaser.GameObjects.Rectangle {
   constructor(aParams: IRectange) {
@@ -13,10 +14,12 @@ export class Rectangle extends Phaser.GameObjects.Rectangle {
 
     this.alpha = aParams.alpha ? aParams.alpha : 1;
 
-    this.setSelfOrigin(aParams.xAlign);
+    if (aParams.xAlign) {
+      this.setSelfOrigin(aParams.xAlign);
+    }
   }
 
-  private setSelfOrigin(xAlign: any) {
+  private setSelfOrigin(xAlign: TypeXAlign) {
     let x = 0;
     if (typeof xAlign === 'number') {
       x = xAlign;
