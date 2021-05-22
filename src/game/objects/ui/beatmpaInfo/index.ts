@@ -57,7 +57,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
       width: 789,
       height: 444,
       fillColor: 0x000000,
-      alpha: 1,
+      alpha: 0.2,
       xAlign: 'left',
       yAlign: 'top',
     });
