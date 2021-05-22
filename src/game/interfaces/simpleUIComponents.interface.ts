@@ -132,6 +132,8 @@ interface IRectange {
   y: number;
   width: number;
   height: number;
+  fillColor?: number;
+  alpha?: number;
 }
 
 export {
