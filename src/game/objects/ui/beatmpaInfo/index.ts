@@ -1,13 +1,12 @@
-import { easeInOutExpo } from './../../../utils/eases';
-import { IBeatmapInfo } from '../../../interfaces/beatmapInfo.interface';
-import store from '../../../redux/store';
-import { IMap } from '../../../interfaces/map.interface';
+import { IBeatmapInfo } from '../../../interfaces/beatmap.interface';
+import { IBeatmap } from '../../../interfaces/beatmap.interface';
 import { Text } from '../../basic/text';
+import { Rectangle } from '../../basic/rectangle';
 
 export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapDifficultyBarObject: Phaser.GameObjects.Sprite;
   beatmapBackgroundObject: Phaser.GameObjects.Sprite;
-  backgroundDimObject: Phaser.GameObjects.Rectangle;
+  backgroundDimObject: Rectangle;
   beatmapTitleObject: Text;
   beatmapArtistObject: Text;
   beatmapCreatorObject: Text;
@@ -16,7 +15,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapSlidersCountObject: Text;
   beatmapBpmObject: Text;
   beatmapMaxComboObject: Text;
-  currentBeatmap: IMap;
+  currentBeatmap: IBeatmap;
 
   constructor(aParams: IBeatmapInfo) {
     super(aParams.scene, aParams.x, aParams.y);
@@ -51,15 +50,17 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.beatmapBackgroundObject.setOrigin(0, 0);
     this.beatmapBackgroundObject.setDisplaySize(789, 444);
 
-    this.backgroundDimObject = this.scene.add.rectangle(
-      0,
-      0,
-      789,
-      444,
-      0x000000,
-    );
-    this.backgroundDimObject.setOrigin(0);
-    this.backgroundDimObject.alpha = 0.25;
+    this.backgroundDimObject = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 0,
+      width: 789,
+      height: 444,
+      fillColor: 0x000000,
+      alpha: 0.2,
+      xAlign: 'left',
+      yAlign: 'top',
+    });
 
     this.beatmapDifficultyBarObject = this.scene.add.sprite(
       0,
@@ -153,7 +154,7 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.add(this.beatmapMaxComboObject);
   }
 
-  changeBeatmap(newBeatmap: IMap) {
+  changeBeatmap(newBeatmap: IBeatmap) {
     this.currentBeatmap = newBeatmap;
     this.beatmapDifficultyBarObject.setTexture(
       this.getBeatmapDifficultyBarTexture(),

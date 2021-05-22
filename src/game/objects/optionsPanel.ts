@@ -1,11 +1,10 @@
 import { Text } from './basic/text';
 import { UserConfig } from '../core/userConfig';
-import { IIserConfig } from '../interfaces/userConfig.interface';
 import { CheckBox } from './ui/checkBox';
-import { SelectInput } from './ui/select';
 import { SliderInput } from './ui/slider';
 import { getObjectBottomEdgePosition } from '../helpers/getObjectBottomEdgePosition';
 import { easeInOutExpo } from '../utils/eases';
+import { Rectangle } from './basic/rectangle';
 
 export class OptionsPanel extends Phaser.GameObjects.Container {
   background: any;
@@ -35,14 +34,15 @@ export class OptionsPanel extends Phaser.GameObjects.Container {
     this.userConfig = new UserConfig();
     this.config = this.userConfig.getUserConfig();
 
-    this.background = this.scene.add.rectangle(
-      250,
-      height / 2,
-      500,
+    this.background = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 0,
+      width: 500,
       height,
-      0x000000,
-    );
-    this.background.alpha = 0.8;
+      fillColor: 0x000000,
+      alpha: 0.8,
+    });
 
     this.optionsHeader = new Text({
       scene: this.scene,

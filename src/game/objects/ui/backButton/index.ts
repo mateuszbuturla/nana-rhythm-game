@@ -1,4 +1,4 @@
-import { IBackButton } from '../../../interfaces/buttons.interface';
+import { IBackButton } from '../../../interfaces/simpleUIComponents.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
 

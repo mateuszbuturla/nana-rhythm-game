@@ -1,5 +1,5 @@
 import { Text } from '../../basic/text';
-import { ITextButton } from '../../../interfaces/buttons.interface';
+import { ITextButton } from '../../../interfaces/simpleUIComponents.interface';
 
 export class TextButton extends Phaser.GameObjects.Container {
   buttonLabel: Text;

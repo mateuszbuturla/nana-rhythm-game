@@ -1,7 +1,5 @@
-import {
-  ENoteAccuracy,
-  INoteAccuracy,
-} from '../interfaces/noteAccuracy.interface';
+import { INoteAccuracy } from '../interfaces/simpleGameComponents.interface';
+import { ENoteAccuracy } from '../interfaces/note.interface';
 
 interface INoteAccuracyConfig {
   accuracy: Record<ENoteAccuracy, INoteAccuracy>;

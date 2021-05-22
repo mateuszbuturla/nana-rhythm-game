@@ -1,5 +1,4 @@
-import { easeInOutExpo } from './../../../utils/eases';
-import { IBeatmapTile } from '../../../interfaces/beatmapTile.interface';
+import { IBeatmapTile } from '../../../interfaces/beatmap.interface';
 import { Text } from '../../basic/text';
 
 export class BeatmapTile extends Phaser.GameObjects.Container {
@@ -16,8 +15,6 @@ export class BeatmapTile extends Phaser.GameObjects.Container {
   }
 
   initSongTile(aParams: IBeatmapTile): void {
-    console.log(aParams);
-
     this.backgroundObject = this.scene.add.sprite(0, 0, 'gradientBackground');
     this.backgroundObject.setDisplaySize(950, 100);
     this.backgroundObject.setOrigin(0, 0);

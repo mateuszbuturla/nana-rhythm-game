@@ -1,4 +1,5 @@
 import { IBeatmapTimer } from '../../../interfaces/beatmapTimer.interface';
+import { Rectangle } from '../../basic/rectangle';
 
 export class BeatmapTimer extends Phaser.GameObjects.Container {
   timerBackground: Phaser.GameObjects.Rectangle;
@@ -12,11 +13,25 @@ export class BeatmapTimer extends Phaser.GameObjects.Container {
 
   private initBeatmapTimer(): void {
     const width: number = this.scene.game.canvas.width;
-    this.timerBackground = this.scene.add.rectangle(0, 0, width, 15, 0x000000);
-    this.timerBackground.setAlpha(0.7);
-    this.timerBackground.setOrigin(0, 1);
-    this.timer = this.scene.add.rectangle(0, 0, 0, 15, 0xa343e2);
-    this.timer.setOrigin(0, 1);
+    this.timerBackground = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 0,
+      width,
+      height: 15,
+      fillColor: 0x000000,
+      alpha: 0.7,
+      yAlign: 'bottom',
+    });
+    this.timer = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 15,
+      fillColor: 0xa343e2,
+      yAlign: 'bottom',
+    });
     this.add(this.timerBackground);
     this.add(this.timer);
   }

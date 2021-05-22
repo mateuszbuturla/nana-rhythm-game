@@ -1,29 +1,22 @@
+import { ENoteAccuracy } from '../interfaces/note.interface';
 import { Text } from '../objects/basic/text';
 import { calculateOveralAccuracy } from '../core/accuracy';
-import {
-  getCombo,
-  getHittedNotes,
-  setCombo,
-  setHittedNotes,
-} from '../redux/mapResult';
-import { getCurrentMap } from '../redux/currentMap';
+import { getCombo, getHittedNotes } from '../redux/mapResult';
 import {
   calculateCurrentScore,
   getCountOfHittedNotesFromType,
 } from '../core/score';
 import { LabelValue } from '../objects/ui/labelValue';
-import { ENoteAccuracy } from '../interfaces/noteAccuracy.interface';
 import { noteAccuracyConfig } from '../config/noteAccuracyConfig';
 import { UiBackground } from '../objects/ui/uiBackground';
+import { TopBar } from '../objects/ui/topBar';
+import { SceneTransition } from '../objects/ui/sceneTransition';
+import { Replay } from '../core/replay';
+import store from '../redux/store';
 import background from '../../../assets/backgrounds/bg.png';
 import gradient from '../../../assets/ui/gradient.png';
 import backButton from '../../../assets/ui/backButton.png';
 import backButtonDecoration from '../../../assets/ui/backButtonDecoration.png';
-import { TopBar } from '../objects/ui/topBar';
-import store from '../redux/store';
-import { SceneTransition } from '../objects/ui/sceneTransition';
-import { Replay } from '../core/replay';
-import { IMap } from '../interfaces/map.interface';
 
 export class ResultScene extends Phaser.Scene {
   background: UiBackground;
@@ -55,7 +48,6 @@ export class ResultScene extends Phaser.Scene {
     this.preload();
     const width = this.sys.game.canvas.width;
     const height = this.sys.game.canvas.height;
-    console.log(getCombo());
     this.replay = new Replay();
     this.replay.saveLocalReplay({
       avatar: '',

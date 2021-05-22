@@ -3,23 +3,20 @@ import { SceneTransition } from './../../objects/ui/sceneTransition';
 import { HitPosition } from './../../objects/game/hitPosition';
 import { HitNote } from './../../objects/game/hitNote/index';
 import { IGame } from '../../interfaces/game.interface';
-import { IMap } from '../../interfaces/map.interface';
+import { IBeatmap } from '../../interfaces/beatmap.interface';
 import { Audio } from '../audio';
 import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 import { calculateNoteAccuracy } from '../accuracy';
 import store from '../../redux/store';
 import { Score } from '../score';
-import {
-  ENoteAccuracy,
-  INotesAccuracyArray,
-} from '../../interfaces/noteAccuracy.interface';
+import { INotesAccuracyArray } from '../../interfaces/simpleGameComponents.interface';
 import { NoteAccuracy } from '../../objects/game/noteAccuracy';
 import { BeatmapTimer } from './../../objects/game/beatmapTimer';
 import { Health } from '../health';
 import { LoseScreen } from '../../objects/loseScreen';
 import { EGameState } from '../../enums/game.enum';
 import { fallAnimation } from '../../animations/fall.animation';
-import { IIserConfig } from '../../interfaces/userConfig.interface';
+import { ENoteAccuracy } from '../../interfaces/note.interface';
 
 export class Game {
   keyboard: any;
@@ -27,7 +24,7 @@ export class Game {
   breakBeforeTakeOff: number = 3000;
   breakAfterLastNote: number = 1500;
   scrollSpeed: number = 10;
-  beatmap: IMap;
+  beatmap: IBeatmap;
   audio: Audio;
   notesObject: HitNote[] = [];
   hitPosition: number = 0;

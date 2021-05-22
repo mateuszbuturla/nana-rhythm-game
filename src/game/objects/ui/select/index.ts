@@ -1,4 +1,4 @@
-import { ISelectInput } from '../../../interfaces/selectInput.interface';
+import { ISelectInput } from '../../../interfaces/simpleUIComponents.interface';
 import { Text } from '../../basic/text';
 
 export class SelectInput extends Phaser.GameObjects.Container {

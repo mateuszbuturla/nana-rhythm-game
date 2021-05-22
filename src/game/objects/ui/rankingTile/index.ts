@@ -1,8 +1,8 @@
 import { easeInOutExpo } from './../../../utils/eases';
-import { IRankingTile } from '../../../interfaces/rankingTile.interface';
+import { IRankingTile } from '../../../interfaces/ranking.interface';
 import { Text } from '../../basic/text';
 import { Image } from '../../basic/image';
-import { IPosition } from '../../../interfaces/position.interface';
+import { IPosition } from '../../../interfaces/properties.interface';
 
 export class RankingTile extends Phaser.GameObjects.Container {
   backgroundObject: Phaser.GameObjects.Sprite;

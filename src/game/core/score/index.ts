@@ -2,8 +2,8 @@ import { noteAccuracyConfig } from '../../config/noteAccuracyConfig';
 import {
   ENoteAccuracy,
   INoteTypeAndCount,
-} from '../../interfaces/noteAccuracy.interface';
-import { IMap } from '../../interfaces/map.interface';
+} from '../../interfaces/note.interface';
+import { IBeatmap } from '../../interfaces/beatmap.interface';
 import store from '../../redux/store';
 import { addHittedNote, setCombo } from '../../redux/mapResult';
 
@@ -47,11 +47,11 @@ class Score {
     };
   }
 
-  getMaxCombo(map: IMap): number {
+  getMaxCombo(map: IBeatmap): number {
     return this.calculateMaxCombo(map);
   }
 
-  private calculateMaxCombo(map: IMap): number {
+  private calculateMaxCombo(map: IBeatmap): number {
     return map.notes.length;
   }
 }

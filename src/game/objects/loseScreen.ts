@@ -2,9 +2,10 @@ import { Text } from './basic/text';
 import { getObjectBottomEdgePosition } from '../helpers/getObjectBottomEdgePosition';
 import { easeInOutExpo } from '../utils/eases';
 import { TextButton } from './ui/textButton';
+import { Rectangle } from './basic/rectangle';
 
 export class LoseScreen extends Phaser.GameObjects.Container {
-  background: any;
+  background: Rectangle;
   isShow: boolean = false;
   failed: Text;
   restart: TextButton;
@@ -20,8 +21,17 @@ export class LoseScreen extends Phaser.GameObjects.Container {
   private initLoseScreen(): void {
     const width = this.scene.sys.game.canvas.width;
     const height = this.scene.sys.game.canvas.height;
-    this.background = this.scene.add.rectangle(0, 0, width, height, 0x000000);
-    this.background.setAlpha(0.7);
+    this.background = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 0,
+      width,
+      height,
+      fillColor: 0x000000,
+      alpha: 0.7,
+      xAlign: 'center',
+      yAlign: 'center',
+    });
     this.failed = new Text({
       scene: this.scene,
       x: 100 - width / 2,

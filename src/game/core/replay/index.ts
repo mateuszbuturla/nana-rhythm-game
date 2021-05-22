@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { IReplay } from '../../interfaces/replay.interface';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
-import { IRankingData } from '../../interfaces/rankingTile.interface';
+import { IRankingData } from '../../interfaces/ranking.interface';
 
 export class Replay {
   private tempBeatmapReplaysDir: string[] = [];

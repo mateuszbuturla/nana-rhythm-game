@@ -1,8 +1,8 @@
-import { IMap } from '../interfaces/map.interface';
+import { IBeatmap } from '../interfaces/beatmap.interface';
 
 interface IGame {
   scene: Phaser.Scene;
-  beatmap: IMap;
+  beatmap: IBeatmap;
 }
 
 export { IGame };
