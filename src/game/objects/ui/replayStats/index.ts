@@ -5,6 +5,7 @@ import { LabelValue } from '../labelValue';
 import { noteAccuracyConfig } from '../../../config/noteAccuracyConfig';
 import { easeInOutExpo } from '../../../utils/eases';
 import { IReplayData } from '../../../interfaces/replay.interface';
+import { Rectangle } from '../../basic/rectangle';
 
 export class ReplayStats extends Phaser.GameObjects.Container {
   backgroundDimObject: Phaser.GameObjects.Rectangle;
@@ -27,15 +28,15 @@ export class ReplayStats extends Phaser.GameObjects.Container {
   }
 
   createReplayStats(aParams: IReplayStats): void {
-    this.backgroundDimObject = this.scene.add.rectangle(
-      0,
-      0,
-      1920,
-      1080,
-      0x000000,
-    );
-    this.backgroundDimObject.setOrigin(0);
-    this.backgroundDimObject.alpha = 0.8;
+    this.backgroundDimObject = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 0,
+      width: 1920,
+      height: 1080,
+      fillColor: 0x000000,
+      alpha: 0.8,
+    });
 
     this.backgroundObject = new Image({
       scene: this.scene,

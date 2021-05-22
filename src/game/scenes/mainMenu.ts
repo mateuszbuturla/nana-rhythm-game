@@ -27,6 +27,7 @@ import settingsButtonIcon from '../../../assets/ui/settingsButtonIcon.png';
 import exitButtonIcon from '../../../assets/ui/exitButtonIcon.png';
 import logo from '../../../assets/logo.png';
 import triangle from '../../../assets/ui/mainMenuTriangle.png';
+import { Rectangle } from '../objects/basic/rectangle';
 
 export class MainMenu extends Phaser.Scene {
   optionsPanel: OptionsPanel;
@@ -186,6 +187,15 @@ export class MainMenu extends Phaser.Scene {
       0xffffff,
     );
     this.decorationRectangle.setOrigin(0, 0.5);
+
+    new Rectangle({
+      scene: this,
+      x: 0,
+      y: 0,
+      width: 1000,
+      height: 1000,
+      fillColor: 0xffffff,
+    });
   }
 
   update() {

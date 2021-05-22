@@ -1,6 +1,7 @@
 import { ISliderInput } from '../../../interfaces/simpleUIComponents.interface';
 import { Text } from '../../basic/text';
 import 'Phaser';
+import { Rectangle } from '../../basic/rectangle';
 
 export class SliderInput extends Phaser.GameObjects.Container {
   label: Text;
@@ -30,8 +31,16 @@ export class SliderInput extends Phaser.GameObjects.Container {
       text: label,
       color: 'white',
     });
-    this.sliderBar = this.scene.add.rectangle(0, 50, width, 3, 0xffffff);
-    this.sliderBar.setOrigin(0, 0.5);
+    this.sliderBar = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 50,
+      width,
+      height: 3,
+      fillColor: 0xffffff,
+      alpha: 0.8,
+      yAlign: 'center',
+    });
 
     const oneUnitInPixels = this.width / (this.max - this.min);
     const sliderDotPosition =
