@@ -1,3 +1,5 @@
+import { TypeXOrigin, TypeYOrigin } from './properties.interface';
+
 interface IMainMenuButton {
   scene: Phaser.Scene;
   x: number;
@@ -126,6 +128,18 @@ interface ICheckBoxConstructor {
   label: string;
 }
 
+interface IRectange {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  fillColor?: number;
+  alpha?: number;
+  xAlign?: TypeXOrigin;
+  yAlign?: TypeYOrigin;
+}
+
 export {
   IMainMenuButton,
   IBackButton,
@@ -142,4 +156,5 @@ export {
   IUiBackground,
   IMainMenuLogo,
   ICheckBoxConstructor,
+  IRectange,
 };

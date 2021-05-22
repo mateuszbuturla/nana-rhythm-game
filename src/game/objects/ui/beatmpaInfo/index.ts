@@ -1,11 +1,12 @@
 import { IBeatmapInfo } from '../../../interfaces/beatmap.interface';
 import { IBeatmap } from '../../../interfaces/beatmap.interface';
 import { Text } from '../../basic/text';
+import { Rectangle } from '../../basic/rectangle';
 
 export class BeatmapInfo extends Phaser.GameObjects.Container {
   beatmapDifficultyBarObject: Phaser.GameObjects.Sprite;
   beatmapBackgroundObject: Phaser.GameObjects.Sprite;
-  backgroundDimObject: Phaser.GameObjects.Rectangle;
+  backgroundDimObject: Rectangle;
   beatmapTitleObject: Text;
   beatmapArtistObject: Text;
   beatmapCreatorObject: Text;
@@ -49,15 +50,17 @@ export class BeatmapInfo extends Phaser.GameObjects.Container {
     this.beatmapBackgroundObject.setOrigin(0, 0);
     this.beatmapBackgroundObject.setDisplaySize(789, 444);
 
-    this.backgroundDimObject = this.scene.add.rectangle(
-      0,
-      0,
-      789,
-      444,
-      0x000000,
-    );
-    this.backgroundDimObject.setOrigin(0);
-    this.backgroundDimObject.alpha = 0.25;
+    this.backgroundDimObject = new Rectangle({
+      scene: this.scene,
+      x: 0,
+      y: 0,
+      width: 789,
+      height: 444,
+      fillColor: 0x000000,
+      alpha: 1,
+      xAlign: 'left',
+      yAlign: 'top',
+    });
 
     this.beatmapDifficultyBarObject = this.scene.add.sprite(
       0,
