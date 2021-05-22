@@ -134,6 +134,7 @@ interface IRectange {
   height: number;
   fillColor?: number;
   alpha?: number;
+  xAlign?: 'left' | 'center' | 'right' | number;
 }
 
 export {
