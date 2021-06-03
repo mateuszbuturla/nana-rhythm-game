@@ -1,4 +1,4 @@
-type TDirection = 'up' | 'down' | 'double';
+export type TDirection = 'up' | 'down';
 
 enum ENoteAccuracy {
   Perfect = 'Perfect',
