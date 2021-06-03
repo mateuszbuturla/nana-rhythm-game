@@ -120,17 +120,17 @@ export class Game {
   }
 
   handleNoteClick(direction: TDirection): void {
-    const timeInSecond = (Date.now() - this.startTime) / 1000;
+    const width: number = this.scene.game.canvas.width;
+    const timeInSecond =
+      Date.now() - (this.startTime + width / this.scrollSpeed);
     const nextNote = this.notes[direction][this.noteIndex[direction]];
     const accuracy = Math.abs(timeInSecond - nextNote.delay);
 
     const hitJudgement = this.getHitJudgment(accuracy);
+    console.log(width / this.scrollSpeed);
+    console.log(accuracy, hitJudgement);
 
-    console.log(this.notes[direction][this.noteIndex[direction]]);
-
-    // console.log(timeInSecond, nextNote.delay);
-    // console.log(accuracy);
-    // console.log(hitJudgement);
+    this.updateNextNote(direction);
   }
 
   updateNextNote(direction: TDirection): void {
